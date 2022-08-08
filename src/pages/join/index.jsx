@@ -1,8 +1,13 @@
+import { SignUpForm } from './components/SignUpForm';
+import { SignInForm } from './components/SignInForm';
+import { StyledAuthenticationContainer } from './styles/Authentication.styled';
+
 const Join = () => {
   return (
-    <div>
-      <div>join</div>
-    </div>
+    <StyledAuthenticationContainer className="authentication-container">
+      <SignInForm />
+      <SignUpForm />
+    </StyledAuthenticationContainer>
   );
 };
 

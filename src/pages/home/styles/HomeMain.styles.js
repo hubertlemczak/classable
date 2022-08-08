@@ -31,7 +31,7 @@ export const Main = styled.main`
       margin: 0 auto;
 
       p {
-        padding-top: 20px;
+        padding-block: 20px;
         margin: 0 auto;
         line-height: 1.4;
         max-width: 400px;
@@ -50,6 +50,7 @@ export const StyledButtonContainer = styled.div`
     font-weight: bold;
     line-height: 1.5;
     margin-bottom: 20px;
+    text-align: center;
   }
 
   a {
