@@ -1,8 +1,13 @@
 import { createRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import { DownArrow, HeroContainer, HeroText } from './styles/HeroText.styled';
-import { Wave } from './styles/Wave.styled';
+import {
+  DownArrow,
+  HeroContainer,
+  HeroText,
+  Wave,
+  HeroImg,
+} from './styles/Hero.styled';
 import { HomeMain } from './components/HomeMain';
 import { HomeFooter } from './components/HomeFooter';
 
@@ -24,6 +29,7 @@ const Home = () => {
             backgroundColor: 'black',
           }}
         >
+          <HeroImg />
           <Wave />
           <DownArrow
             onClick={() => main.current?.scrollIntoView({ behavior: 'smooth' })}

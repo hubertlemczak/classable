@@ -29,6 +29,7 @@ export const Main = styled.main`
       flex: 1;
       max-width: 500px;
       margin: 0 auto;
+      z-index: 2;
 
       p {
         padding-block: 20px;

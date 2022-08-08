@@ -14,7 +14,7 @@ export const HomeNavBar = () => {
               <Link to="/join">Log In</Link>
             </li>
             <li>
-              <Link to="/join">Contact</Link>
+              <Link to="/contact">Contact</Link>
             </li>
           </ul>
         </nav>

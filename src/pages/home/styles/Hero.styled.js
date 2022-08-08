@@ -1,14 +1,22 @@
 import styled, { keyframes } from 'styled-components';
 import { ReactComponent as downArrow } from '../../../assets/angle-down.svg';
 
+import WaveSVG from '../../../assets/wave.svg';
+import { ReactComponent as HeroSVG } from '../../../assets/hero.svg';
+
 export const HeroText = styled.div`
   background-color: black;
   color: white;
   max-width: 40rem;
+  z-index: 3;
 
   h2 {
     font-size: 3rem;
     padding-bottom: 10px;
+
+    @media (max-width: 500px) {
+      font-size: 2rem;
+    }
   }
 
   p {
@@ -62,4 +70,44 @@ export const DownArrow = styled(downArrow)`
   fill: white;
   width: 34px;
   height: 34px;
+
+  @media (max-width: 1300px) {
+    bottom: 100px;
+  }
+
+  @media (max-width: 800px) {
+    bottom: 0;
+  }
+`;
+
+export const Wave = styled.div`
+  background-image: url(${WaveSVG});
+  aspect-ratio: 960/540;
+  width: 100%;
+  max-height: 500px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -10px;
+  z-index: -100;
+`;
+
+export const HeroImg = styled(HeroSVG)`
+  width: 100%;
+  position: absolute;
+  right: -270px;
+  bottom: -400px;
+  z-index: 1;
+  overflow-x: hidden;
+
+  @media (max-width: 800px) {
+    right: -100px;
+    bottom: -450px;
+  }
+
+  @media (max-width: 550px) {
+    right: -50px;
+    bottom: -420px;
+  }
 `;
