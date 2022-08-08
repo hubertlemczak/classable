@@ -10,9 +10,9 @@ export const StyledCreateCourseBtn = styled(Link)`
   border-radius: 100px;
   border: none;
   background-color: #2bc48a;
-  position: fixed;
-  right: 40px;
-  bottom: 40px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 
   @media (max-width: 800px) {
     display: flex;

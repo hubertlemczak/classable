@@ -1,14 +1,21 @@
+import { STRING } from '../../utils/vars';
 import { CourseCard } from './components/CourseCard';
 import { CreateCourseBtn } from './components/CreateCourseBtn';
-import { CardContainer, CoursesContainer } from './styles/index.styled';
+import { CardsContainer, CoursesContainer } from './styles/index.styled';
 
 export const Courses = () => {
   return (
     <CoursesContainer>
-      <h2>Your Courses</h2>
-      <CardContainer>
+      <h2>{STRING.YOUR_COURSES}</h2>
+      <CardsContainer>
         <CourseCard />
-      </CardContainer>
+        <CourseCard />
+        <CourseCard />
+        <CourseCard />
+        <CourseCard />
+        <CourseCard />
+        <CourseCard />
+      </CardsContainer>
       <CreateCourseBtn />
     </CoursesContainer>
   );

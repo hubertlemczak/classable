@@ -4,6 +4,8 @@ export const theme = {
 };
 
 export const STRING = {
+  YOUR_COURSES: 'Your Courses',
+  VIEW: 'View',
   LOGO_NAME: 'Classable',
   LOG_IN: 'Log In',
   CONTACT: 'Contact',

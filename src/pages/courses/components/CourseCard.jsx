@@ -1,3 +1,4 @@
+import { STRING } from '../../../utils/vars';
 import {
   CourseCardContainer,
   CourseIMG,
@@ -12,7 +13,7 @@ export const CourseCard = () => {
         <h3>Boolean UK</h3>
         <p>Software Development</p>
       </div>
-      <ViewBtn>View</ViewBtn>
+      <ViewBtn>{STRING.VIEW}</ViewBtn>
     </CourseCardContainer>
   );
 };
