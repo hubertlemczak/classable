@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FormInput from '../../../components/form/FormInput';
+import { STRING } from '../../../utils/vars';
 
 import { StyledAuthenticaionForm } from '../styles/AuthenticationForm.styled';
 
@@ -30,8 +31,8 @@ export const SignInForm = () => {
 
   return (
     <StyledAuthenticaionForm>
-      <h2>Already have an account?</h2>
-      <span>Sign in with your email and password</span>
+      <h2>{STRING.SIGN_IN.HEADER}</h2>
+      <span>{STRING.SIGN_IN.SPAN}</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
@@ -50,7 +51,7 @@ export const SignInForm = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Sign In</button>
+        <button type="submit">{STRING.SIGN_IN.BTN}</button>
         <span style={{ paddingInline: 20 }}>OR</span>
         <button className="demoBtn">Use Demo</button>
       </form>

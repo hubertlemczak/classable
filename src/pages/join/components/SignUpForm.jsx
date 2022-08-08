@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import FormInput from '../../../components/form/FormInput';
+import { STRING } from '../../../utils/vars';
 
 import { StyledAuthenticaionForm } from '../styles/AuthenticationForm.styled';
 
@@ -28,8 +29,8 @@ export const SignUpForm = () => {
 
   return (
     <StyledAuthenticaionForm>
-      <h2>Don't have an account?</h2>
-      <span>Sign up with your email and password</span>
+      <h2>{STRING.SIGN_UP.HEADER}</h2>
+      <span>{STRING.SIGN_UP.SPAN}</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
@@ -66,7 +67,7 @@ export const SignUpForm = () => {
           onChange={handleChange}
           required
         />
-        <button>Sign Up</button>
+        <button>{STRING.SIGN_UP.BTN}</button>
       </form>
     </StyledAuthenticaionForm>
   );

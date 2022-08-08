@@ -1,6 +1,6 @@
 import { SignUpForm } from './components/SignUpForm';
 import { SignInForm } from './components/SignInForm';
-import { StyledAuthenticationContainer } from './styles/Authentication.styled';
+import { StyledAuthenticationContainer } from './styles/index.styled';
 
 const Join = () => {
   return (

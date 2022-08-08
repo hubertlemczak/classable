@@ -10,6 +10,7 @@ import {
 } from './styles/Hero.styled';
 import { HomeMain } from './components/HomeMain';
 import { HomeFooter } from './components/HomeFooter';
+import { STRING } from '../../utils/vars';
 
 const Home = () => {
   const main = createRef();
@@ -18,9 +19,9 @@ const Home = () => {
       <div style={{ position: 'relative', backgroundColor: 'black' }}>
         <HeroContainer className="container">
           <HeroText>
-            <h2>Everything you need in one course managment app</h2>
-            <p>Manage your course community with Classable</p>
-            <Link to="/join">Get Started</Link>
+            <h2>{STRING.HERO.HEADER}</h2>
+            <p>{STRING.HERO.SUB}</p>
+            <Link to="/join">{STRING.GET_STARTED}</Link>
           </HeroText>
         </HeroContainer>
         <div

@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import src from '../../../assets/test.png';
+import { STRING } from '../../../utils/vars';
 import { Main, StyledButtonContainer } from '../styles/HomeMain.styles';
 
 export const HomeMain = forwardRef((props, ref) => {
@@ -9,13 +10,8 @@ export const HomeMain = forwardRef((props, ref) => {
     <Main className="container" ref={ref}>
       <div className="flex">
         <div>
-          <h3>Chat with course students</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            fugit quod sequi dolorem hic aperiam eveniet eaque accusamus,
-            voluptates quidem sunt totam itaque aut dolore qui aliquam placeat
-            saepe est.
-          </p>
+          <h3>{STRING.MAIN.H1}</h3>
+          <p>{STRING.MAIN.P1}</p>
         </div>
         <div>
           <img src={src} alt="asd" />
@@ -23,13 +19,8 @@ export const HomeMain = forwardRef((props, ref) => {
       </div>
       <div className="flex">
         <div>
-          <h3>Easily provide support</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            fugit quod sequi dolorem hic aperiam eveniet eaque accusamus,
-            voluptates quidem sunt totam itaque aut dolore qui aliquam placeat
-            saepe est.
-          </p>
+          <h3>{STRING.MAIN.H2}</h3>
+          <p>{STRING.MAIN.P2}</p>
         </div>
         <div>
           <img src={src} alt="asd" />
@@ -37,13 +28,8 @@ export const HomeMain = forwardRef((props, ref) => {
       </div>
       <div className="flex">
         <div>
-          <h3>All your resources in one space</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            fugit quod sequi dolorem hic aperiam eveniet eaque accusamus,
-            voluptates quidem sunt totam itaque aut dolore qui aliquam placeat
-            saepe est.
-          </p>
+          <h3>{STRING.MAIN.H3}</h3>
+          <p>{STRING.MAIN.P3}</p>
         </div>
         <div>
           <img src={src} alt="asd" />
@@ -51,8 +37,8 @@ export const HomeMain = forwardRef((props, ref) => {
       </div>
 
       <StyledButtonContainer className="container">
-        <p>Manage your course community with Classable</p>
-        <Link to="/join">Get Started</Link>
+        <p>{STRING.HERO.SUB}</p>
+        <Link to="/join">{STRING.GET_STARTED}</Link>
       </StyledButtonContainer>
     </Main>
   );

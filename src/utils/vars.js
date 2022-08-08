@@ -1,1 +1,34 @@
-export const theme = {};
+export const theme = {
+  green: '#2bc48a',
+  greenHover: '#12db8e',
+};
+
+export const STRING = {
+  LOGO_NAME: 'Classable',
+  LOG_IN: 'Log In',
+  CONTACT: 'Contact',
+  CREATE_COURSE: 'Create Course',
+  SIGN_UP: {
+    HEADER: "Don't have an account?",
+    SPAN: 'Sign up with your email and password',
+    BTN: 'Sign Up',
+  },
+  SIGN_IN: {
+    HEADER: 'Already have an account?',
+    SPAN: 'Sign in with your email and password',
+    BTN: 'Sign In',
+  },
+  HERO: {
+    HEADER: 'Everything you need in one course managment app',
+    SUB: 'Manage your course community with Classable',
+  },
+  GET_STARTED: 'Get Started',
+  MAIN: {
+    H1: 'Chat with course students',
+    P1: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime fugit quod sequi dolorem hic aperiam eveniet eaque accusamus, voluptates quidem sunt totam itaque aut dolore qui aliquam placeat saepe est.',
+    H2: 'Easily provide support',
+    P2: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime fugit quod sequi dolorem hic aperiam eveniet eaque accusamus, voluptates quidem sunt totam itaque aut dolore qui aliquam placeat saepe est.',
+    H3: 'All your resources in one space',
+    P3: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime fugit quod sequi dolorem hic aperiam eveniet eaque accusamus, voluptates quidem sunt totam itaque aut dolore qui aliquam placeat saepe est.',
+  },
+};

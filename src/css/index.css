@@ -13,6 +13,7 @@ html {
   max-width: 100%;
 }
 body {
+  min-height: 100vh;
   max-width: 100%;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;

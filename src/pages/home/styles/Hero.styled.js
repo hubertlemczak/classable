@@ -33,10 +33,10 @@ export const HeroText = styled.div`
     padding: 20px 30px;
     border-radius: 100px;
     border: none;
-    background-color: #2bc48a;
+    background-color: ${({ theme }) => theme.green};
 
     &:hover {
-      background-color: #12db8e;
+      background-color: ${({ theme }) => theme.greenHover};
     }
   }
 `;
