@@ -2,11 +2,17 @@ import { Route, Routes } from 'react-router-dom';
 
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
+import Assignments from './pages/assignments';
+import Calendar from './pages/calendar';
 import { Courses } from './pages/courses';
 import Dashboard from './pages/dashboard';
 import Home from './pages/home';
 import { HomeNavBar } from './pages/home/components/HomeNavBar';
 import Join from './pages/join';
+import Live from './pages/live';
+import Messages from './pages/messages';
+import Notes from './pages/notes';
+import Resources from './pages/resources';
 
 const App = () => {
   return (
@@ -20,12 +26,12 @@ const App = () => {
           <Route index element={<Courses />} />
           <Route path=":courseName" element={<SideBar />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="assignments" element={<Dashboard />} />
-            <Route path="resources" element={<Dashboard />} />
-            <Route path="messages" element={<Dashboard />} />
-            <Route path="calendar" element={<Dashboard />} />
-            <Route path="live" element={<Dashboard />} />
-            <Route path="notes" element={<Dashboard />} />
+            <Route path="assignments" element={<Assignments />} />
+            <Route path="resources" element={<Resources />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="live" element={<Live />} />
+            <Route path="notes" element={<Notes />} />
           </Route>
         </Route>
       </Routes>
