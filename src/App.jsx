@@ -1,7 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 
 import NavBar from './components/NavBar';
+import SideBar from './components/SideBar';
 import { Courses } from './pages/courses';
+import Dashboard from './pages/dashboard';
 import Home from './pages/home';
 import { HomeNavBar } from './pages/home/components/HomeNavBar';
 import Join from './pages/join';
@@ -12,10 +14,19 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomeNavBar />}>
           <Route index element={<Home />} />
-          <Route path="/join" element={<Join />} />
+          <Route path="join" element={<Join />} />
         </Route>
-        <Route path="/courses" element={<NavBar />}>
+        <Route path="courses" element={<NavBar />}>
           <Route index element={<Courses />} />
+          <Route path=":courseName" element={<SideBar />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="assignments" element={<Dashboard />} />
+            <Route path="resources" element={<Dashboard />} />
+            <Route path="messages" element={<Dashboard />} />
+            <Route path="calendar" element={<Dashboard />} />
+            <Route path="live" element={<Dashboard />} />
+            <Route path="notes" element={<Dashboard />} />
+          </Route>
         </Route>
       </Routes>
     </>

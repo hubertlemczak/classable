@@ -13,7 +13,7 @@ export const CourseCard = () => {
         <h3>Boolean UK</h3>
         <p>Software Development</p>
       </div>
-      <ViewBtn>{STRING.VIEW}</ViewBtn>
+      <ViewBtn to="/courses/boolean-uk/dashboard">{STRING.VIEW}</ViewBtn>
     </CourseCardContainer>
   );
 };

@@ -1,6 +1,8 @@
 export const theme = {
   green: '#2bc48a',
   greenHover: '#12db8e',
+  navActive: 'white',
+  navHover: 'rgba(168, 168, 168,0.3)',
 };
 
 export const STRING = {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const CourseCardContainer = styled.div`
   width: 250px;
@@ -31,7 +32,8 @@ export const CourseIMG = styled.img`
   border-radius: 50%;
 `;
 
-export const ViewBtn = styled.button`
+export const ViewBtn = styled(Link)`
+  color: black;
   font-size: 1.3rem;
   font-weight: bold;
   padding: 0.6rem 3rem;
