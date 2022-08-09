@@ -9,10 +9,10 @@ import Dashboard from './pages/dashboard';
 import Home from './pages/home';
 import { HomeNavBar } from './pages/home/components/HomeNavBar';
 import Join from './pages/join';
-import Live from './pages/live';
 import Messages from './pages/messages';
 import Notes from './pages/notes';
 import Resources from './pages/resources';
+import Classroom from './pages/classroom';
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
             <Route path="resources" element={<Resources />} />
             <Route path="messages" element={<Messages />} />
             <Route path="calendar" element={<Calendar />} />
-            <Route path="live" element={<Live />} />
+            <Route path="classroom" element={<Classroom />} />
             <Route path="notes" element={<Notes />} />
           </Route>
         </Route>

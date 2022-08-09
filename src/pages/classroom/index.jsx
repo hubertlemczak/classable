@@ -1,4 +1,4 @@
-const Live = () => {
+const Classroom = () => {
   return (
     <div>
       <div></div>
@@ -6,4 +6,4 @@ const Live = () => {
   );
 };
 
-export default Live;
+export default Classroom;

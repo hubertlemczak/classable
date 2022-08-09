@@ -10,8 +10,8 @@ import { ReactComponent as Messages } from '../../../assets/messages.svg';
 import { ReactComponent as MessagesSolid } from '../../../assets/messages-solid.svg';
 import { ReactComponent as Calendar } from '../../../assets/calendar.svg';
 import { ReactComponent as CalendarSolid } from '../../../assets/calendar-solid.svg';
-import { ReactComponent as Live } from '../../../assets/live.svg';
-import { ReactComponent as LiveSolid } from '../../../assets/live-solid.svg';
+import { ReactComponent as Classroom } from '../../../assets/classroom.svg';
+import { ReactComponent as ClassroomSolid } from '../../../assets/classroom-solid.svg';
 import { ReactComponent as Notes } from '../../../assets/notes.svg';
 import { ReactComponent as NotesSolid } from '../../../assets/notes-solid.svg';
 
@@ -27,8 +27,8 @@ export const NavLinkItem = ({ path }) => {
     messagesSolid: <MessagesSolid />,
     calendar: <Calendar />,
     calendarSolid: <CalendarSolid />,
-    live: <Live />,
-    liveSolid: <LiveSolid />,
+    classroom: <Classroom />,
+    classroomSolid: <ClassroomSolid />,
     notes: <Notes />,
     notesSolid: <NotesSolid />,
   };

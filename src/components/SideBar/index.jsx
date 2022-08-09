@@ -10,7 +10,7 @@ const NAV_LINKS = [
   'resources',
   'messages',
   'calendar',
-  'live',
+  'classroom',
   'notes',
 ];
 
