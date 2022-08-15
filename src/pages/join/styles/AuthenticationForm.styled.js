@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledAuthenticaionForm = styled.div`
-  width: clamp(340px, 45%, 500px);
+  width: clamp(320px, 49%, 500px);
   font-size: 1.3rem;
 
   span {

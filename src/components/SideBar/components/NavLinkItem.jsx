@@ -15,24 +15,24 @@ import { ReactComponent as ClassroomSolid } from '../../../assets/classroom-soli
 import { ReactComponent as Notes } from '../../../assets/notes.svg';
 import { ReactComponent as NotesSolid } from '../../../assets/notes-solid.svg';
 
-export const NavLinkItem = ({ path }) => {
-  const SVGs = {
-    dashboard: <Dashboard />,
-    dashboardSolid: <DashboardSolid />,
-    assignments: <Assignments />,
-    assignmentsSolid: <AssignmentsSolid />,
-    resources: <Resources />,
-    resourcesSolid: <ResourcesSolid />,
-    messages: <Messages />,
-    messagesSolid: <MessagesSolid />,
-    calendar: <Calendar />,
-    calendarSolid: <CalendarSolid />,
-    classroom: <Classroom />,
-    classroomSolid: <ClassroomSolid />,
-    notes: <Notes />,
-    notesSolid: <NotesSolid />,
-  };
+const SVGs = {
+  dashboard: <Dashboard />,
+  dashboardSolid: <DashboardSolid />,
+  assignments: <Assignments />,
+  assignmentsSolid: <AssignmentsSolid />,
+  resources: <Resources />,
+  resourcesSolid: <ResourcesSolid />,
+  messages: <Messages />,
+  messagesSolid: <MessagesSolid />,
+  calendar: <Calendar />,
+  calendarSolid: <CalendarSolid />,
+  classroom: <Classroom />,
+  classroomSolid: <ClassroomSolid />,
+  notes: <Notes />,
+  notesSolid: <NotesSolid />,
+};
 
+export const NavLinkItem = ({ path }) => {
   return (
     <li>
       <StyledNavLink

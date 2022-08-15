@@ -13,6 +13,7 @@ import Messages from './pages/messages';
 import Notes from './pages/notes';
 import Resources from './pages/resources';
 import Classroom from './pages/classroom';
+import CreateCourse from './pages/createCourse';
 
 const App = () => {
   return (
@@ -22,13 +23,14 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="join" element={<Join />} />
         </Route>
+        <Route path="create-course" element={<CreateCourse />} />
         <Route path="courses" element={<NavBar />}>
           <Route index element={<Courses />} />
           <Route path=":courseName" element={<SideBar />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="assignments" element={<Assignments />} />
             <Route path="resources" element={<Resources />} />
-            <Route path="messages" element={<Messages />} />
+            <Route path="messages/*" element={<Messages />} />
             <Route path="calendar" element={<Calendar />} />
             <Route path="classroom" element={<Classroom />} />
             <Route path="notes" element={<Notes />} />

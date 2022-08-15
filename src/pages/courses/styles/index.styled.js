@@ -14,7 +14,7 @@ export const CoursesContainer = styled.div`
 export const CardsContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 25px;
   flex-wrap: wrap;
   margin-top: 40px;
 `;

@@ -6,6 +6,7 @@ export const StyledAuthenticationContainer = styled.div`
   justify-content: space-between;
   margin: 30px auto;
   padding-inline: 10px;
+  margin-bottom: 126px;
 
   @media (max-width: 930px) {
     & {

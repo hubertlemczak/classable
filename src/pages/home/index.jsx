@@ -9,8 +9,8 @@ import {
   HeroImg,
 } from './styles/Hero.styled';
 import { HomeMain } from './components/HomeMain';
-import { HomeFooter } from './components/HomeFooter';
 import { STRING } from '../../utils/vars';
+import { Footer } from '../../components/Footer';
 
 const Home = () => {
   const main = createRef();
@@ -40,7 +40,7 @@ const Home = () => {
         </div>
       </div>
       <HomeMain ref={main} />
-      <HomeFooter />
+      <Footer />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ReactComponent as AddSVG } from '../../../assets/add.svg';
+import { ReactComponent as AddSVG } from '../../../assets/plus.svg';
 
 export const StyledCreateCourseBtn = styled(Link)`
   font-weight: bold;
@@ -9,7 +9,7 @@ export const StyledCreateCourseBtn = styled(Link)`
   padding: 20px 30px;
   border-radius: 100px;
   border: none;
-  background-color: #2bc48a;
+  background-color: ${({ theme }) => theme.green};
   position: absolute;
   right: 20px;
   top: 20px;
@@ -18,17 +18,19 @@ export const StyledCreateCourseBtn = styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     padding: 0;
+    top: 30px;
   }
 
   &:hover {
-    background-color: #12db8e;
+    background-color: ${({ theme }) => theme.greenHover};
   }
 `;
 
 export const Add = styled(AddSVG)`
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
+  fill: white;
 `;

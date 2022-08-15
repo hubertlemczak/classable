@@ -23,11 +23,9 @@ export const SignInForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    resetFormFields();
+    setFormFields(defaultSignInFormFields);
     navigate('/courses');
   };
-
-  const resetFormFields = () => setFormFields(defaultSignInFormFields);
 
   return (
     <StyledAuthenticaionForm>

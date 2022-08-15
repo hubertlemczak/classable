@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import uniqid from 'uniqid';
 
 import { NavLinkItem } from './components/NavLinkItem';
-import { SideBarContainer } from './styles/index.styled';
+import { OutletContainer, SideBarContainer } from './styles/index.styled';
 
 const NAV_LINKS = [
   'dashboard',
@@ -20,11 +20,13 @@ const SideBar = () => {
       <SideBarContainer>
         <ul>
           {NAV_LINKS.map(link => (
-            <NavLinkItem key={uuidv4()} path={link} />
+            <NavLinkItem key={uniqid()} path={link} />
           ))}
         </ul>
       </SideBarContainer>
-      <Outlet />
+      <OutletContainer>
+        <Outlet />
+      </OutletContainer>
     </>
   );
 };

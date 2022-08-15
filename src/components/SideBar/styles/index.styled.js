@@ -8,6 +8,11 @@ export const SideBarContainer = styled.div`
   width: 230px;
   background-color: black;
   padding: 20px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   ul {
     display: flex;
@@ -15,4 +20,15 @@ export const SideBarContainer = styled.div`
     list-style: none;
     gap: 20px;
   }
+`;
+
+export const OutletContainer = styled.div`
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  bottom: 20px;
+  left: 250px;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  padding: 20px;
 `;

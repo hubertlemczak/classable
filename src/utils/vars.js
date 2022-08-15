@@ -6,6 +6,8 @@ export const theme = {
 };
 
 export const STRING = {
+  TICKETS: 'Tickets',
+  CREATE_A_COURSE: 'Create a Course',
   YOUR_COURSES: 'Your Courses',
   VIEW: 'View',
   LOGO_NAME: 'Classable',

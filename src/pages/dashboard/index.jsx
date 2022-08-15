@@ -1,11 +1,5 @@
-import { DashboardContainer } from './styles/index.styled';
-
 const Dashboard = () => {
-  return (
-    <DashboardContainer>
-      <div>asdsad</div>
-    </DashboardContainer>
-  );
+  return <div>asdsad</div>;
 };
 
 export default Dashboard;

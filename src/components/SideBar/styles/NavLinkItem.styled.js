@@ -17,6 +17,10 @@ export const StyledNavLink = styled(NavLink)`
 
   &.active {
     font-weight: bold;
+
+    svg {
+      fill: ${({ theme }) => theme.greenHover};
+    }
   }
 
   svg {

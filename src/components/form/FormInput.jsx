@@ -1,7 +1,7 @@
 import {
   StyledFormGroup,
   StyledFormInput,
-  StyledFromInputLabel,
+  StyledFormInputLabel,
 } from './styles/FormInput.styled';
 
 const FormInput = ({ label, ...otherProps }) => {
@@ -9,9 +9,9 @@ const FormInput = ({ label, ...otherProps }) => {
     <StyledFormGroup>
       <StyledFormInput {...otherProps} />
       {label && (
-        <StyledFromInputLabel shrink={otherProps.value.length}>
+        <StyledFormInputLabel shrink={otherProps.value.length}>
           {label}
-        </StyledFromInputLabel>
+        </StyledFormInputLabel>
       )}
     </StyledFormGroup>
   );
