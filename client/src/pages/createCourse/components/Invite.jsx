@@ -3,7 +3,7 @@ import uniqid from 'uniqid';
 import FormInput from '../../../components/form/FormInput';
 import { CreateCourseFormContainer } from '../styles/index.styled';
 
-export const Invite = ({ props: { userId, handleChange } }) => {
+export const Invite = ({ userId, handleChange }) => {
   const [users, setUsers] = useState([]);
 
   const handleBlur = () => {

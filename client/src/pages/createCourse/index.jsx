@@ -37,8 +37,8 @@ const CreateCourse = () => {
       <NavBar />
       <CreateCourseForm onSubmit={handleSubmit}>
         <CreateCourseContainer>
-          <Create props={{ courseName, category, description, handleChange }} />
-          <Invite props={{ userId, handleChange }} />
+          <Create {...{ courseName, category, description, handleChange }} />
+          <Invite {...{ userId, handleChange }} />
         </CreateCourseContainer>
 
         <button type="submit">{STRING.CREATE_COURSE}</button>

@@ -3,9 +3,7 @@ import TextArea from '../../../components/form/TextArea';
 import { STRING } from '../../../utils/vars';
 import { CreateCourseFormContainer } from '../styles/index.styled';
 
-export const Create = ({
-  props: { courseName, category, description, handleChange },
-}) => {
+export const Create = ({ courseName, category, description, handleChange }) => {
   return (
     <CreateCourseFormContainer>
       <h2>{STRING.CREATE_A_COURSE}</h2>
