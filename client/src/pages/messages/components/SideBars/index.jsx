@@ -34,14 +34,14 @@ const SideBars = () => {
           <p>{STRING.TICKETS}</p>
         </NavLink>
         <ul>
-          {chats.map(chat => (
+          {chats?.map(chat => (
             <ChatItem key={uniqid()} chat={chat} />
           ))}
         </ul>
       </SideBarContainer>
       <ActiveUsersContainer>
         <ul>
-          {chats.map(chat => (
+          {chats?.map(chat => (
             <ActiveUser key={uniqid()} chat={chat} />
           ))}
         </ul>
