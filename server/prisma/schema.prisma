@@ -2,56 +2,114 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// generator erd {
-//   provider                  = "prisma-erd-generator"
-//   theme                     = "neutral"
-//   includeRelationFromFields = true
-// }
-
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+enum Role {
+  TEACHER
+  STUDENT
+  COURSEADMIN
+  ADMIN
+}
+
+enum TicketStatus {
+  UNCLAIMED
+  CLAIMED
+  DONE
+  CLOSED
+}
+
 model User {
-  id        String     @id @default(uuid())
-  username  String     @unique
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
   password  String
-  email     String     @unique
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  followers User[]   @relation("follows")
+  following User[]   @relation("follows")
+
+  profile   Profile?
   messages  Message[]
   chatrooms Chatroom[]
-  followers User[]     @relation("follows")
-  following User[]     @relation("follows")
+  courses   Enrolment[]
+  chat      Chat[]
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  bio       String
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Chatroom {
-  userId         String
-  user           User         @relation(fields: [userId], references: [id])
-  conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  userId   String
+  chatId   String
+  courseId String
 
-  @@unique([userId, conversationId])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chat   Chat   @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chatId])
 }
 
-model Conversation {
-  id        String     @id @default(uuid())
+model Chat {
+  id        String        @id @default(uuid())
   name      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  status    TicketStatus?
+  claimedBy String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  user      User?      @relation(fields: [claimedBy], references: [id])
   messages  Message[]
   chatrooms Chatroom[]
 }
 
 model Message {
-  id             String       @id @default(uuid())
-  content        String
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  conversationId String
-  user           User         @relation(fields: [userId], references: [id])
-  userId         String
+  id        String   @id @default(uuid())
+  content   String
+  chatId    String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  chat Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Course {
+  id          String   @id @default(uuid())
+  name        String
+  category    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  enrolment Enrolment[]
+  chatrooms Chatroom[]
+}
+
+model Enrolment {
+  name      String
+  role      Role
+  courseId  String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
 }
