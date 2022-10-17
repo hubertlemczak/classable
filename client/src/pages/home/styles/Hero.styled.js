@@ -5,7 +5,6 @@ import WaveSVG from '../../../assets/wave.svg';
 import { ReactComponent as HeroSVG } from '../../../assets/hero.svg';
 
 export const HeroText = styled.div`
-  background-color: black;
   color: white;
   max-width: 40rem;
   z-index: 3;
@@ -98,7 +97,7 @@ export const HeroImg = styled(HeroSVG)`
   position: absolute;
   right: -270px;
   bottom: -400px;
-  z-index: 1;
+  z-index: 2;
   overflow-x: hidden;
 
   @media (max-width: 800px) {
