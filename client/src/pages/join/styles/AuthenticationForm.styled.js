@@ -22,20 +22,11 @@ export const StyledAuthenticaionForm = styled.div`
     }
   }
 
-  .demoBtn {
-    background-color: black;
-
-    &:hover {
-      background-color: #2b2b2b;
-    }
-  }
-
   @media (max-width: 930px) {
     button,
     button ~ span {
       display: flex;
-      margin: 10px auto;
-      justify-content: center;
+      margin: auto;
     }
   }
 

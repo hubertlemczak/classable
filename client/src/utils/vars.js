@@ -3,6 +3,9 @@ export const theme = {
   greenHover: '#12db8e',
   navActive: 'white',
   navHover: 'rgba(168, 168, 168,0.3)',
+  darkBG: '#121212',
+  lightBG: '#262626',
+  textLight: '#8f9296',
 };
 
 export const STRING = {

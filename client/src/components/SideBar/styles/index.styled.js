@@ -6,7 +6,7 @@ export const SideBarContainer = styled.div`
   top: 100px;
   bottom: 0;
   width: 230px;
-  background-color: black;
+  background-color: ${({ theme }) => theme.lightBG};
   padding: 20px;
   overflow-y: scroll;
 

@@ -17,7 +17,6 @@ export const ActiveUsersContainer = styled.div`
 
   ul {
     list-style: none;
-    color: white;
   }
 
   a {
@@ -25,7 +24,6 @@ export const ActiveUsersContainer = styled.div`
     position: sticky;
     top: 0;
     background-color: black;
-    color: white;
     font-size: 1.8rem;
     text-align: center;
     padding: 20px;
@@ -44,11 +42,10 @@ export const StyledActiveUser = styled.li`
   align-items: center;
   gap: 10px;
   padding: 10px;
-  color: white;
+  color: ${({ theme }) => theme.textLight};
   font-size: 1.2rem;
   width: 100%;
   cursor: pointer;
-  border-top: 1px solid darkgray;
   height: 57px;
 
   &:hover {
@@ -56,8 +53,8 @@ export const StyledActiveUser = styled.li`
   }
 
   div {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border: 1px solid darkgray;
     border-radius: 50%;
   }

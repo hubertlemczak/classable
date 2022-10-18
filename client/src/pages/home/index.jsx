@@ -1,4 +1,3 @@
-import { createRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -9,14 +8,14 @@ import {
   HeroImg,
 } from './styles/Hero.styled';
 import { HomeMain } from './components/HomeMain';
-import { STRING } from '../../utils/vars';
+import { STRING, theme } from '../../utils/vars';
 import { Footer } from '../../components/Footer';
+import { scrollToById } from '../../utils/scroll';
 
 const Home = () => {
-  const main = createRef();
   return (
     <>
-      <div style={{ position: 'relative', backgroundColor: 'black' }}>
+      <div style={{ position: 'relative', backgroundColor: theme.darkBG }}>
         <HeroContainer className="container">
           <HeroText>
             <h2>{STRING.HERO.HEADER}</h2>
@@ -32,14 +31,10 @@ const Home = () => {
         >
           <HeroImg />
           <Wave />
-          <DownArrow
-            onClick={() => main.current?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            ^
-          </DownArrow>
+          <DownArrow onClick={() => scrollToById('homeMain')}>^</DownArrow>
         </div>
       </div>
-      <HomeMain ref={main} />
+      <HomeMain />
       <Footer />
     </>
   );

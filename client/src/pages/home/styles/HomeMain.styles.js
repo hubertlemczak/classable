@@ -4,7 +4,7 @@ export const Main = styled.main`
   margin-top: 300px;
   padding-top: 50px;
 
-  .flex {
+  .flex-main {
     display: flex;
     margin: 0 auto;
     gap: 100px;

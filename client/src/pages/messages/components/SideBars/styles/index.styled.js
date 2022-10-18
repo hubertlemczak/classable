@@ -6,7 +6,7 @@ export const SideBarContainer = styled.div`
   top: 120px;
   bottom: 20px;
   width: 200px;
-  background-color: black;
+  background-color: ${({ theme }) => theme.darkBG};
   border-radius: 6px 0 0 6px;
   z-index: 100;
   overflow-y: scroll;
@@ -24,7 +24,7 @@ export const SideBarContainer = styled.div`
     display: block;
     position: sticky;
     top: 0;
-    background-color: black;
+    background-color: ${({ theme }) => theme.darkBG};
     color: white;
     font-size: 1.8rem;
     text-align: center;

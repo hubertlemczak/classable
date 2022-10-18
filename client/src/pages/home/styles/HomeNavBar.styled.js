@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledHomeNavBar = styled.header`
   display: flex;
   align-items: center;
-  background-color: black;
+  background-color: ${({ theme }) => theme.darkBG};
   height: 100px;
 
   * {
