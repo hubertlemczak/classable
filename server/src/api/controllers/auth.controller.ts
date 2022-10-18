@@ -7,51 +7,54 @@ import { HttpException } from '../errors';
 import { TRegisterArgs } from '../../../@types/auth';
 
 type validateCredentialsArgs = {
-  usernameOrEmail: string;
+  email: string;
   password: string;
 };
 
-const login = async (req: Request, res: Response) => {
+async function login(req: Request, res: Response) {
+  console.log(req.body);
   const user = await validateCredentials(req.body);
   const token = signToken(user);
 
   res.status(201).json({ token });
-};
+}
 
-const register = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body as TRegisterArgs;
+async function register(req: Request, res: Response) {
+  const { email, password, firstName, lastName }: TRegisterArgs = req.body;
 
-  if (!username || !email || !password) {
+  if (!email || !password || !firstName || !lastName) {
     throw new HttpException(400, 'Missing fields in request body');
   }
 
   const hashedPassword = await hashStr(password);
-  const userDetails = { username, email, password: hashedPassword };
+  const userDetails = {
+    email,
+    password: hashedPassword,
+    firstName,
+    lastName,
+  };
 
   const user = await model.register(userDetails);
 
   const token = signToken({
-    id: user?.id,
-    username: user?.username,
-    email: user?.email,
+    id: user.id,
+    email: user.email,
   });
 
   res.status(201).json({ token });
-};
+}
 
-const validateCredentials = async ({
-  usernameOrEmail,
+async function validateCredentials({
+  email,
   password,
-}: validateCredentialsArgs) => {
-  if (!usernameOrEmail || !password) {
+}: validateCredentialsArgs) {
+  if (!email || !password) {
     throw new HttpException(400, 'Missing fields in request body');
   }
-
-  const username = usernameOrEmail.includes('@') ? undefined : usernameOrEmail;
-  const email = usernameOrEmail.includes('@') ? usernameOrEmail : undefined;
+  console.log(email);
 
   const user = await dbClient.user.findUnique({
-    where: { username, email },
+    where: { email },
   });
 
   const isValid = await compareStringToHash(password, user?.password);
@@ -59,7 +62,7 @@ const validateCredentials = async ({
     throw new HttpException(403, 'Invalid credentials');
   }
 
-  return { id: user?.id, username: user?.username, email: user?.email };
-};
+  return { id: user?.id, email: user?.email };
+}
 
 export default { login, register };

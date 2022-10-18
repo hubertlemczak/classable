@@ -2,10 +2,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
+
+import { TDecodedUser, TRequestWithUser } from '../../@types/auth';
+
 import { HttpException } from '../api/errors';
 import dbClient from '../utils/dbClient';
-import { TDecodedUser, TRequestWithUser } from '../../@types/auth';
 
 const JWT_SECRET = process.env.JWT_SECRET || '';
 
@@ -56,11 +58,18 @@ export const authenticateUser = async (
     select: {
       id: true,
       email: true,
-      username: true,
+      profile: {
+        select: { firstName: true, lastName: true },
+      },
     },
   });
 
-  req.user = user;
+  req.user = {
+    id: user.id,
+    email: user.email,
+    firstName: user.profile?.firstName,
+    lastName: user.profile?.lastName,
+  };
 
   next();
 };

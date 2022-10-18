@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node dist/src",
     "dev": "tsnd --respawn src/index.ts",
-    "build": "npm ci && npx -p typescript tsc"
+    "build": "npm ci && npx -p typescript tsc",
+    "test": "jest"
   },
   "prisma": {
     "seed": "ts-node --transpile-only prisma/seed.ts"

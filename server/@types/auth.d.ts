@@ -1,22 +1,23 @@
 import { Request } from 'express';
 
 export type TRegisterArgs = {
-  username: string;
   email: string;
   password: string;
+  firstName: string;
+  lastName: string;
 };
 
 export type TDecodedUser = {
   id: string;
-  username: string;
   email: string;
   iat: number;
 };
 
 export type TUser = {
   id: string;
-  username: string;
   email: string;
+  firstName?: string;
+  lastName?: string;
 };
 
 export type TRequestWithUser = {
