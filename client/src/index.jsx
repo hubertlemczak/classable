@@ -4,9 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './css/index.css';
 import App from './App';
-import ScrollToTop from './utils/ScrollToTop';
+import { ScrollToTop } from './utils/scroll';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './utils/vars';
+import LoggedInUserProvider from './context/LoggedInUser';
+import SocketProvider from './context/SocketProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +16,11 @@ root.render(
     <BrowserRouter>
       <ScrollToTop />
       <ThemeProvider theme={theme}>
-        <App />
+        <LoggedInUserProvider>
+          <SocketProvider>
+            <App />
+          </SocketProvider>
+        </LoggedInUserProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

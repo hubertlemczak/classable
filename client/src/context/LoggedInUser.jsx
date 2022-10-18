@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 import client from '../client';
@@ -11,16 +11,16 @@ export const useLoggedInUser = () => useContext(LoggedInUserContext);
 export const LoggedInUserProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useLocalStorage('chat-app-token', '');
+  const [token, setToken] = useLocalStorage('classable-token', '');
   console.log(user);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     async function getUser() {
       try {
         const decodedToken = jwt_decode(token);
+        console.log(decodedToken);
 
         setIsLoading(true);
         const res = await client.get(`/users/${decodedToken?.id}`);
@@ -30,10 +30,8 @@ export const LoggedInUserProvider = ({ children }) => {
       } catch (err) {
         console.log(err);
 
-        localStorage.setItem('chat-app-token', '');
-        if (location.pathname !== '/register') {
-          navigate('/login');
-        }
+        localStorage.setItem('classable-token', '');
+        navigate('/join');
       }
     }
 

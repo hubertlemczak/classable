@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, createContext } from 'react';
+import { useEffect, useContext, createContext } from 'react';
 import { io } from 'socket.io-client';
 
 import { useLoggedInUser } from './LoggedInUser';
@@ -8,18 +8,16 @@ export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider = ({ children }) => {
   const { token } = useLoggedInUser();
-  const [socket] = useState(() =>
-    io('https://chat-app-3ql0.onrender.com', {
-      auth: {
-        token,
-      },
-      autoConnect: false,
-    })
-  );
+  const socket = io('http://localhost:4040', {
+    auth: {
+      token,
+    },
+    autoConnect: false,
+  });
 
   useEffect(() => {
     if (!token) return;
-    socket.auth = { token };
+    socket.auth = { token: `Bearer ${token}` };
     socket.connect();
 
     socket.on('connect', () => {
@@ -39,9 +37,9 @@ export const SocketProvider = ({ children }) => {
     });
 
     socket.on('connect_error', err => {
-      console.error(err.message);
+      console.error(err);
       if (err.message === 'invalid token') {
-        localStorage.setItem('chat-app-token', '');
+        localStorage.setItem('classable-token', '');
       }
     });
 
