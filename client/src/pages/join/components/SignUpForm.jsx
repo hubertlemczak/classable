@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import client from '../../../client';
+import Error from '../../../components/Error';
 import FormInput from '../../../components/form/FormInput';
 import { STRING } from '../../../utils/vars';
 
 import { StyledAuthenticaionForm } from '../styles/AuthenticationForm.styled';
 
 const defaultFormFields = {
-  displayName: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -13,34 +16,54 @@ const defaultFormFields = {
 
 export const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
+  const [error, setError] = useState('');
+
+  const { firstName, lastName, email, password, confirmPassword } = formFields;
 
   const resetFormFields = () => setFormFields(defaultFormFields);
 
-  const handleChange = e => {
+  function handleChange(e) {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
-  };
 
-  const handleSubmit = async e => {
+    if (error) {
+      setError('');
+    }
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      return setError('Password does not match.');
+    }
+
+    const res = await client.post('/register', formFields);
+    console.log(res);
     resetFormFields();
-  };
+  }
 
   return (
     <StyledAuthenticaionForm>
       <h2>{STRING.SIGN_UP.HEADER}</h2>
       <span>{STRING.SIGN_UP.SPAN}</span>
-      <form onSubmit={handleSubmit}>
+      <form className="relative" onSubmit={handleSubmit}>
         <FormInput
-          label="Display Name"
+          label="First Name"
           type="text"
-          name="displayName"
-          value={displayName}
+          name="firstName"
+          value={firstName}
           onChange={handleChange}
           required
         />
-
+        <FormInput
+          label="Last Name"
+          type="text"
+          name="lastName"
+          value={lastName}
+          onChange={handleChange}
+          required
+        />
         <FormInput
           label="Email"
           type="email"
@@ -49,7 +72,6 @@ export const SignUpForm = () => {
           onChange={handleChange}
           required
         />
-
         <FormInput
           label="Password"
           type="password"
@@ -58,7 +80,6 @@ export const SignUpForm = () => {
           onChange={handleChange}
           required
         />
-
         <FormInput
           label="Confirm Password"
           type="password"
@@ -67,6 +88,7 @@ export const SignUpForm = () => {
           onChange={handleChange}
           required
         />
+        {error && <Error className="mb-6" message={error} />}
         <button>{STRING.SIGN_UP.BTN}</button>
       </form>
     </StyledAuthenticaionForm>
