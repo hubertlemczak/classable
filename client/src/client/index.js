@@ -4,7 +4,7 @@ const host = 'http://localhost:4040/api';
 
 const client = {
   get: async path => {
-    const token = localStorage.getItem('chat-app-token');
+    const token = localStorage.getItem('classable-token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -12,7 +12,7 @@ const client = {
     return axios.get(`${host}${path}`, { headers });
   },
   post: async (path, data) => {
-    const token = localStorage.getItem('chat-app-token');
+    const token = localStorage.getItem('classable-token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -20,7 +20,7 @@ const client = {
     return axios.post(`${host}${path}`, data, { headers });
   },
   patch: async (path, data) => {
-    const token = localStorage.getItem('chat-app-token');
+    const token = localStorage.getItem('classable-token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -28,7 +28,7 @@ const client = {
     return axios.patch(`${host}${path}`, data, { headers });
   },
   delete: async path => {
-    const token = localStorage.getItem('chat-app-token');
+    const token = localStorage.getItem('classable-token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
