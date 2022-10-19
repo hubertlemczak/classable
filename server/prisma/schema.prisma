@@ -101,7 +101,6 @@ model Course {
 }
 
 model Enrolment {
-  name      String
   role      Role
   courseId  String
   userId    String
