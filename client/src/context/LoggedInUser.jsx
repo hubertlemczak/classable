@@ -19,19 +19,18 @@ export const LoggedInUserProvider = ({ children }) => {
   useEffect(() => {
     async function getUser() {
       try {
-        const decodedToken = jwt_decode(token);
-        console.log(decodedToken);
-
         setIsLoading(true);
-        const res = await client.get(`/users/${decodedToken?.id}`);
 
+        const decodedToken = jwt_decode(token);
+        const res = await client.get(`/users/${decodedToken?.id}`);
         setUser(res.data.user);
+
         setIsLoading(false);
       } catch (err) {
         console.log(err);
-
         localStorage.setItem('classable-token', '');
         navigate('/join');
+        setIsLoading(false);
       }
     }
 

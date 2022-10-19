@@ -1,26 +1,24 @@
-import { useEffect, useContext, createContext } from 'react';
+import { useEffect, useContext, createContext, useState } from 'react';
 import { io } from 'socket.io-client';
 
 import { useLoggedInUser } from './LoggedInUser';
 
-const SocketContext = createContext({});
+const SocketContext = createContext();
 export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider = ({ children }) => {
+  const [socket, setSocket] = useState(false);
+
   const { token } = useLoggedInUser();
-  const socket = io('http://localhost:4040', {
-    auth: {
-      token,
-    },
-    autoConnect: false,
-  });
 
   useEffect(() => {
     if (!token) return;
-    socket.auth = { token: `Bearer ${token}` };
-    socket.connect();
+    const socket = io('http://localhost:4040', {
+      auth: { token: `Bearer ${token}` },
+    });
 
     socket.on('connect', () => {
+      setSocket(socket);
       console.log('connected');
     });
 
@@ -55,7 +53,7 @@ export const SocketProvider = ({ children }) => {
 
   return (
     <SocketContext.Provider value={{ socket }}>
-      {children}
+      {socket && children}
     </SocketContext.Provider>
   );
 };
