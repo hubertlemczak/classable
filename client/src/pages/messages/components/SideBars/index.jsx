@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import uniqid from 'uniqid';
+import { useSocket } from '../../../../context/SocketProvider';
 import { STRING } from '../../../../utils/vars';
+import ChatRoom from '../ChatRoom';
 import { ActiveUser } from './components/ActiveUser';
 
 import { ChatItem } from './components/ChatItem';
@@ -9,7 +12,7 @@ import { ActiveUsersContainer } from './styles/ActiveUser.styled';
 import { OutletContainer, SideBarContainer } from './styles/index.styled';
 
 const SideBars = () => {
-  const [chats, setChats] = useState([
+  const [chats] = useState([
     'general',
     'user',
     'user',
@@ -26,6 +29,21 @@ const SideBars = () => {
     'user',
     'user',
   ]);
+  const [activeUsers, setActiveUsers] = useState([]);
+
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    socket.on('online-users', users => {
+      setActiveUsers(users);
+    });
+
+    socket.emit('get-online-users');
+
+    return () => {
+      socket.off('online-users');
+    };
+  }, []);
 
   return (
     <>
@@ -41,12 +59,15 @@ const SideBars = () => {
       </SideBarContainer>
       <ActiveUsersContainer>
         <ul>
-          {chats?.map(chat => (
-            <ActiveUser key={uniqid()} chat={chat} />
+          <li>Online</li>
+          {activeUsers?.map(user => (
+            <ActiveUser key={uniqid()} {...user} />
           ))}
+          <li>Offline</li>
         </ul>
       </ActiveUsersContainer>
       <OutletContainer>
+        <ChatRoom />
         <Outlet />
       </OutletContainer>
     </>

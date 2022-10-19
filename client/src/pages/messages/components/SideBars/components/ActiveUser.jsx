@@ -1,11 +1,12 @@
-import { capitalizeFirstLetter } from '../../../../../utils/capitalizeFirstLetter';
 import { StyledActiveUser } from '../styles/ActiveUser.styled';
 
-export const ActiveUser = props => {
+export const ActiveUser = ({ firstName, lastName, id }) => {
   return (
     <StyledActiveUser>
       <div></div>
-      <span>{capitalizeFirstLetter(props.chat)}</span>
+      <span className="text-sm">
+        {firstName} {lastName}
+      </span>
     </StyledActiveUser>
   );
 };

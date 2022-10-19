@@ -27,7 +27,6 @@ const getUser = async (id: string) => {
 };
 
 async function authenticateUser(socket: TSocketWithUser) {
-  console.log(socket);
   const token = socket.handshake.auth.token?.trim().split(' ')[1];
 
   if (!token) {
@@ -76,21 +75,28 @@ export default function sockets({ io }: { io: Server }) {
 
   const onConnection = (socket: TSocketWithUser) => {
     console.log('a user connected');
-    const users: TDecodedUser[] = [];
-    io.of('/').sockets.forEach((s: TSocketWithUser) => {
-      users.push(s.user as TDecodedUser);
-    });
-    io.emit('online-users', users);
 
     messagesHandler(socket, io);
 
     socket.on('disconnect', () => {
       const users: TDecodedUser[] = [];
+
       io.of('/').sockets.forEach((s: TSocketWithUser) => {
         users.push(s.user as TDecodedUser);
       });
+
       io.emit('online-users', users);
       console.log('user disconnected');
+    });
+
+    socket.on('get-online-users', () => {
+      const users: TDecodedUser[] = [];
+
+      io.of('/').sockets.forEach((s: TSocketWithUser) => {
+        users.push(s.user as TDecodedUser);
+      });
+
+      socket.emit('online-users', users);
     });
   };
 
