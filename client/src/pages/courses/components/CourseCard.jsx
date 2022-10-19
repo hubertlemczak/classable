@@ -5,15 +5,19 @@ import {
   ViewBtn,
 } from '../styles/CourseCard.styled';
 
-export const CourseCard = () => {
+export const CourseCard = ({ category, name, id }) => {
+  const coursePath = name.toLowerCase().replace(' ', '-');
+  console.log(coursePath);
   return (
     <CourseCardContainer>
       <CourseIMG />
       <div>
-        <h3>Boolean UK</h3>
-        <p>Software Development</p>
+        <h3>{name}</h3>
+        <p>{category}</p>
       </div>
-      <ViewBtn to="/courses/boolean-uk/dashboard">{STRING.VIEW}</ViewBtn>
+      <ViewBtn to={`/courses/${coursePath}/dashboard`} state={{ id }}>
+        {STRING.VIEW}
+      </ViewBtn>
     </CourseCardContainer>
   );
 };

@@ -6,6 +6,7 @@ import usersController from './controllers/users.controller';
 import authController from './controllers/auth.controller';
 import messagesController from './controllers/messages.controller';
 import chatsController from './controllers/chats.controller';
+import coursesController from './controllers/courses.controller';
 import { authenticateUser } from '../auth';
 
 api.get('/health-check', (req: Request, res: Response) => {
@@ -41,5 +42,10 @@ api.get('/messages', authenticateUser, messagesController.getAll);
 
 api.get('/chats', authenticateUser, chatsController.getAll);
 api.get('/chats/:id', authenticateUser, chatsController.getById);
+
+// courses
+
+api.get('/courses', authenticateUser, coursesController.getAll);
+api.get('/courses/:id', authenticateUser, coursesController.getById);
 
 export default api;
