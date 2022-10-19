@@ -6,7 +6,7 @@ export const SideBarContainer = styled.div`
   top: 100px;
   bottom: 0;
   width: 230px;
-  background-color: ${({ theme }) => theme.lightBG};
+  background-color: ${({ theme }) => theme.darkBG};
   padding: 20px;
   overflow-y: scroll;
 
@@ -24,11 +24,10 @@ export const SideBarContainer = styled.div`
 
 export const OutletContainer = styled.div`
   position: fixed;
+  overflow-y: scroll;
   top: 120px;
   right: 20px;
   bottom: 20px;
   left: 250px;
-  border: 1px solid lightgray;
-  border-radius: 6px;
   padding: 20px;
 `;

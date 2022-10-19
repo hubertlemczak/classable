@@ -6,7 +6,9 @@ export const ActiveUsersContainer = styled.div`
   right: 20px;
   bottom: 20px;
   width: 200px;
-  background-color: black;
+  padding: 10px;
+  background-color: ${({ theme }) => theme.offWhite};
+  box-shadow: 1px 0px 10px lightgray;
   border-radius: 0 6px 6px 0;
   z-index: 100;
   overflow-y: scroll;
@@ -41,7 +43,6 @@ export const StyledActiveUser = styled.li`
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
   color: ${({ theme }) => theme.textLight};
   font-size: 1.2rem;
   width: 100%;
@@ -53,8 +54,8 @@ export const StyledActiveUser = styled.li`
   }
 
   div {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border: 1px solid darkgray;
     border-radius: 50%;
   }

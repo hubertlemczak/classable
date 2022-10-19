@@ -6,7 +6,8 @@ export const SideBarContainer = styled.div`
   top: 120px;
   bottom: 20px;
   width: 200px;
-  background-color: ${({ theme }) => theme.darkBG};
+  background-color: ${({ theme }) => theme.offWhite};
+  box-shadow: -1px 0px 10px lightgray;
   border-radius: 6px 0 0 6px;
   z-index: 100;
   overflow-y: scroll;
@@ -17,15 +18,15 @@ export const SideBarContainer = styled.div`
 
   ul {
     list-style: none;
-    color: white;
+    color: ${({ theme }) => theme.textLight};
   }
 
   a {
     display: block;
     position: sticky;
     top: 0;
-    background-color: ${({ theme }) => theme.darkBG};
-    color: white;
+    background-color: ${({ theme }) => theme.offWhite};
+    color: ${({ theme }) => theme.textLight};
     font-size: 1.8rem;
     text-align: center;
     padding: 20px;
@@ -41,9 +42,11 @@ export const SideBarContainer = styled.div`
 
 export const OutletContainer = styled.div`
   position: fixed;
-  top: 140px;
-  right: 240px;
-  bottom: 40px;
-  left: 470px;
-  border: 1px solid lightgray;
+  top: 120px;
+  right: 220px;
+  bottom: 20px;
+  left: 450px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px lightgray;
+  background-color: ${({ theme }) => theme.offWhite};
 `;

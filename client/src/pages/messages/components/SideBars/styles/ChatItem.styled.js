@@ -27,5 +27,5 @@ export const StyledChatItem = styled.li`
 export const UsersSVG = styled(Users)`
   width: 32px;
   height: 20px;
-  fill: white;
+  fill: ${({ theme }) => theme.textLight}; ;
 `;
