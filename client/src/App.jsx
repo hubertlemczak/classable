@@ -11,8 +11,7 @@ import Home from './pages/home';
 import { HomeNavBar } from './pages/home/components/HomeNavBar';
 import Join from './pages/join';
 import Messages from './pages/messages';
-import Notes from './pages/notes';
-import Resources from './pages/resources';
+import Resources from './pages/notes';
 import Classroom from './pages/classroom';
 import CreateCourse from './pages/createCourse';
 import { useLoggedInUser } from './context/LoggedInUser';
@@ -33,11 +32,10 @@ const App = () => {
             <Route path=":courseName" element={<SideBar />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="assignments" element={<Assignments />} />
-              <Route path="resources" element={<Resources />} />
               <Route path="messages/*" element={<Messages />} />
               <Route path="calendar" element={<Calendar />} />
               <Route path="classroom" element={<Classroom />} />
-              <Route path="notes" element={<Notes />} />
+              <Route path="resources/*" element={<Resources />} />
             </Route>
           </Route>
         </Route>
