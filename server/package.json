@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node dist/src",
     "dev": "tsnd --respawn src/index.ts",
-    "build": "npm ci && npx -p typescript tsc",
+    "build": "npm ci && npx prisma migrate deploy && npx -p typescript tsc",
     "test": "jest"
   },
   "prisma": {
