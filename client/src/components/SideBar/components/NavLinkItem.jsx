@@ -12,8 +12,6 @@ import { ReactComponent as Calendar } from '../../../assets/calendar.svg';
 import { ReactComponent as CalendarSolid } from '../../../assets/calendar-solid.svg';
 import { ReactComponent as Classroom } from '../../../assets/classroom.svg';
 import { ReactComponent as ClassroomSolid } from '../../../assets/classroom-solid.svg';
-import { ReactComponent as Notes } from '../../../assets/notes.svg';
-import { ReactComponent as NotesSolid } from '../../../assets/notes-solid.svg';
 
 const SVGs = {
   dashboard: <Dashboard />,
@@ -28,8 +26,6 @@ const SVGs = {
   calendarSolid: <CalendarSolid />,
   classroom: <Classroom />,
   classroomSolid: <ClassroomSolid />,
-  notes: <Notes />,
-  notesSolid: <NotesSolid />,
 };
 
 export const NavLinkItem = ({ path }) => {
@@ -37,6 +33,7 @@ export const NavLinkItem = ({ path }) => {
     <li>
       <StyledNavLink
         to={path}
+        // eslint-disable-next-line react/no-children-prop
         children={({ isActive }) => {
           return (
             <>

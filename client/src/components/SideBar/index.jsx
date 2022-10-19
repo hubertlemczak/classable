@@ -11,7 +11,6 @@ const NAV_LINKS = [
   'messages',
   'calendar',
   'classroom',
-  'notes',
 ];
 
 const SideBar = () => {
