@@ -1,30 +1,18 @@
-import { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { StyledMdContainer } from './index.styled';
+import { Route, Routes } from 'react-router-dom';
 
-const Notes = () => {
-  const [md, setMd] = useState('');
-  console.log('[md]', md);
+import Resources from './components';
+import ResourceView from './components/ResourceView';
 
-  const handeSubmit = e => {
-    e.preventDefault();
-    setMd(e.target.asd.value);
-  };
-
+const ResourcesRoutes = () => {
   return (
-    <div className="relative">
-      <form onSubmit={handeSubmit}>
-        <textarea name="asd" cols="30" rows="10"></textarea>
-        <button>Submit</button>
-      </form>
-      <StyledMdContainer>
-        <ReactMarkdown re>{md}</ReactMarkdown>
-      </StyledMdContainer>
-    </div>
+    <Routes>
+      <Route path="/" element={<Resources />} />
+      <Route path="notes/:noteId" element={<ResourceView />} />
+    </Routes>
   );
 };
 
-export default Notes;
+export default ResourcesRoutes;
 
 // starred boards.length > 0 show
 
