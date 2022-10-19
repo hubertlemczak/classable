@@ -4,8 +4,9 @@ export const theme = {
   navActive: 'white',
   navHover: 'rgba(168, 168, 168,0.3)',
   darkBG: '#121212',
+  offWhite: '#f5f5f7',
   lightBG: '#262626',
-  textLight: '#8f9296',
+  textLight: '#67696b',
 };
 
 export const STRING = {
