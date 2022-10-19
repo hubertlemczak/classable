@@ -5,35 +5,62 @@ import { Server } from 'socket.io';
 import { TDecodedUser } from '../../@types/auth';
 import { TSocketWithUser } from '../../@types/io';
 
+import { HttpException } from '../api/errors';
 import { verifyToken } from '../auth';
 import dbClient from '../utils/dbClient';
 import messagesHandler from './handlers/messages.handler';
 
-const getUser = async ({ id }: TDecodedUser) => {
+const getUser = async (id: string) => {
   return await dbClient.user.findUniqueOrThrow({
-    where: { id },
-    include: {
-      chatrooms: {
-        where: {
-          userId: id,
-        },
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      email: true,
+      profile: {
+        select: { firstName: true, lastName: true },
       },
+      chatrooms: true,
     },
   });
 };
 
+async function authenticateUser(socket: TSocketWithUser) {
+  console.log(socket);
+  const token = socket.handshake.auth.token?.trim().split(' ')[1];
+
+  if (!token) {
+    throw new HttpException(403, 'Unauthorized');
+  }
+
+  const decodedUser = verifyToken(token);
+  if (!decodedUser) {
+    throw new HttpException(403, 'Unauthorized');
+  }
+
+  const { id } = decodedUser as TDecodedUser;
+
+  const user = await getUser(id);
+
+  socket.user = {
+    id: user.id,
+    email: user.email,
+    firstName: user.profile?.firstName,
+    lastName: user.profile?.lastName,
+  };
+
+  return user;
+}
+
 export default function sockets({ io }: { io: Server }) {
   io.use(async (socket: TSocketWithUser, next) => {
     try {
-      const token = socket.handshake.auth.token;
-      const user = verifyToken(token);
+      const user = await authenticateUser(socket);
+      console.log(user);
 
-      const foundUser = await getUser(user as TDecodedUser);
-
-      socket.user = user as TDecodedUser;
-
-      foundUser.chatrooms.forEach(chatroom => {
-        socket.join(chatroom.conversationId);
+      user.chatrooms.forEach(chatroom => {
+        socket.join(chatroom?.chatId);
       });
 
       next();
