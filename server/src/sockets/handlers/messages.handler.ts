@@ -4,20 +4,16 @@ import { TSocketWithUser } from '../../../@types/io';
 import { TCreateMessage } from '../../../@types/messages';
 
 const messagesHandler = (socket: TSocketWithUser, io: Server) => {
-  const createMessage = async ({
-    content,
-    userId,
-    conversationId,
-  }: TCreateMessage) => {
+  const createMessage = async ({ content, userId, chatId }: TCreateMessage) => {
     try {
       const createdMessage = await model.createMessage({
         content,
-        conversationId,
+        chatId,
         userId,
       });
 
       if (createdMessage) {
-        io.to(conversationId).emit('chat-message', createdMessage);
+        io.to(chatId).emit('chat-message', createdMessage);
       }
     } catch (err) {
       socket.emit('exception', err);
@@ -25,9 +21,9 @@ const messagesHandler = (socket: TSocketWithUser, io: Server) => {
     }
   };
 
-  const handleTyping = ({ conversationId }: { conversationId: string }) => {
+  const handleTyping = ({ chatId }: { chatId: string }) => {
     try {
-      socket.broadcast.to(conversationId).emit('typing', socket.user?.username);
+      socket.broadcast.to(chatId).emit('typing', socket.user?.p);
     } catch (err) {
       socket.emit('exception', err);
       console.error('err', err);

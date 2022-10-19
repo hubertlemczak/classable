@@ -11,21 +11,22 @@ const getById = async (id: string) => {
   return data;
 };
 
-const createMessage = async ({
-  content,
-  userId,
-  conversationId,
-}: TCreateMessage) => {
+const createMessage = async ({ content, userId, chatId }: TCreateMessage) => {
   const data = await dbClient.message.create({
     data: {
       content,
-      conversationId,
+      chatId,
       userId,
     },
     include: {
       user: {
         select: {
-          username: true,
+          profile: {
+            select: {
+              firstName: true,
+              lastName: true,
+            },
+          },
         },
       },
     },
