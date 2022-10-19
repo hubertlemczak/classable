@@ -38,7 +38,6 @@ export const SignInForm = () => {
       e.preventDefault();
 
       const res = await client.post('/login', formFields);
-      console.log(res);
 
       saveToken(res.data.token);
     } catch (err) {
@@ -50,10 +49,9 @@ export const SignInForm = () => {
   const handleDemo = async () => {
     try {
       const res = await client.post('/login', {
-        email: 'demo1@demo.com',
-        password: 'demo123',
+        email: 'user1@test.com',
+        password: '123',
       });
-      console.log(res);
 
       saveToken(res.data.token);
     } catch (err) {
