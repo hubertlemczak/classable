@@ -36,6 +36,8 @@ model User {
   chatrooms Chatroom[]
   courses   Enrolment[]
   chat      Chat[]
+  boards    Board[]
+  notes     Note[]
 }
 
 model Profile {
@@ -90,7 +92,7 @@ model Message {
 
 model Course {
   id          String   @id @default(uuid())
-  name        String
+  name        String   @unique
   category    String
   description String
   createdAt   DateTime @default(now())
@@ -98,6 +100,8 @@ model Course {
 
   enrolment Enrolment[]
   chatrooms Chatroom[]
+  boards    Board[]
+  notes     Note[]
 }
 
 model Enrolment {
@@ -111,4 +115,56 @@ model Enrolment {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
+}
+
+model Board {
+  id        String   @id @default(uuid())
+  name      String   @default("Untitled")
+  isStarred Boolean  @default(false)
+  courseId  String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course       Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  boardColumns BoardColumn[]
+}
+
+model BoardColumn {
+  id        String   @id @default(uuid())
+  title     String
+  position  Int
+  boardId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  board           Board            @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardColumnRows BoardColumnRow[]
+}
+
+model BoardColumnRow {
+  id            String   @id @default(uuid())
+  title         String
+  content       String
+  position      Int
+  boardColumnId String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  boardColumn BoardColumn @relation(fields: [boardColumnId], references: [id], onDelete: Cascade)
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  title     String   @default("Untitled")
+  content   String
+  isStarred Boolean  @default(false)
+  courseId  String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
