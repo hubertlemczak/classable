@@ -8,7 +8,6 @@ import { ScrollToTop } from './utils/scroll';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './utils/vars';
 import LoggedInUserProvider from './context/LoggedInUser';
-import SocketProvider from './context/SocketProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,9 +16,7 @@ root.render(
       <ScrollToTop />
       <ThemeProvider theme={theme}>
         <LoggedInUserProvider>
-          <SocketProvider>
-            <App />
-          </SocketProvider>
+          <App />
         </LoggedInUserProvider>
       </ThemeProvider>
     </BrowserRouter>

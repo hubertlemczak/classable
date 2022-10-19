@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
@@ -14,6 +15,8 @@ import Notes from './pages/notes';
 import Resources from './pages/resources';
 import Classroom from './pages/classroom';
 import CreateCourse from './pages/createCourse';
+import { useLoggedInUser } from './context/LoggedInUser';
+import SocketProvider from './context/SocketProvider';
 
 const App = () => {
   return (
@@ -23,21 +26,43 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="join" element={<Join />} />
         </Route>
-        <Route path="create-course" element={<CreateCourse />} />
-        <Route path="courses" element={<NavBar />}>
-          <Route index element={<Courses />} />
-          <Route path=":courseName" element={<SideBar />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="assignments" element={<Assignments />} />
-            <Route path="resources" element={<Resources />} />
-            <Route path="messages/*" element={<Messages />} />
-            <Route path="calendar" element={<Calendar />} />
-            <Route path="classroom" element={<Classroom />} />
-            <Route path="notes" element={<Notes />} />
+        <Route element={<Authenticate />}>
+          <Route path="create-course" element={<CreateCourse />} />
+          <Route path="courses" element={<NavBar />}>
+            <Route index element={<Courses />} />
+            <Route path=":courseName" element={<SideBar />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="assignments" element={<Assignments />} />
+              <Route path="resources" element={<Resources />} />
+              <Route path="messages/*" element={<Messages />} />
+              <Route path="calendar" element={<Calendar />} />
+              <Route path="classroom" element={<Classroom />} />
+              <Route path="notes" element={<Notes />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
     </>
+  );
+};
+
+const Authenticate = () => {
+  const { token } = useLoggedInUser();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/join');
+    }
+  }, [token]);
+
+  return (
+    token && (
+      <SocketProvider>
+        <Outlet />
+      </SocketProvider>
+    )
   );
 };
 
