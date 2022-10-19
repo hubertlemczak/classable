@@ -5,7 +5,7 @@ const getAll = async () => {
     include: {
       user: {
         select: {
-          username: true,
+          profile: { select: { firstName: true, lastName: true } },
         },
       },
     },

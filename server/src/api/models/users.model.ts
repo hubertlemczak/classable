@@ -3,8 +3,8 @@ import dbClient from '../../utils/dbClient';
 const getAll = async () => {
   const data = await dbClient.user.findMany({
     select: {
-      username: true,
       id: true,
+      profile: { select: { firstName: true, lastName: true } },
     },
   });
 
@@ -15,17 +15,29 @@ const getById = async (id: string) => {
   const data = await dbClient.user.findUnique({
     where: { id },
     select: {
-      username: true,
       id: true,
+      profile: true,
       chatrooms: {
-        include: { conversation: true },
+        include: { chat: true },
       },
       following: {
         select: {
-          username: true,
           id: true,
+          profile: { select: { firstName: true, lastName: true } },
         },
       },
+    },
+  });
+
+  return data;
+};
+
+const getFollows = async (id: string) => {
+  const data = await dbClient.user.findUnique({
+    where: { id },
+    select: {
+      followers: true,
+      following: true,
     },
   });
 
@@ -46,7 +58,7 @@ const createFollow = async (userId: string, followId: string) => {
       following: {
         select: {
           id: true,
-          username: true,
+          profile: { select: { firstName: true, lastName: true } },
         },
       },
     },
@@ -70,4 +82,4 @@ const deleteFollow = async (userId: string, followId: string) => {
   return data;
 };
 
-export default { getById, getAll, deleteFollow, createFollow };
+export default { getById, getAll, getFollows, deleteFollow, createFollow };

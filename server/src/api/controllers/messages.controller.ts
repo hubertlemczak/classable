@@ -1,7 +1,8 @@
 import { Response } from 'express';
 
-import model from '../models/messages.model';
 import { TRequestWithUser } from '../../../@types/auth';
+
+import model from '../models/messages.model';
 
 const getAll = async (req: TRequestWithUser, res: Response) => {
   const messages = await model.getAll();

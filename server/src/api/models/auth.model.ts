@@ -1,16 +1,26 @@
 import dbClient from '../../utils/dbClient';
 import { TRegisterArgs } from '../../../@types/auth';
 
-const register = async ({ username, email, password }: TRegisterArgs) => {
+async function register({
+  email,
+  password,
+  firstName,
+  lastName,
+}: TRegisterArgs) {
   const user = await dbClient.user.create({
     data: {
-      username,
       email,
       password,
+      profile: {
+        create: {
+          firstName,
+          lastName,
+        },
+      },
     },
   });
 
   return user;
-};
+}
 
 export default { register };

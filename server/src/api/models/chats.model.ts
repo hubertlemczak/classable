@@ -1,7 +1,7 @@
 import dbClient from '../../utils/dbClient';
 
 const getAll = async (userId: string | undefined) => {
-  const data = await dbClient.conversation.findMany({
+  const data = await dbClient.chat.findMany({
     where: {
       chatrooms: {
         some: {
@@ -15,7 +15,7 @@ const getAll = async (userId: string | undefined) => {
 };
 
 const getById = async (id: string) => {
-  const data = await dbClient.conversation.findUniqueOrThrow({
+  const data = await dbClient.chat.findUniqueOrThrow({
     where: {
       id,
     },
@@ -25,7 +25,7 @@ const getById = async (id: string) => {
           user: {
             select: {
               id: true,
-              username: true,
+              profile: { select: { firstName: true, lastName: true } },
             },
           },
         },
@@ -34,8 +34,8 @@ const getById = async (id: string) => {
         include: {
           user: {
             select: {
-              username: true,
               id: true,
+              profile: { select: { firstName: true, lastName: true } },
             },
           },
         },

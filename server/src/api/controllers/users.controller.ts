@@ -1,8 +1,9 @@
 import { Response } from 'express';
-import { HttpException } from '../errors';
 
-import model from '../models/users.model';
 import { TRequestWithUser } from '../../../@types/auth';
+
+import { HttpException } from '../errors';
+import model from '../models/users.model';
 
 const getAll = async (req: TRequestWithUser, res: Response) => {
   const users = await model.getAll();
@@ -11,7 +12,7 @@ const getAll = async (req: TRequestWithUser, res: Response) => {
 };
 
 const getById = async (req: TRequestWithUser, res: Response) => {
-  const id = req.params.id;
+  const { id } = req.params;
   const user = await model.getById(id);
 
   if (!user) {
@@ -19,6 +20,14 @@ const getById = async (req: TRequestWithUser, res: Response) => {
   }
 
   res.status(200).json({ user });
+};
+
+const getFollows = async (req: TRequestWithUser, res: Response) => {
+  const { id } = req.params;
+
+  const users = await model.getFollows(id);
+
+  res.status(200).json({ users });
 };
 
 const createFollow = async (req: TRequestWithUser, res: Response) => {
@@ -45,4 +54,4 @@ const deleteFollow = async (req: TRequestWithUser, res: Response) => {
   res.sendStatus(204);
 };
 
-export default { getAll, getById, deleteFollow, createFollow };
+export default { getAll, getById, getFollows, deleteFollow, createFollow };

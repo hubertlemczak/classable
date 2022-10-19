@@ -5,7 +5,7 @@ const api = express.Router();
 import usersController from './controllers/users.controller';
 import authController from './controllers/auth.controller';
 import messagesController from './controllers/messages.controller';
-import conversationsController from './controllers/conversations.controller';
+import chatsController from './controllers/chats.controller';
 import { authenticateUser } from '../auth';
 
 api.get('/health-check', (req: Request, res: Response) => {
@@ -19,6 +19,7 @@ api.post('/register', authController.register);
 // users
 api.get('/users', authenticateUser, usersController.getAll);
 api.get('/users/:id', authenticateUser, usersController.getById);
+api.get('/users/:id/follows', authenticateUser, usersController.getFollows);
 
 api.patch(
   '/users/:id/follows/:followId',
@@ -36,13 +37,9 @@ api.delete(
 
 api.get('/messages', authenticateUser, messagesController.getAll);
 
-// conversations
+// chats
 
-api.get('/conversations', authenticateUser, conversationsController.getAll);
-api.get(
-  '/conversations/:id',
-  authenticateUser,
-  conversationsController.getById
-);
+api.get('/chats', authenticateUser, chatsController.getAll);
+api.get('/chats/:id', authenticateUser, chatsController.getById);
 
 export default api;
