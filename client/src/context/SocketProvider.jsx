@@ -14,7 +14,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (!token) return;
     // eslint-disable-next-line no-undef
-    const socket = io(process.env.REACT_APP_BASE_URL, {
+    const socket = io(process.env.REACT_APP_BASE_SOCKET_URL, {
       auth: { token: `Bearer ${token}` },
     });
 
