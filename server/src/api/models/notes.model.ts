@@ -1,3 +1,4 @@
+import { Visibility } from '@prisma/client';
 import dbClient from '../../utils/dbClient';
 
 async function getAll(name: string) {
@@ -70,16 +71,19 @@ async function create({
   content,
   courseId,
   userId,
+  visibility,
 }: {
   content: string;
   courseId: string;
   userId: string;
+  visibility: Visibility | undefined;
 }) {
   const data = await dbClient.note.create({
     data: {
       content,
       courseId,
       userId,
+      visibility,
     },
     include: {
       user: {
