@@ -22,6 +22,11 @@ enum TicketStatus {
   CLOSED
 }
 
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
@@ -31,13 +36,14 @@ model User {
   followers User[]   @relation("follows")
   following User[]   @relation("follows")
 
-  profile   Profile?
-  messages  Message[]
-  chatrooms Chatroom[]
-  courses   Enrolment[]
-  chat      Chat[]
-  boards    Board[]
-  notes     Note[]
+  profile          Profile?
+  messages         Message[]
+  chatrooms        Chatroom[]
+  courses          Enrolment[]
+  chat             Chat[]
+  boards           Board[]
+  notes            Note[]
+  starredResources StarredResource[]
 }
 
 model Profile {
@@ -118,17 +124,18 @@ model Enrolment {
 }
 
 model Board {
-  id        String   @id @default(uuid())
-  name      String   @default("Untitled")
-  isStarred Boolean  @default(false)
-  courseId  String
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String     @id @default(uuid())
+  name       String     @default("Untitled")
+  visibility Visibility @default(PUBLIC)
+  courseId   String
+  userId     String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
-  course       Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course       Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   boardColumns BoardColumn[]
+  stars        StarredResource[]
 }
 
 model BoardColumn {
@@ -156,15 +163,32 @@ model BoardColumnRow {
 }
 
 model Note {
+  id         String     @id @default(uuid())
+  title      String     @default("Untitled")
+  content    String
+  visibility Visibility @default(PUBLIC)
+  courseId   String
+  userId     String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  course Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user   User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stars  StarredResource[]
+}
+
+model StarredResource {
   id        String   @id @default(uuid())
-  title     String   @default("Untitled")
-  content   String
-  isStarred Boolean  @default(false)
-  courseId  String
+  boardId   String?
+  noteId    String?
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  board Board? @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  note  Note?  @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([boardId, userId])
+  @@unique([noteId, userId])
 }
