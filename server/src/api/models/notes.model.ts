@@ -1,6 +1,6 @@
 import dbClient from '../../utils/dbClient';
 
-const getAll = async (name: string) => {
+async function getAll(name: string) {
   const data = await dbClient.note.findMany({
     where: {
       course: {
@@ -22,13 +22,28 @@ const getAll = async (name: string) => {
           },
         },
       },
+      stars: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              profile: {
+                select: {
+                  firstName: true,
+                  lastName: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
 
   return data;
-};
+}
 
-const getById = async (id: string) => {
+async function getById(id: string) {
   const data = await dbClient.note.findUniqueOrThrow({
     where: {
       id,
@@ -49,9 +64,9 @@ const getById = async (id: string) => {
   });
 
   return data;
-};
+}
 
-const create = async ({
+async function create({
   content,
   courseId,
   userId,
@@ -59,7 +74,7 @@ const create = async ({
   content: string;
   courseId: string;
   userId: string;
-}) => {
+}) {
   const data = await dbClient.note.create({
     data: {
       content,
@@ -82,6 +97,6 @@ const create = async ({
   });
 
   return data;
-};
+}
 
 export default { getAll, getById, create };

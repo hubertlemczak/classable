@@ -9,6 +9,7 @@ import chatsController from './controllers/chats.controller';
 import coursesController from './controllers/courses.controller';
 import boardsController from './controllers/boards.controller';
 import notesController from './controllers/notes.controller';
+import starsController from './controllers/stars.controller';
 import { authenticateUser } from '../auth';
 
 api.get('/health-check', (req: Request, res: Response) => {
@@ -61,5 +62,10 @@ api.post('/notes', authenticateUser, notesController.create);
 
 api.get('/notes', authenticateUser, notesController.getAll);
 api.get('/notes/:id', authenticateUser, notesController.getById);
+
+// stars
+
+api.post('/stars', authenticateUser, starsController.create);
+api.delete('/stars/:id', authenticateUser, starsController.deleteStar);
 
 export default api;

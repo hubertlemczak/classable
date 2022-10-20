@@ -1,6 +1,6 @@
 import dbClient from '../../utils/dbClient';
 
-const getAll = async (name: string) => {
+async function getAll(name: string) {
   const data = await dbClient.board.findMany({
     where: {
       course: {
@@ -22,13 +22,28 @@ const getAll = async (name: string) => {
           },
         },
       },
+      stars: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              profile: {
+                select: {
+                  firstName: true,
+                  lastName: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
 
   return data;
-};
+}
 
-const getById = async (id: string) => {
+async function getById(id: string) {
   const data = await dbClient.board.findUniqueOrThrow({
     where: {
       id,
@@ -49,6 +64,6 @@ const getById = async (id: string) => {
   });
 
   return data;
-};
+}
 
 export default { getAll, getById };

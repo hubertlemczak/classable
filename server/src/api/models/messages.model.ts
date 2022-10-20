@@ -1,6 +1,6 @@
 import dbClient from '../../utils/dbClient';
 
-const getAll = async () => {
+async function getAll() {
   const data = await dbClient.message.findMany({
     include: {
       user: {
@@ -12,6 +12,6 @@ const getAll = async () => {
   });
 
   return data;
-};
+}
 
 export default { getAll };

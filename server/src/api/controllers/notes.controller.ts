@@ -6,23 +6,23 @@ import { HttpException } from '../errors';
 
 import model from '../models/notes.model';
 
-const getAll = async (req: TRequestWithUser, res: Response) => {
+async function getAll(req: TRequestWithUser, res: Response) {
   const courseName = req.query.courseName as string;
 
   const notes = await model.getAll(courseName);
 
   res.status(200).json({ notes });
-};
+}
 
-const getById = async (req: TRequestWithUser, res: Response) => {
+async function getById(req: TRequestWithUser, res: Response) {
   const { id } = req.params;
 
   const note = await model.getById(id);
 
   res.status(200).json({ note });
-};
+}
 
-const create = async (req: TRequestWithUser, res: Response) => {
+async function create(req: TRequestWithUser, res: Response) {
   const { content, name } = req.body;
 
   if (!content || !name) {
@@ -47,6 +47,6 @@ const create = async (req: TRequestWithUser, res: Response) => {
   const note = await model.create({ content, courseId, userId });
 
   res.status(201).json({ note });
-};
+}
 
 export default { getAll, getById, create };

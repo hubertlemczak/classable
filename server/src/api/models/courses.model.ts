@@ -1,6 +1,6 @@
 import dbClient from '../../utils/dbClient';
 
-const getAll = async (userId: string | undefined) => {
+async function getAll(userId: string | undefined) {
   const data = await dbClient.course.findMany({
     where: {
       enrolment: {
@@ -12,9 +12,9 @@ const getAll = async (userId: string | undefined) => {
   });
 
   return data;
-};
+}
 
-const getById = async (id: string) => {
+async function getById(id: string) {
   const data = await dbClient.course.findUniqueOrThrow({
     where: {
       id,
@@ -34,6 +34,6 @@ const getById = async (id: string) => {
   });
 
   return data;
-};
+}
 
 export default { getAll, getById };

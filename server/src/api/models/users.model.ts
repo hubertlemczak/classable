@@ -1,6 +1,6 @@
 import dbClient from '../../utils/dbClient';
 
-const getAll = async () => {
+async function getAll() {
   const data = await dbClient.user.findMany({
     select: {
       id: true,
@@ -9,9 +9,9 @@ const getAll = async () => {
   });
 
   return data;
-};
+}
 
-const getById = async (id: string) => {
+async function getById(id: string) {
   const data = await dbClient.user.findUnique({
     where: { id },
     select: {
@@ -30,9 +30,9 @@ const getById = async (id: string) => {
   });
 
   return data;
-};
+}
 
-const getFollows = async (id: string) => {
+async function getFollows(id: string) {
   const data = await dbClient.user.findUnique({
     where: { id },
     select: {
@@ -42,9 +42,8 @@ const getFollows = async (id: string) => {
   });
 
   return data;
-};
-
-const createFollow = async (userId: string, followId: string) => {
+}
+async function createFollow(userId: string, followId: string) {
   const data = await dbClient.user.update({
     where: { id: userId },
     data: {
@@ -65,9 +64,9 @@ const createFollow = async (userId: string, followId: string) => {
   });
 
   return data.following[0];
-};
+}
 
-const deleteFollow = async (userId: string, followId: string) => {
+async function deleteFollow(userId: string, followId: string) {
   const data = await dbClient.user.update({
     where: { id: userId },
     data: {
@@ -80,6 +79,6 @@ const deleteFollow = async (userId: string, followId: string) => {
   });
 
   return data;
-};
+}
 
 export default { getById, getAll, getFollows, deleteFollow, createFollow };
