@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const host = 'http://localhost:4040/api';
+// eslint-disable-next-line no-undef
+const host = process.env.REACT_APP_BASE_URL;
 
 const client = {
   get: async path => {
