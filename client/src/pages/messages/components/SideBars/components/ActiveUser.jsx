@@ -1,6 +1,7 @@
 import { StyledActiveUser } from '../styles/ActiveUser.styled';
 
 export const ActiveUser = ({ firstName, lastName, id }) => {
+  console.log(id);
   return (
     <StyledActiveUser>
       <div></div>

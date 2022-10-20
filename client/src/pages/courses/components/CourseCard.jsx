@@ -7,7 +7,7 @@ import {
 
 export const CourseCard = ({ category, name, id }) => {
   const coursePath = name.toLowerCase().replace(' ', '-');
-  console.log(coursePath);
+
   return (
     <CourseCardContainer>
       <CourseIMG />
