@@ -16,6 +16,7 @@ export const SocketProvider = ({ children }) => {
     // eslint-disable-next-line no-undef
     const socket = io(process.env.REACT_APP_BASE_SOCKET_URL, {
       auth: { token: `Bearer ${token}` },
+      withCredentials: true,
     });
 
     socket.on('connect', () => {
