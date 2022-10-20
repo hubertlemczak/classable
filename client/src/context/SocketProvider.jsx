@@ -13,7 +13,8 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (!token) return;
-    const socket = io('http://localhost:4040', {
+    // eslint-disable-next-line no-undef
+    const socket = io(process.env.REACT_APP_BASE_URL, {
       auth: { token: `Bearer ${token}` },
     });
 
