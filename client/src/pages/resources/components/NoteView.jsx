@@ -5,8 +5,9 @@ import { useParams } from 'react-router-dom';
 import client from '../../../client';
 import { StyledMdContainer } from '../index.styled';
 
-const ResourceView = () => {
+const NoteView = () => {
   const [note, setNote] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
 
   const { noteId } = useParams();
 
@@ -23,9 +24,32 @@ const ResourceView = () => {
     getNote();
   }, [noteId]);
 
+  async function handleEdit(e) {
+    const { name, value } = e.target;
+    console.log(name, value);
+
+    setIsEditing(false);
+  }
+
   return (
     <div>
-      <h1 className="text-4xl font-bold">{note.title}</h1>
+      {isEditing ? (
+        <input
+          className="-ml-2 p-2 rounded-md text-4xl font-bold "
+          type="text"
+          name="title"
+          onBlur={handleEdit}
+          defaultValue={note.title}
+          autoFocus
+        />
+      ) : (
+        <h1
+          className="inline-block -ml-2 p-2 rounded-md text-4xl font-bold hover:bg-gray-200"
+          onClick={() => setIsEditing(true)}
+        >
+          {note.title}
+        </h1>
+      )}
       <StyledMdContainer>
         <ReactMarkdown key={note.id}>{note.content}</ReactMarkdown>
       </StyledMdContainer>
@@ -33,4 +57,4 @@ const ResourceView = () => {
   );
 };
 
-export default ResourceView;
+export default NoteView;

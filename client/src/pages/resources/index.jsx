@@ -1,13 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Resources from './components';
-import ResourceView from './components/ResourceView';
+import BoardView from './components/BoardView';
+import NoteView from './components/NoteView';
 
 const ResourcesRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Resources />} />
-      <Route path="notes/:noteId" element={<ResourceView />} />
+      <Route path="notes/:noteId" element={<NoteView />} />
+      <Route path="boards/:boardId" element={<BoardView />} />
     </Routes>
   );
 };

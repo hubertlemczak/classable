@@ -8,8 +8,7 @@ export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(false);
-  // eslint-disable-next-line no-undef
-  console.log(process.env.REACT_APP_BASE_SOCKET_URL);
+
   const { token } = useLoggedInUser();
 
   useEffect(() => {
