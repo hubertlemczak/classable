@@ -3,7 +3,7 @@ import TextArea from '../../../components/form/TextArea';
 import { STRING } from '../../../utils/vars';
 import { CreateCourseFormContainer } from '../styles/index.styled';
 
-export const Create = ({ courseName, category, description, handleChange }) => {
+export const Create = ({ name, category, description, handleChange }) => {
   return (
     <CreateCourseFormContainer>
       <h2>{STRING.CREATE_A_COURSE}</h2>
@@ -11,8 +11,8 @@ export const Create = ({ courseName, category, description, handleChange }) => {
       <FormInput
         label="Course Name"
         type="text"
-        name="courseName"
-        value={courseName}
+        name="name"
+        value={name}
         onChange={handleChange}
         required
       />

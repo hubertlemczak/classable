@@ -36,4 +36,32 @@ async function getById(id: string) {
   return data;
 }
 
-export default { getAll, getById };
+async function create({
+  name,
+  category,
+  description,
+  userId,
+}: {
+  name: string;
+  category: string;
+  description: string;
+  userId: string;
+}) {
+  const data = await dbClient.course.create({
+    data: {
+      name,
+      category,
+      description,
+      enrolment: {
+        create: {
+          userId,
+          role: 'COURSEADMIN',
+        },
+      },
+    },
+  });
+
+  return data;
+}
+
+export default { getAll, getById, create };
