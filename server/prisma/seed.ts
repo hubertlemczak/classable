@@ -145,6 +145,79 @@ async function main() {
       status: 'UNCLAIMED',
     },
   });
+
+  const board1 = await dbClient.board.create({
+    data: {
+      title: 'Board One',
+      courseId: course1.id,
+      userId: user1.id,
+      columns: {
+        create: {
+          position: 0,
+          title: 'Column One',
+          rows: {
+            createMany: {
+              data: [
+                {
+                  content: 'Row One Content',
+                  title: 'Row One Col 1',
+                  position: 0,
+                },
+                {
+                  content: 'Row Two Content',
+                  title: 'Row Two Col 1',
+                  position: 1,
+                },
+                {
+                  content: 'Row Three Content',
+                  title: 'Row Three Col 1',
+                  position: 2,
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const column2 = await dbClient.boardColumn.create({
+    data: {
+      position: 1,
+      title: 'Column Two',
+      boardId: board1.id,
+      rows: {
+        createMany: {
+          data: [
+            {
+              content: 'Row One Content',
+              title: 'Row One Col 2',
+              position: 0,
+            },
+            {
+              content: 'Row Two Content',
+              title: 'Row Two Col 2',
+              position: 1,
+            },
+            {
+              content: 'Row Three Content',
+              title: 'Row Three Col 2',
+              position: 2,
+            },
+          ],
+        },
+      },
+    },
+  });
+
+  const note1 = await dbClient.note.create({
+    data: {
+      content: 'Note 1',
+      courseId: course1.id,
+      userId: user1.id,
+      title: 'Note One',
+    },
+  });
 }
 
 main()
