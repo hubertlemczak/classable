@@ -23,9 +23,9 @@ async function getById(req: TRequestWithUser, res: Response) {
 }
 
 async function create(req: TRequestWithUser, res: Response) {
-  const { content, name, visibility } = req.body;
+  const { courseName } = req.body;
 
-  if (!content || !name) {
+  if (!courseName) {
     throw new HttpException(400, 'Missing fields in request body');
   }
 
@@ -34,17 +34,15 @@ async function create(req: TRequestWithUser, res: Response) {
   const course = await dbClient.course.findFirstOrThrow({
     where: {
       name: {
-        equals: name,
+        equals: courseName,
         mode: 'insensitive',
       },
     },
   });
 
-  console.log(course);
-
   const courseId = course.id;
 
-  const note = await model.create({ content, courseId, userId, visibility });
+  const note = await model.create({ courseId, userId });
 
   res.status(201).json({ note });
 }

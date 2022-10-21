@@ -5,19 +5,35 @@ import client from '../../../client';
 import { useLoggedInUser } from '../../../context/LoggedInUser';
 import ResourceSection from './ResourceSection';
 
+function sortResource(resource, user) {
+  let sortedResource = [...resource];
+
+  let yourResource = sortedResource.filter(
+    resource => resource.userId === user.id
+  );
+
+  let communityResource = sortedResource.filter(
+    resource => resource.userId !== user.id
+  );
+
+  let starredResource = sortedResource.filter(resource =>
+    resource.stars.find(star => star.userId === user.id)
+  );
+
+  return [yourResource, communityResource, starredResource];
+}
+
 const Resources = () => {
   const [boards, setBoards] = useState([]);
   const [notes, setNotes] = useState([]);
 
   const { user } = useLoggedInUser();
 
-  let sortedBoards = [...boards];
-  let sortedNotes = [...notes];
-
-  let yourBoards = sortedBoards.filter(board => board.userId === user.id);
-  let yourNotes = sortedNotes.filter(note => note.userId === user.id);
-  let communityBoards = sortedBoards.filter(board => board.userId !== user.id);
-  let communityNotes = sortedNotes.filter(note => note.userId !== user.id);
+  const [yourBoards, communityBoards, starredBoards] = sortResource(
+    boards,
+    user
+  );
+  const [yourNotes, communityNotes, starredNotes] = sortResource(notes, user);
 
   const { courseName } = useParams();
   const formattedCourseName = courseName.replace('-', ' ');
@@ -28,6 +44,7 @@ const Resources = () => {
         const res = await client.get(
           `/notes?courseName=${formattedCourseName}`
         );
+
         setNotes(res.data.notes);
       } catch (err) {
         console.error(err);
@@ -39,6 +56,7 @@ const Resources = () => {
         const res = await client.get(
           `/boards?courseName=${formattedCourseName}`
         );
+
         setBoards(res.data.boards);
       } catch (err) {
         console.error(err);
@@ -52,13 +70,10 @@ const Resources = () => {
   const handeSubmit = async e => {
     e.preventDefault();
 
-    const createNoteData = {
-      name: formattedCourseName,
-      content: e.target.content.value,
-    };
-
     try {
-      const res = await client.post('/notes', createNoteData);
+      const res = await client.post('/notes', {
+        courseName: formattedCourseName,
+      });
 
       setNotes(prev => [res.data.note, ...prev]);
     } catch (err) {
@@ -72,6 +87,20 @@ const Resources = () => {
         <textarea name="content" cols="30" rows="10"></textarea>
         <button>Submit</button>
       </form>
+      {starredBoards.length > 0 && (
+        <ResourceSection
+          path="boards"
+          title="Starred Boards"
+          resource={starredBoards}
+        />
+      )}
+      {starredNotes.length > 0 && (
+        <ResourceSection
+          path="notes"
+          title="Starred Notes"
+          resource={starredNotes}
+        />
+      )}
       <ResourceSection
         create="Board"
         path="boards"

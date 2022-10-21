@@ -68,3 +68,11 @@ a {
   max-width: 66rem;
   margin: 0 auto;
 }
+
+#no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

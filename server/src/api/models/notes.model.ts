@@ -68,22 +68,16 @@ async function getById(id: string) {
 }
 
 async function create({
-  content,
   courseId,
   userId,
-  visibility,
 }: {
-  content: string;
   courseId: string;
   userId: string;
-  visibility: Visibility | undefined;
 }) {
   const data = await dbClient.note.create({
     data: {
-      content,
       courseId,
       userId,
-      visibility,
     },
     include: {
       user: {
