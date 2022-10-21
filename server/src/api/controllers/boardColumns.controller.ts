@@ -37,4 +37,21 @@ async function update(req: TRequestWithUser, res: Response) {
   res.sendStatus(200);
 }
 
-export default { getById, create, update };
+async function updateById(req: TRequestWithUser, res: Response) {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  await model.updateById({ id, title });
+
+  res.sendStatus(200);
+}
+
+async function deleteColumn(req: TRequestWithUser, res: Response) {
+  const { id } = req.params;
+
+  await model.deleteColumn(id);
+
+  res.sendStatus(204);
+}
+
+export default { getById, create, update, deleteColumn, updateById };

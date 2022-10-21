@@ -68,12 +68,26 @@ api.patch('/boards/:id', authenticateUser, boardsController.update);
 api.post('/board-columns', authenticateUser, boardColumnsController.create);
 
 api.patch('/board-columns', authenticateUser, boardColumnsController.update);
+api.patch(
+  '/board-columns/:id',
+  authenticateUser,
+  boardColumnsController.updateById
+);
+
+api.delete(
+  '/board-columns/:id',
+  authenticateUser,
+  boardColumnsController.deleteColumn
+);
 
 // board-rows
 
 api.post('/board-rows', authenticateUser, boardRowsController.create);
 
 api.patch('/board-rows', authenticateUser, boardRowsController.update);
+api.patch('/board-rows/:id', authenticateUser, boardRowsController.updateById);
+
+api.delete('/board-rows/:id', authenticateUser, boardRowsController.deleteRow);
 
 // notes
 
@@ -81,6 +95,8 @@ api.post('/notes', authenticateUser, notesController.create);
 
 api.get('/notes', authenticateUser, notesController.getAll);
 api.get('/notes/:id', authenticateUser, notesController.getById);
+
+api.patch('/notes/:id', authenticateUser, notesController.updateById);
 
 // stars
 

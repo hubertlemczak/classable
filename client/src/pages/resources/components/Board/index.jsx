@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 
-import client from '../../../client';
+import client from '../../../../client';
 // import { StyledMdContainer } from '../index.styled';
-import BoardColumn from './BoardColumn';
-import CreateColumn from './CreateColumn';
+import BoardColumn from './components/BoardColumn';
+import CreateColumn from './components/CreateColumn';
 
-const BoardView = () => {
+const Board = () => {
   const [board, setBoard] = useState({});
   const [isEditing, setIsEditing] = useState(false);
 
@@ -109,7 +109,10 @@ const BoardView = () => {
           {board.title}
         </h1>
       )}
-      <div className="flex gap-5" style={{ maxHeight: 'calc(100% - 68px)' }}>
+      <div
+        className="relative flex gap-5"
+        style={{ maxHeight: 'calc(100% - 68px)' }}
+      >
         <Droppable droppableId={board.id} direction="horizontal" type="column">
           {provided => (
             <div
@@ -135,4 +138,4 @@ const BoardView = () => {
   );
 };
 
-export default BoardView;
+export default Board;

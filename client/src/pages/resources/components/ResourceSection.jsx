@@ -5,7 +5,7 @@ import { ReactComponent as STARRED } from '../../../assets/bxs-star.svg';
 
 import client from '../../../client';
 
-const ResourceSection = ({ resource, title, path, create }) => {
+const ResourceSection = ({ resource, title, path, create, name }) => {
   const navigate = useNavigate();
   const { courseName } = useParams();
   const formattedCourseName = courseName.replace('-', ' ');
@@ -33,19 +33,22 @@ const ResourceSection = ({ resource, title, path, create }) => {
       //
     }
   };
-
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 mt-10">{title}</h2>
       <div className="flex gap-4">
         {resource?.map(item => (
           <div
-            className=" bg-gray-200 h-32 w-48 p-3 rounded-md flex-shrink-0 cursor-pointer group overflow-hidden hover:bg-gray-300"
+            className=" relative bg-gray-200 h-32 w-48 p-3 rounded-md flex-shrink-0 cursor-pointer group overflow-hidden hover:bg-gray-300"
             tabIndex={0}
             key={item.id}
             onClick={() => navigate(`./${path}/${item.id}`)}
           >
             <h3 className="font-bold text-xl">{item.title}</h3>
+            <p className="absolute bottom-2 text-sm text-gray-600 w-36">
+              {name &&
+                `${item.user.profile.firstName} ${item.user.profile.lastName}`}
+            </p>
             {item.isStarred ? (
               <STARRED
                 className="fill-yellow-400 ml-auto mt-14 hover:scale-110 translate-x-10 group-hover:-translate-x-0"

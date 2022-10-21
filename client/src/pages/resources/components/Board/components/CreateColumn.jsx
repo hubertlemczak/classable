@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { ReactComponent as ADDSVG } from '../../../assets/plus.svg';
+import { ReactComponent as ADDSVG } from '../../../../../assets/plus.svg';
 
-import client from '../../../client';
+import client from '../../../../../client';
 
 const CreateColumn = ({ board, setBoard }) => {
   const [isCreatingColumn, setIsCreatingColumn] = useState(false);

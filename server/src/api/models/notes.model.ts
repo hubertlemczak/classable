@@ -1,4 +1,3 @@
-import { Visibility } from '@prisma/client';
 import dbClient from '../../utils/dbClient';
 
 async function getAll(name: string) {
@@ -97,4 +96,21 @@ async function create({
   return data;
 }
 
-export default { getAll, getById, create };
+async function updateById({
+  id,
+  content,
+  title,
+}: {
+  id: string;
+  content: string;
+  title: string;
+}) {
+  await dbClient.note.update({
+    where: {
+      id,
+    },
+    data: { content, title },
+  });
+}
+
+export default { getAll, getById, create, updateById };

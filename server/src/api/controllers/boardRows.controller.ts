@@ -2,7 +2,6 @@ import { Response } from 'express';
 
 import { TRequestWithUser } from '../../../@types/auth';
 import { TRow } from '../../../@types/boards';
-import dbClient from '../../utils/dbClient';
 import { HttpException } from '../errors';
 
 import model from '../models/boardRows.model';
@@ -37,4 +36,26 @@ async function update(req: TRequestWithUser, res: Response) {
   res.sendStatus(200);
 }
 
-export default { getById, create, update };
+async function updateById(req: TRequestWithUser, res: Response) {
+  const { title, content } = req.body;
+
+  if (!title && !content) {
+    throw new HttpException(400, 'Missing fields in request body');
+  }
+
+  const { id } = req.params;
+
+  await model.updateById({ title, content, id });
+
+  res.sendStatus(200);
+}
+
+async function deleteRow(req: TRequestWithUser, res: Response) {
+  const { id } = req.params;
+
+  await model.deleteRow(id);
+
+  res.sendStatus(204);
+}
+
+export default { getById, create, update, updateById, deleteRow };

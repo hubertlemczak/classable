@@ -23,7 +23,7 @@ const SideBar = () => {
           ))}
         </ul>
       </SideBarContainer>
-      <OutletContainer className="no-scrollbar">
+      <OutletContainer>
         <Outlet />
       </OutletContainer>
     </>

@@ -65,4 +65,29 @@ async function update({
   });
 }
 
-export default { getById, create, update };
+async function updateById({
+  id,
+  content,
+  title,
+}: {
+  id: string;
+  content: string;
+  title: string;
+}) {
+  await dbClient.boardColumnRow.update({
+    where: {
+      id,
+    },
+    data: { content, title },
+  });
+}
+
+async function deleteRow(id: string) {
+  await dbClient.boardColumnRow.delete({
+    where: {
+      id,
+    },
+  });
+}
+
+export default { getById, create, update, updateById, deleteRow };

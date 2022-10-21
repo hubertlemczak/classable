@@ -1,26 +1,19 @@
 import { Droppable, Draggable } from '@hello-pangea/dnd';
-
-import { ReactComponent as DOTSSVG } from '../../../assets/bx-dots-horizontal.svg';
+import BoardColumnHeader from './BoardColumnHeader';
 
 import BoardRow from './BoardRow';
 import CreateRow from './CreateRow';
 
-const BoardColumn = ({ id, title, rows, index, setBoard }) => {
+const BoardColumn = ({ id, title, rows, index, board, setBoard }) => {
   return (
     <Draggable draggableId={id} index={index}>
       {provided => (
         <div
           {...provided.draggableProps}
           ref={provided.innerRef}
-          className="p-4 h-max max-h-full bg-gray-200 w-80 rounded-md flex-shrink-0 overflow-y-scroll"
+          className="p-4 h-max max-h-full bg-gray-200 w-80 rounded-md flex-shrink-0 overflow-y-scroll no-scrollbar"
         >
-          <div
-            {...provided.dragHandleProps}
-            className="flex justify-between pb-5"
-          >
-            <h2 className="text-lg">{title}</h2>
-            <DOTSSVG className="fill-gray-600" />
-          </div>
+          <BoardColumnHeader {...{ provided, title, id, board, setBoard }} />
 
           <Droppable droppableId={id} type="row">
             {provided => (
@@ -30,7 +23,12 @@ const BoardColumn = ({ id, title, rows, index, setBoard }) => {
                 {...provided.droppableProps}
               >
                 {rows?.map((row, i) => (
-                  <BoardRow key={row.id} {...row} index={i} />
+                  <BoardRow
+                    key={row.id}
+                    {...row}
+                    {...{ board, setBoard }}
+                    index={i}
+                  />
                 ))}
                 {provided.placeholder}
               </div>

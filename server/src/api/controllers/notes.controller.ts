@@ -47,4 +47,18 @@ async function create(req: TRequestWithUser, res: Response) {
   res.status(201).json({ note });
 }
 
-export default { getAll, getById, create };
+async function updateById(req: TRequestWithUser, res: Response) {
+  const { title, content } = req.body;
+
+  if (!title && !content) {
+    throw new HttpException(400, 'Missing fields in request body');
+  }
+
+  const { id } = req.params;
+
+  await model.updateById({ title, content, id });
+
+  res.sendStatus(200);
+}
+
+export default { getAll, getById, create, updateById };

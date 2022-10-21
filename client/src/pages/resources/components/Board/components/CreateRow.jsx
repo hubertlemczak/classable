@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { ReactComponent as ADDSVG } from '../../../assets/plus.svg';
+import { ReactComponent as ADDSVG } from '../../../../../assets/plus.svg';
 
-import client from '../../../client';
+import client from '../../../../../client';
 
 const CreateRow = ({ id, rows, setBoard }) => {
   const [isCreatingRow, setIsCreatingRow] = useState(false);
