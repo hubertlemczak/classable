@@ -125,17 +125,17 @@ model Enrolment {
 
 model Board {
   id         String     @id @default(uuid())
-  name       String     @default("Untitled")
+  title      String     @default("Untitled")
   visibility Visibility @default(PUBLIC)
   courseId   String
   userId     String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
-  course       Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  boardColumns BoardColumn[]
-  stars        StarredResource[]
+  course  Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user    User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  columns BoardColumn[]
+  stars   StarredResource[]
 }
 
 model BoardColumn {
@@ -146,26 +146,26 @@ model BoardColumn {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  board           Board            @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  boardColumnRows BoardColumnRow[]
+  board Board            @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  rows  BoardColumnRow[]
 }
 
 model BoardColumnRow {
   id            String   @id @default(uuid())
   title         String
-  content       String
+  content       String?
   position      Int
   boardColumnId String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  boardColumn BoardColumn @relation(fields: [boardColumnId], references: [id], onDelete: Cascade)
+  column BoardColumn @relation(fields: [boardColumnId], references: [id], onDelete: Cascade)
 }
 
 model Note {
   id         String     @id @default(uuid())
   title      String     @default("Untitled")
-  content    String
+  content    String?
   visibility Visibility @default(PUBLIC)
   courseId   String
   userId     String
