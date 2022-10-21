@@ -10,6 +10,9 @@ import coursesController from './controllers/courses.controller';
 import boardsController from './controllers/boards.controller';
 import notesController from './controllers/notes.controller';
 import starsController from './controllers/stars.controller';
+import boardColumnsController from './controllers/boardColumns.controller';
+import boardRowsController from './controllers/boardRows.controller';
+
 import { authenticateUser } from '../auth';
 
 api.get('/health-check', (req: Request, res: Response) => {
@@ -53,8 +56,24 @@ api.get('/courses/:id', authenticateUser, coursesController.getById);
 
 // boards
 
+api.post('/boards', authenticateUser, boardsController.create);
+
 api.get('/boards', authenticateUser, boardsController.getAll);
 api.get('/boards/:id', authenticateUser, boardsController.getById);
+
+api.patch('/boards/:id', authenticateUser, boardsController.update);
+
+// board-columns
+
+api.post('/board-columns', authenticateUser, boardColumnsController.create);
+
+api.patch('/board-columns', authenticateUser, boardColumnsController.update);
+
+// board-rows
+
+api.post('/board-rows', authenticateUser, boardRowsController.create);
+
+api.patch('/board-rows', authenticateUser, boardRowsController.update);
 
 // notes
 
