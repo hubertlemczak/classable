@@ -11,7 +11,7 @@ const BoardColumn = ({ id, title, rows, index, board, setBoard }) => {
         <div
           {...provided.draggableProps}
           ref={provided.innerRef}
-          className="p-4 h-max max-h-full bg-gray-200 w-80 rounded-md flex-shrink-0 overflow-y-scroll no-scrollbar"
+          className="p-4 mr-5 h-max max-h-full bg-gray-200 w-80 rounded-md flex-shrink-0 overflow-y-scroll no-scrollbar"
         >
           <BoardColumnHeader {...{ provided, title, id, board, setBoard }} />
 

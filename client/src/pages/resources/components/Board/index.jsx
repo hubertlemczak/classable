@@ -108,7 +108,7 @@ const Board = () => {
         </h1>
       )}
       <div
-        className="relative flex gap-5"
+        className="relative flex mr-5"
         style={{ maxHeight: 'calc(100% - 68px)' }}
       >
         <Droppable droppableId={board.id} direction="horizontal" type="column">
@@ -116,7 +116,7 @@ const Board = () => {
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className="flex gap-5 "
+              className="flex"
             >
               {board?.columns?.map((column, i) => (
                 <BoardColumn
