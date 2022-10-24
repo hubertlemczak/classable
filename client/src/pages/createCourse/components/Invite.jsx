@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import uniqid from 'uniqid';
+
 import FormInput from '../../../components/form/FormInput';
 import { CreateCourseFormContainer } from '../styles/index.styled';
 

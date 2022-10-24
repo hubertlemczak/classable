@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as Users } from '../../../../../assets/users.svg';
+import { ReactComponent as Users } from '../../../../../assets/icons/users.svg';
 
 export const StyledChatItem = styled.li`
   display: flex;

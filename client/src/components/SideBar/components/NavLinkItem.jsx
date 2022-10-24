@@ -1,17 +1,17 @@
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import { StyledNavLink } from '../styles/NavLinkItem.styled';
-import { ReactComponent as Dashboard } from '../../../assets/home.svg';
-import { ReactComponent as DashboardSolid } from '../../../assets/home-solid.svg';
-import { ReactComponent as Assignments } from '../../../assets/assignments.svg';
-import { ReactComponent as AssignmentsSolid } from '../../../assets/assignments-solid.svg';
-import { ReactComponent as Resources } from '../../../assets/resources.svg';
-import { ReactComponent as ResourcesSolid } from '../../../assets/resources-solid.svg';
-import { ReactComponent as Messages } from '../../../assets/messages.svg';
-import { ReactComponent as MessagesSolid } from '../../../assets/messages-solid.svg';
-import { ReactComponent as Calendar } from '../../../assets/calendar.svg';
-import { ReactComponent as CalendarSolid } from '../../../assets/calendar-solid.svg';
-import { ReactComponent as Classroom } from '../../../assets/classroom.svg';
-import { ReactComponent as ClassroomSolid } from '../../../assets/classroom-solid.svg';
+import { ReactComponent as Dashboard } from '../../../assets/icons/home.svg';
+import { ReactComponent as DashboardSolid } from '../../../assets/icons/home-solid.svg';
+import { ReactComponent as Assignments } from '../../../assets/icons/assignments.svg';
+import { ReactComponent as AssignmentsSolid } from '../../../assets/icons/assignments-solid.svg';
+import { ReactComponent as Resources } from '../../../assets/icons/resources.svg';
+import { ReactComponent as ResourcesSolid } from '../../../assets/icons/resources-solid.svg';
+import { ReactComponent as Messages } from '../../../assets/icons/messages.svg';
+import { ReactComponent as MessagesSolid } from '../../../assets/icons/messages-solid.svg';
+import { ReactComponent as Calendar } from '../../../assets/icons/calendar.svg';
+import { ReactComponent as CalendarSolid } from '../../../assets/icons/calendar-solid.svg';
+import { ReactComponent as Classroom } from '../../../assets/icons/classroom.svg';
+import { ReactComponent as ClassroomSolid } from '../../../assets/icons/classroom-solid.svg';
 
 const SVGs = {
   dashboard: <Dashboard />,

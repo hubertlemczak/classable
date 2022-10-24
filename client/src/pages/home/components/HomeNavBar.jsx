@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
+
 import { STRING } from '../../../utils/vars';
 import { Logo, StyledHomeNavBar } from '../styles/HomeNavBar.styled';
 

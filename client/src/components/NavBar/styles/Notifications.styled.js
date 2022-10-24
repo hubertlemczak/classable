@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as BellSVG } from '../../../assets/bell.svg';
+import { ReactComponent as BellSVG } from '../../../assets/icons/bell.svg';
 
 export const StyledNotificationsIcon = styled(BellSVG)`
   fill: white;

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { ReactComponent as UNSTARRED } from '../../../assets/bx-star.svg';
-import { ReactComponent as STARRED } from '../../../assets/bxs-star.svg';
+import { ReactComponent as UNSTARRED } from '../../../assets/icons/bx-star.svg';
+import { ReactComponent as STARRED } from '../../../assets/icons/bxs-star.svg';
 
 import client from '../../../client';
 

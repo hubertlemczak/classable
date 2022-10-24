@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as DownSVG } from '../../../assets/angle-down.svg';
+import { ReactComponent as DownSVG } from '../../../assets/icons/angle-down.svg';
 import me from '../../../assets/me.jpg';
 
 export const StyledUserIcon = styled.div`

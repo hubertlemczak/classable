@@ -1,4 +1,4 @@
-import { ReactComponent as ERRORSVG } from '../assets/error.svg';
+import { ReactComponent as ERRORSVG } from '../assets/icons/error.svg';
 
 const Error = ({ message, className }) => {
   return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import { ReactComponent as EDITSVG } from '../../../../../assets/bxs-edit.svg';
+import { ReactComponent as EDITSVG } from '../../../../../assets/icons/bxs-edit.svg';
 
 import { StyledMdContainer } from '../../index.styled';
 
@@ -109,7 +109,7 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
             {isEditingContent ? (
               <form onBlur={handeSubmit} onSubmit={handeSubmit}>
                 <textarea
-                  className="w-full h-max"
+                  className="w-full h-max p-2"
                   name="content"
                   rows={rowLength()}
                   defaultValue={rowContent}

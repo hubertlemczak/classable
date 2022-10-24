@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-// import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 
 import client from '../../../../client';
-// import { StyledMdContainer } from '../index.styled';
 import BoardColumn from './components/BoardColumn';
 import CreateColumn from './components/CreateColumn';
 

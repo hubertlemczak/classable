@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ReactComponent as DOTSSVG } from '../../../../../assets/bx-dots-horizontal.svg';
+import { ReactComponent as DOTSSVG } from '../../../../../assets/icons/bx-dots-horizontal.svg';
 
 import client from '../../../../../client';
 

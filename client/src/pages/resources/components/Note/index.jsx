@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 
-import { ReactComponent as EDITSVG } from '../../../../assets/bxs-edit.svg';
+import { ReactComponent as EDITSVG } from '../../../../assets/icons/bxs-edit.svg';
 
 import client from '../../../../client';
 import { StyledMdContainer } from '../index.styled';

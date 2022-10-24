@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ReactComponent as ADDSVG } from '../../../../../assets/plus.svg';
+import { ReactComponent as ADDSVG } from '../../../../../assets/icons/plus.svg';
 
 import client from '../../../../../client';
 

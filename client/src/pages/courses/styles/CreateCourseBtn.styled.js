@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ReactComponent as AddSVG } from '../../../assets/plus.svg';
+import { ReactComponent as AddSVG } from '../../../assets/icons/plus.svg';
 
 export const StyledCreateCourseBtn = styled(Link)`
   font-weight: bold;

@@ -1,8 +1,8 @@
 import styled, { keyframes } from 'styled-components';
-import { ReactComponent as downArrow } from '../../../assets/angle-down.svg';
+import { ReactComponent as downArrow } from '../../../assets/icons/angle-down.svg';
 
-import WaveSVG from '../../../assets/wave.svg';
-import { ReactComponent as HeroSVG } from '../../../assets/hero.svg';
+import WaveSVG from '../../../assets/icons/wave.svg';
+import { ReactComponent as HeroSVG } from '../../../assets/icons/hero.svg';
 
 export const HeroText = styled.div`
   color: white;

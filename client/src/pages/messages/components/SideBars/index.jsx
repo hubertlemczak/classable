@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import uniqid from 'uniqid';
+
 import { useSocket } from '../../../../context/SocketProvider';
 import { STRING } from '../../../../utils/vars';
 import ChatRoom from '../ChatRoom';
