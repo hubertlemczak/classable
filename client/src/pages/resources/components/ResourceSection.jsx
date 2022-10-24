@@ -51,12 +51,12 @@ const ResourceSection = ({ resource, title, path, create, name }) => {
             </p>
             {item.isStarred ? (
               <STARRED
-                className="fill-yellow-400 ml-auto mt-14 hover:scale-110 translate-x-10 group-hover:-translate-x-0"
+                className="absolute bottom-2 right-2 fill-yellow-400 ml-auto hover:scale-110 translate-x-10 group-hover:-translate-x-0 transition-transform"
                 onClick={e => handleStar(e, true)}
               />
             ) : (
               <UNSTARRED
-                className="w-5 h-5 ml-auto mt-14 hover:scale-110 translate-x-10 group-hover:-translate-x-0 transition-transform"
+                className="absolute bottom-2 right-2 w-5 h-5 ml-auto hover:scale-110 translate-x-10 group-hover:-translate-x-0 transition-transform"
                 onClick={e => handleStar(e, false)}
               />
             )}
