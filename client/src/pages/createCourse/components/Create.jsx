@@ -7,7 +7,6 @@ export const Create = ({ name, category, description, handleChange }) => {
   return (
     <CreateCourseFormContainer>
       <h2>{STRING.CREATE_A_COURSE}</h2>
-
       <FormInput
         label="Course Name"
         type="text"
@@ -16,7 +15,6 @@ export const Create = ({ name, category, description, handleChange }) => {
         onChange={handleChange}
         required
       />
-
       <FormInput
         label="Category"
         type="text"

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 export const CourseCardContainer = styled.div`
   width: 250px;
   height: 350px;
-  border: 1px solid black;
-  border-radius: 8px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 10px #dededf;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -20,6 +20,7 @@ export const CourseCardContainer = styled.div`
     }
 
     p {
+      color: gray;
       font-size: 0.9rem;
     }
   }
@@ -28,15 +29,11 @@ export const CourseCardContainer = styled.div`
 export const CourseIMG = styled.img`
   width: 150px;
   height: 150px;
-  border: 1px solid black;
   border-radius: 50%;
 `;
 
 export const ViewBtn = styled(Link)`
-  color: black;
-  font-size: 1.3rem;
+  color: gray;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 0.6rem 3rem;
-  border: 1px solid black;
-  border-radius: 100px;
 `;

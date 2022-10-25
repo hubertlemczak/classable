@@ -1,3 +1,4 @@
+import { Role } from '@prisma/client';
 import { Response } from 'express';
 
 import { TRequestWithUser } from '../../../@types/auth';
@@ -21,7 +22,7 @@ async function getById(req: TRequestWithUser, res: Response) {
 }
 
 async function create(req: TRequestWithUser, res: Response) {
-  const { name, category, description } = req.body;
+  const { name, category, description, users, image } = req.body;
 
   if (!name || !category || !description) {
     throw new HttpException(400, 'Missing fields in request body');
@@ -29,7 +30,18 @@ async function create(req: TRequestWithUser, res: Response) {
 
   const userId = req.user?.id as string;
 
-  await model.create({ name, category, description, userId });
+  const usersToInvite = users.map(
+    ({ userId, role }: { userId: string; role: Role }) => ({ userId, role })
+  );
+
+  await model.create({
+    name,
+    category,
+    description,
+    userId,
+    usersToInvite,
+    image,
+  });
 
   res.sendStatus(201);
 }

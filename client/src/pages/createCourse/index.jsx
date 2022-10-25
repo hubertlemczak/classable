@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import uniqid from 'uniqid';
 
 import client from '../../client';
+import supabase, { supabaseUrl } from '../../client/supabase';
 import NavBar from '../../components/NavBar';
 import { STRING } from '../../utils/vars';
 import { Create } from './components/Create';
@@ -12,14 +14,12 @@ const defaultCreateCourseFields = {
   name: '',
   category: '',
   description: '',
-  userId: '',
   users: [],
 };
 
 const CreateCourse = () => {
   const [formFields, setFormFields] = useState(defaultCreateCourseFields);
   const [error, setError] = useState('');
-  const { name, category, description, userId } = formFields;
 
   const navigate = useNavigate();
 
@@ -32,12 +32,22 @@ const CreateCourse = () => {
   async function handleSubmit(e) {
     try {
       e.preventDefault();
+      const file = e.target.courseAvatar.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${uniqid()}.${fileExt}`;
+      const filePath = `${fileName}`;
 
-      await client.post('/courses', {
-        name,
-        category,
-        description,
-      });
+      const { data, error } = await supabase.storage
+        .from('images')
+        .upload(filePath, file);
+
+      const createCourseData = {
+        ...formFields,
+        image: supabaseUrl + '/storage/v1/object/public/images/' + filePath,
+      };
+
+      console.log(data, error);
+      await client.post('/courses', createCourseData);
 
       setFormFields(defaultCreateCourseFields);
       navigate('/courses');
@@ -52,8 +62,8 @@ const CreateCourse = () => {
       <NavBar />
       <CreateCourseForm onSubmit={handleSubmit}>
         <CreateCourseContainer>
-          <Create {...{ name, category, description, handleChange }} />
-          <Invite {...{ userId, handleChange }} />
+          <Create {...{ ...formFields, handleChange }} />
+          <Invite {...{ formFields, setFormFields }} />
         </CreateCourseContainer>
 
         <button type="submit">{STRING.CREATE_COURSE}</button>

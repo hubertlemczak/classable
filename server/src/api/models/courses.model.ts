@@ -1,3 +1,4 @@
+import { Role } from '@prisma/client';
 import dbClient from '../../utils/dbClient';
 
 async function getAll(userId: string | undefined) {
@@ -41,21 +42,31 @@ async function create({
   category,
   description,
   userId,
+  usersToInvite,
+  image,
 }: {
   name: string;
   category: string;
   description: string;
   userId: string;
+  usersToInvite: { userId: string; role: Role }[];
+  image: string;
 }) {
   const data = await dbClient.course.create({
     data: {
       name,
       category,
       description,
+      image,
       enrolment: {
-        create: {
-          userId,
-          role: 'COURSEADMIN',
+        createMany: {
+          data: [
+            {
+              userId,
+              role: 'COURSEADMIN',
+            },
+            ...usersToInvite,
+          ],
         },
       },
     },

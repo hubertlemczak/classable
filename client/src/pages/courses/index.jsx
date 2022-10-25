@@ -10,7 +10,7 @@ import { CardsContainer, CoursesContainer } from './styles/index.styled';
 
 export const Courses = () => {
   const [courses, setCourses] = useState([]);
-
+  console.log(courses);
   useEffect(() => {
     async function getCourses() {
       const res = await client.get('/courses?user=true');
