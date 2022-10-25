@@ -6,7 +6,11 @@ import { HttpException } from '../errors';
 import model from '../models/users.model';
 
 async function getAll(req: TRequestWithUser, res: Response) {
-  const users = await model.getAll();
+  const email = req.query.email as string | undefined;
+
+  const id = req.user?.id as string;
+
+  const users = await model.getAll(email, id);
 
   res.status(200).json({ users });
 }

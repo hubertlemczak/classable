@@ -1,9 +1,24 @@
 import dbClient from '../../utils/dbClient';
 
-async function getAll() {
+async function getAll(email: string | undefined, id: string) {
   const data = await dbClient.user.findMany({
+    where: {
+      AND: [
+        {
+          email: {
+            contains: email,
+          },
+        },
+        {
+          id: {
+            not: id,
+          },
+        },
+      ],
+    },
     select: {
       id: true,
+      email: true,
       profile: { select: { firstName: true, lastName: true } },
     },
   });

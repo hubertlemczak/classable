@@ -26,6 +26,7 @@ function sortResource(resource, user) {
 const Resources = () => {
   const [boards, setBoards] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useLoggedInUser();
 
@@ -63,9 +64,13 @@ const Resources = () => {
       }
     }
 
+    setIsLoading(true);
     getNotes();
     getBoards();
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) return;
 
   return (
     <div className="relative">
