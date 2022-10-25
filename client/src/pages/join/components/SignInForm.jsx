@@ -49,7 +49,7 @@ export const SignInForm = () => {
   const handleDemo = async () => {
     try {
       const res = await client.post('/login', {
-        email: 'user1@test.com',
+        email: 'demo@user.com',
         password: '123',
       });
 
