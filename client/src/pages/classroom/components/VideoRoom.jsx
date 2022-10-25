@@ -9,14 +9,18 @@ import {
   useMicrophoneAndCameraTracks,
   agoraOptions,
 } from '../utils/agora';
+import Spinner from '../../../components/Spinner';
 
 export default function VideoRoom() {
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const agoraClient = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
 
   const { user } = useLoggedInUser();
   const location = useLocation();
+  const { channel, token } = location.state;
 
   if (!user.id || !location.state.channel) return;
 
@@ -60,12 +64,7 @@ export default function VideoRoom() {
       agoraClient.on('user-left', handleUserLeft);
 
       console.error('joining');
-      await agoraClient.join(
-        agoraOptions.appId,
-        agoraOptions.channel,
-        agoraOptions.token,
-        user?.id
-      );
+      await agoraClient.join(agoraOptions.appId, channel, token, user?.id);
 
       agoraClient.publish(tracks);
 
@@ -81,15 +80,19 @@ export default function VideoRoom() {
       ]);
     }
 
-    if (ready && tracks) {
+    if (ready && tracks && user?.id) {
       init();
+      setIsLoading(false);
     }
-  }, [ready, tracks, agoraClient]);
+  }, [ready, tracks, agoraClient, user]);
 
   useEffect(() => {
     console.log(users);
   }, [users]);
-  return (
+
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div>
       {users?.map(user => (
         <VideoPlayer key={user.uid} user={user} />

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import client from '../../../client';
+import Spinner from '../../../components/Spinner';
 import { useLoggedInUser } from '../../../context/LoggedInUser';
 import ResourceSection from './ResourceSection';
 
@@ -70,7 +71,7 @@ const Resources = () => {
     setIsLoading(false);
   }, []);
 
-  if (isLoading) return;
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="relative">
