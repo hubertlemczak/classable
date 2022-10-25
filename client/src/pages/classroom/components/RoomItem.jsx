@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import client from '../../../client';
 import Button from '../../../components/Button';
 import FormInput from '../../../components/form/FormInput';
