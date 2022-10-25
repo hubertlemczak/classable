@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import client from '../../../client';
 import Error from '../../../components/Error';
 import FormInput from '../../../components/form/FormInput';
+import { useLoggedInUser } from '../../../context/LoggedInUser';
 import { STRING } from '../../../utils/vars';
 
 import { StyledAuthenticaionForm } from '../styles/AuthenticationForm.styled';
@@ -17,6 +19,9 @@ const defaultFormFields = {
 export const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [error, setError] = useState('');
+
+  const { setToken } = useLoggedInUser();
+  const navigate = useNavigate();
 
   const { firstName, lastName, email, password, confirmPassword } = formFields;
 
@@ -38,9 +43,18 @@ export const SignUpForm = () => {
       return setError('Password does not match.');
     }
 
-    const res = await client.post('/register', formFields);
-    console.log(res);
-    resetFormFields();
+    try {
+      const res = await client.post('/register', formFields);
+      const { token } = res.data;
+      resetFormFields();
+
+      localStorage.setItem('classable-token', token);
+      setToken(token);
+      resetFormFields();
+      navigate('/courses');
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
