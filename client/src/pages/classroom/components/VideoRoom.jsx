@@ -1,57 +1,64 @@
-import AgoraRTC from 'agora-rtc-sdk-ng';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import client from '../../../client';
 import { useLoggedInUser } from '../../../context/LoggedInUser';
 import VideoPlayer from './VideoPlayer';
 
-const agoraOptions = {
-  // eslint-disable-next-line no-undef
-  appId: process.env.REACT_APP_AGORA_APPID,
-  token:
-    '007eJxTYGDfMzt90vuTWyemB/B4aa23tAt+fO59evSTRSzb5q5/Hp+jwGBikZyUnGJgZmiaaGpibmiYaGlsaWGQmppmkmhgamySxLMjLLk+kJGBda4gEyMDBIL4PAwlqcUlCskZiXl5qTkMDAB5vCIL',
-  channel: 'test channel',
-};
-
-const agoraClient = AgoraRTC.createClient({
-  mode: 'rtc',
-  codec: 'vp8',
-});
+import {
+  useClient,
+  useMicrophoneAndCameraTracks,
+  agoraOptions,
+} from '../utils/agora';
 
 export default function VideoRoom() {
   const [users, setUsers] = useState([]);
-  const [tracks, setTracks] = useState([]);
+  const agoraClient = useClient();
+  const { ready, tracks } = useMicrophoneAndCameraTracks();
+
   const { user } = useLoggedInUser();
+  const location = useLocation();
 
-  if (!user.id) return;
+  if (!user.id || !location.state.channel) return;
 
-  async function handleUserPublish(u, mediaType) {
-    await agoraClient.subscribe(u, mediaType);
-
-    const res = await client.get(`/users/${u.uid}`);
+  async function handleUserPublished(usr, mediaType) {
+    await agoraClient.subscribe(usr, mediaType);
+    console.log('here');
+    const res = await client.get(`/users/${usr.uid}`);
 
     const { firstName, lastName } = res.data.user.profile;
 
-    u.firstName = firstName;
-    u.lastName = lastName;
+    usr.firstName = firstName;
+    usr.lastName = lastName;
 
     if (mediaType === 'audio') {
-      u.audioTrack.play();
+      usr.audioTrack?.play();
     }
 
     if (mediaType === 'video') {
-      setUsers(prev => [...prev, u]);
+      setUsers(prev => [...prev, usr]);
     }
   }
 
-  async function handleUserLeft(u) {
-    setUsers(prev => prev.filter(p => p.uid !== u.uid));
+  function handleUserUnpublished(usr, mediaType) {
+    if (mediaType === 'audio') {
+      usr.audioTrack?.stop();
+    }
+
+    if (mediaType === 'video') {
+      setUsers(prev => prev.filter(p => p.uid !== usr.uid));
+    }
+  }
+
+  function handleUserLeft(usr) {
+    setUsers(prev => prev.filter(p => p.uid !== usr.uid));
   }
 
   useEffect(() => {
-    agoraClient.on('user-published', handleUserPublish);
-    agoraClient.on('user-left', handleUserLeft);
+    async function init() {
+      agoraClient.on('user-published', handleUserPublished);
+      agoraClient.on('user-unpublished', handleUserUnpublished);
+      agoraClient.on('user-left', handleUserLeft);
 
-    async function joinChannel() {
       console.error('joining');
       await agoraClient.join(
         agoraOptions.appId,
@@ -60,43 +67,24 @@ export default function VideoRoom() {
         user?.id
       );
 
-      const audioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-      const videoTrack = await AgoraRTC.createCameraVideoTrack();
-
-      agoraClient.publish([audioTrack, videoTrack]);
+      agoraClient.publish(tracks);
 
       setUsers(prev => [
         ...prev,
         {
           uid: user.id,
+          videoTrack: tracks[1],
+          audioTrack: tracks[0],
           firstName: user.profile.firstName,
           lastName: user.profile.lastName,
-          videoTrack,
-          audioTrack,
         },
       ]);
-
-      setTracks([audioTrack, videoTrack]);
     }
 
-    if (agoraClient.connectionState === 'DISCONNECTED') {
-      joinChannel();
+    if (ready && tracks) {
+      init();
     }
-
-    return () => {
-      for (let track of tracks) {
-        track.stop();
-        track.close();
-      }
-
-      agoraClient.off('user-published');
-      agoraClient.off('user-left');
-
-      if (tracks.length > 0) {
-        agoraClient.unpublish(tracks).then(() => agoraClient.leave());
-      }
-    };
-  }, []);
+  }, [ready, tracks, agoraClient]);
 
   useEffect(() => {
     console.log(users);
