@@ -12,6 +12,7 @@ import notesController from './controllers/notes.controller';
 import starsController from './controllers/stars.controller';
 import boardColumnsController from './controllers/boardColumns.controller';
 import boardRowsController from './controllers/boardRows.controller';
+import classroomsController from './controllers/classrooms.controller';
 
 import { authenticateUser } from '../auth';
 
@@ -104,5 +105,12 @@ api.patch('/notes/:id', authenticateUser, notesController.updateById);
 
 api.post('/stars', authenticateUser, starsController.create);
 api.delete('/stars/:id', authenticateUser, starsController.deleteStar);
+
+// classrooms
+
+api.post('/classrooms', authenticateUser, classroomsController.create);
+api.post('/classrooms/:id', authenticateUser, classroomsController.createToken);
+
+api.get('/classrooms', authenticateUser, classroomsController.getAll);
 
 export default api;
