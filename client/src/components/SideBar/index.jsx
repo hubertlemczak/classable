@@ -15,7 +15,7 @@ const NAV_LINKS = [
 
 const SideBar = () => {
   return (
-    <>
+    <div className="flex">
       <SideBarContainer>
         <ul>
           {NAV_LINKS.map(link => (
@@ -26,7 +26,7 @@ const SideBar = () => {
       <OutletContainer>
         <Outlet />
       </OutletContainer>
-    </>
+    </div>
   );
 };
 

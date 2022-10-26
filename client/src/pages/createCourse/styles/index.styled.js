@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const CreateCourseForm = styled.form`
   max-width: 66rem;
-  margin: 40px auto;
+  margin: 0px auto;
   flex-direction: column;
   align-items: center;
+  padding-top: 140px;
 
   button {
     color: white;
