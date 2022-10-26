@@ -3,7 +3,7 @@ export const theme = {
   greenHover: '#12db8e',
   navActive: 'white',
   navHover: 'rgba(168, 168, 168,0.3)',
-  darkBG: '#121212',
+  darkBG: '#181818',
   offWhite: '#f5f5f7',
   lightBG: '#262626',
   textLight: '#67696b',
