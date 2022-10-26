@@ -1,13 +1,13 @@
-import { StyledActiveUser } from '../styles/ActiveUser.styled';
+import { StyledUserItem } from '../styles/ChatItem.styled';
 
 export const ActiveUser = ({ firstName, lastName, id }) => {
   console.log(id);
   return (
-    <StyledActiveUser>
+    <StyledUserItem>
       <div></div>
       <span className="text-sm">
         {firstName} {lastName}
       </span>
-    </StyledActiveUser>
+    </StyledUserItem>
   );
 };

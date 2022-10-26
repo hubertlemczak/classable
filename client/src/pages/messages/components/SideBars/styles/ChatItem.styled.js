@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import { ReactComponent as Users } from '../../../../../assets/icons/users.svg';
 
-export const StyledChatItem = styled.li`
+export const StyledUserItem = styled.li`
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
   color: ${({ theme }) => theme.textLight};
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
   width: 100%;
   cursor: pointer;
-  height: 57px;
+  margin-bottom: 10px;
 
   &:hover {
     background-color: ${({ theme }) => theme.navHover};

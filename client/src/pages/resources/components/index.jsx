@@ -74,7 +74,7 @@ const Resources = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="relative">
+    <div className="relative m-0 sm:m-5">
       {starredBoards.length > 0 && (
         <ResourceSection
           path="boards"

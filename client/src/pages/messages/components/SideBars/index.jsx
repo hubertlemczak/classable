@@ -4,12 +4,10 @@ import uniqid from 'uniqid';
 
 import { useSocket } from '../../../../context/SocketProvider';
 import { STRING } from '../../../../utils/vars';
-import ChatRoom from '../ChatRoom';
 import { ActiveUser } from './components/ActiveUser';
 
 import { ChatItem } from './components/ChatItem';
-import { ActiveUsersContainer } from './styles/ActiveUser.styled';
-import { OutletContainer, SideBarContainer } from './styles/index.styled';
+import { SideBarContainer } from './styles/index.styled';
 
 const SideBars = () => {
   const [chats] = useState([
@@ -46,7 +44,7 @@ const SideBars = () => {
   }, []);
 
   return (
-    <>
+    <div className="flex md:m-5">
       <SideBarContainer>
         <NavLink to="tickets">
           <p>{STRING.TICKETS}</p>
@@ -57,20 +55,23 @@ const SideBars = () => {
           ))}
         </ul>
       </SideBarContainer>
-      <ActiveUsersContainer>
-        <ul>
+      <div
+        className="w-full md:px-5"
+        style={{ minHeight: 'calc(100vh - 180px)' }}
+      >
+        <Outlet />
+      </div>
+
+      <SideBarContainer>
+        <ul className="pt-2.5">
           <li>Online</li>
           {activeUsers?.map(user => (
             <ActiveUser key={uniqid()} {...user} />
           ))}
           <li>Offline</li>
         </ul>
-      </ActiveUsersContainer>
-      <OutletContainer>
-        <ChatRoom />
-        <Outlet />
-      </OutletContainer>
-    </>
+      </SideBarContainer>
+    </div>
   );
 };
 
