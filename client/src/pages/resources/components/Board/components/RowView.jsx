@@ -10,7 +10,6 @@ import client from '../../../../../client';
 import BoardRowMenu from './BoardRowMenu';
 
 const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
-  const [rowContent, setRowContent] = useState(content);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isEditingContent, setIsEditingContent] = useState(false);
 
@@ -49,7 +48,7 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
 
     const newContent = e.target?.content?.value || e.target.value;
 
-    if (newContent === rowContent) return setIsEditingContent(false);
+    if (newContent === content) return setIsEditingContent(false);
     if (!newContent) return setIsEditingContent(false);
 
     try {
@@ -57,7 +56,20 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
         content: newContent,
       });
 
-      setRowContent(newContent);
+      const newColumns = board.columns.map(column => {
+        column.rows = column.rows.map(row => {
+          if (row.id === id) {
+            row.content = newContent;
+            return row;
+          }
+          return row;
+        });
+
+        return column;
+      });
+
+      setBoard(prev => ({ ...prev, columns: newColumns }));
+
       setIsEditingContent(false);
     } catch (err) {
       console.error(err);
@@ -66,7 +78,7 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
   }
 
   const rowLength = () => {
-    const newLines = rowContent?.split('\n')?.length || 5;
+    const newLines = content?.split('\n')?.length || 5;
     return Math.ceil(newLines + newLines / 5);
   };
 
@@ -112,7 +124,7 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
                   className="w-full h-max p-2"
                   name="content"
                   rows={rowLength()}
-                  defaultValue={rowContent}
+                  defaultValue={content}
                   autoFocus
                 ></textarea>
                 <button
@@ -131,7 +143,7 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
               </form>
             ) : (
               <StyledMdContainer>
-                <ReactMarkdown key={id}>{rowContent}</ReactMarkdown>
+                <ReactMarkdown key={id}>{content}</ReactMarkdown>
               </StyledMdContainer>
             )}
           </div>
