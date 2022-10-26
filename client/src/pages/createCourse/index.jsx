@@ -32,21 +32,22 @@ const CreateCourse = () => {
   async function handleSubmit(e) {
     try {
       e.preventDefault();
-      const file = e.target.courseAvatar.files[0];
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${uniqid()}.${fileExt}`;
-      const filePath = `${fileName}`;
-
-      const { data, error } = await supabase.storage
-        .from('images')
-        .upload(filePath, file);
 
       const createCourseData = {
         ...formFields,
-        image: supabaseUrl + '/storage/v1/object/public/images/' + filePath,
       };
 
-      console.log(data, error);
+      const file = e.target.courseAvatar.files[0];
+      if (file) {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${uniqid()}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        await supabase.storage.from('images').upload(filePath, file);
+
+        createCourseData.image = `${supabaseUrl}/storage/v1/object/public/images/${filePath}`;
+      }
+
       await client.post('/courses', createCourseData);
 
       setFormFields(defaultCreateCourseFields);
@@ -66,7 +67,9 @@ const CreateCourse = () => {
           <Invite {...{ formFields, setFormFields }} />
         </CreateCourseContainer>
 
-        <button type="submit">{STRING.CREATE_COURSE}</button>
+        <button type="submit" className="ml-2.5 my-5">
+          {STRING.CREATE_COURSE}
+        </button>
       </CreateCourseForm>
     </>
   );
