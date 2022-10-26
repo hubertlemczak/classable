@@ -1,10 +1,24 @@
 import styled from 'styled-components';
+import NAV_PATTERN from '../../../assets/nav-pattern.svg';
 
 export const StyledHomeNavBar = styled.header`
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 101;
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.darkBG};
   height: 100px;
+  background-image: url(${NAV_PATTERN});
+  background-size: 1000px;
+  background-position: 669px 1110px;
+
+  @media (max-width: 1280px) {
+    & {
+      background-position: 609px 1110px;
+    }
+  }
 
   * {
     color: white;
@@ -15,7 +29,13 @@ export const StyledHomeNavBar = styled.header`
     justify-content: space-between;
     align-items: center;
     flex: 1;
-    padding-inline: 20px;
+    padding-inline: 36px;
+
+    @media (max-width: 1280px) {
+      & {
+        padding-inline: 10px;
+      }
+    }
 
     ul {
       display: flex;
@@ -24,8 +44,4 @@ export const StyledHomeNavBar = styled.header`
       list-style: none;
     }
   }
-`;
-
-export const Logo = styled.h1`
-  font-size: 2rem;
 `;

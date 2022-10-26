@@ -1,14 +1,14 @@
 import styled from 'styled-components';
+import NAV_PATTERN from '../../../assets/nav-pattern.svg';
 
 export const SideBarContainer = styled.div`
-  position: fixed;
-  left: 0;
-  top: 100px;
-  bottom: 0;
-  width: 230px;
+  min-width: 230px;
   background-color: ${({ theme }) => theme.darkBG};
-  padding: 20px;
-  overflow-y: scroll;
+  background-image: url(${NAV_PATTERN});
+  background-size: 1000px;
+  background-position: 50% -152px;
+  padding: 120px 20px 0px 20px;
+  min-height: 100vh;
 
   &::-webkit-scrollbar {
     display: none;
@@ -20,14 +20,21 @@ export const SideBarContainer = styled.div`
     list-style: none;
     gap: 20px;
   }
+
+  @media (max-width: 1280px) {
+    & {
+      min-width: max-content;
+    }
+  }
 `;
 
 export const OutletContainer = styled.div`
-  position: fixed;
   overflow-y: scroll;
-  top: 120px;
-  right: 20px;
-  bottom: 20px;
-  left: 250px;
-  padding: 20px;
+  margin: 120px 20px 20px 20px;
+  max-height: calc(100vh - 140px);
+  width: 100%;
+
+  /* &::-webkit-scrollbar {
+    display: none;
+  } */
 `;
