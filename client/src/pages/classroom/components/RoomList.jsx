@@ -33,7 +33,7 @@ const RoomList = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div>
+    <div className="sm:m-5">
       <h1 className="text-2xl font-bold mb-4">Available rooms</h1>
       <div className="flex gap-4 flex-wrap justify-center sm:justify-start">
         {rooms?.map(room => (

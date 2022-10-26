@@ -12,11 +12,35 @@
   margin: 0;
   padding: 0;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #12db8e #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 13px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #12db8e;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
 html {
   overflow-x: hidden;
   max-width: 100%;
   /* overflow-y: hidden; */
 }
+
 body {
   min-height: 100vh;
   max-width: 100%;
@@ -25,10 +49,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body::-webkit-scrollbar,
-html::-webkit-scrollbar {
-  display: none;
-}
 input,
 button,
 textarea,

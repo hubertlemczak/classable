@@ -30,11 +30,8 @@ export const SideBarContainer = styled.div`
 
 export const OutletContainer = styled.div`
   overflow-y: scroll;
-  margin: 120px 20px 20px 20px;
-  max-height: calc(100vh - 140px);
+  margin: 100px 0px 0px 0px;
+  padding: 20px;
+  max-height: calc(100vh - 100px);
   width: 100%;
-
-  /* &::-webkit-scrollbar {
-    display: none;
-  } */
 `;
