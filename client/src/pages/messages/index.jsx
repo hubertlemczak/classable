@@ -1,4 +1,5 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
+import ChatRoom from './components/ChatRoom';
 
 import SideBars from './components/SideBars';
 
@@ -7,14 +8,10 @@ const Messages = () => {
     <>
       <Routes>
         <Route path="/" element={<SideBars />}>
+          <Route path=":id" element={<ChatRoom />} />
           <Route
             path="tickets"
-            element={
-              <>
-                <h1 className="text-red-500">tickets</h1>
-                <Outlet />
-              </>
-            }
+            element={<h1 className="text-red-500 h-full">tickets</h1>}
           ></Route>
         </Route>
       </Routes>
