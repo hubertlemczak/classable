@@ -12,7 +12,7 @@ export const StyledCreateCourseBtn = styled(Link)`
   background-color: ${({ theme }) => theme.green};
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 120px;
 
   @media (max-width: 800px) {
     display: flex;
@@ -21,7 +21,7 @@ export const StyledCreateCourseBtn = styled(Link)`
     width: 50px;
     height: 50px;
     padding: 0;
-    top: 30px;
+    top: 130px;
   }
 
   &:hover {

@@ -36,7 +36,7 @@ const ResourceSection = ({ resource, title, path, create, name }) => {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 mt-10">{title}</h2>
-      <div className="flex gap-4">
+      <div className="flex gap-4 justify-center flex-wrap sm:justify-start">
         {resource?.map(item => (
           <div
             className=" relative bg-gray-200 h-32 w-48 p-3 rounded-md flex-shrink-0 cursor-pointer group overflow-hidden hover:bg-gray-300"

@@ -1,17 +1,28 @@
 import { Link, Outlet } from 'react-router-dom';
-import { Logo, StyledHomeNavBar } from './styles/index.styled';
+
+import LOGO from '../../assets/logo-full.png';
+import LOGOMOBILE from '../../assets/logo.png';
+
+import { StyledHomeNavBar } from './styles/index.styled';
+
 import { Notifications } from './components/Notifications';
 import { UserIcon } from './components/UserIcon';
-import { STRING } from '../../utils/vars';
+import useWindowSize from '../../hooks/useWindowSize';
 
 const NavBar = () => {
+  const { width } = useWindowSize();
+
   return (
     <>
       <StyledHomeNavBar>
         <nav>
-          <Logo>
-            <Link to="/courses">{STRING.LOGO_NAME}</Link>
-          </Logo>
+          <Link to="/courses">
+            <img
+              src={width < 1280 ? LOGOMOBILE : LOGO}
+              alt=""
+              className={`${width < 1280 ? 'h-20' : 'h-full'} mb-2 `}
+            />
+          </Link>
           <ul>
             <li>
               <Notifications />

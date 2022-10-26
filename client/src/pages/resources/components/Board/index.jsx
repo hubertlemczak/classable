@@ -76,6 +76,8 @@ const Board = () => {
   async function handleEdit(e) {
     const { value } = e.target;
 
+    if (!value) return setIsEditing(false);
+
     try {
       await client.patch(`/boards/${board.id}`, { title: value });
 
@@ -101,7 +103,8 @@ const Board = () => {
         />
       ) : (
         <h1
-          className="mb-3 inline-block -ml-2 p-2 rounded-md text-4xl font-bold hover:bg-gray-200 "
+          className="mb-3 inline-block -ml-2 p-2 rounded-md text-4xl font-bold hover:bg-gray-200"
+          style={{ minWidth: '490px' }}
           onClick={() => setIsEditing(true)}
         >
           {board.title}

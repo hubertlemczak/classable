@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import client from '../../../client';
 import Spinner from '../../../components/Spinner';
-import CreateClassroom from './CreateClassroom';
 import RoomItem from './RoomItem';
 
 const RoomList = () => {
@@ -34,9 +34,8 @@ const RoomList = () => {
 
   return (
     <div>
-      <CreateClassroom />
       <h1 className="text-2xl font-bold mb-4">Available rooms</h1>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap justify-center sm:justify-start">
         {rooms?.map(room => (
           <RoomItem key={room.id} {...room} />
         ))}

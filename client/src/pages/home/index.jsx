@@ -23,12 +23,7 @@ const Home = () => {
             <Link to="/join">{STRING.GET_STARTED}</Link>
           </HeroText>
         </HeroContainer>
-        <div
-          style={{
-            position: 'relative',
-            backgroundColor: 'black',
-          }}
-        >
+        <div style={{ position: 'relative' }}>
           <HeroImg />
           <Wave />
           <DownArrow onClick={() => scrollToById('homeMain')}>^</DownArrow>

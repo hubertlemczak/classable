@@ -28,4 +28,10 @@ export const StyledNavLink = styled(NavLink)`
     height: 20px;
     fill: white;
   }
+
+  @media (max-width: 1280px) {
+    span {
+      display: none;
+    }
+  }
 `;
