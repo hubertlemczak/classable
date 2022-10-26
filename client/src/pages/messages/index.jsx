@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import ChatRoom from './components/ChatRoom';
 
 import SideBars from './components/SideBars';
