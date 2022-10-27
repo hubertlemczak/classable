@@ -4,14 +4,27 @@ import dbClient from '../src/utils/dbClient';
 async function main() {
   const password = await hashStr('123');
 
+  const demo = await dbClient.user.create({
+    data: {
+      email: 'demo@user.com',
+      password,
+      profile: {
+        create: {
+          firstName: 'Demo',
+          lastName: 'User',
+        },
+      },
+    },
+  });
+
   const user1 = await dbClient.user.create({
     data: {
       email: 'user1@test.com',
       password,
       profile: {
         create: {
-          firstName: 'user1',
-          lastName: 'user1',
+          firstName: 'User1',
+          lastName: 'User1',
         },
       },
     },
@@ -23,8 +36,8 @@ async function main() {
       password,
       profile: {
         create: {
-          firstName: 'user2',
-          lastName: 'user2',
+          firstName: 'User2',
+          lastName: 'User2',
         },
       },
     },
@@ -36,8 +49,8 @@ async function main() {
       password,
       profile: {
         create: {
-          firstName: 'user3',
-          lastName: 'user3',
+          firstName: 'User3',
+          lastName: 'User3',
         },
       },
     },
@@ -53,6 +66,7 @@ async function main() {
 
   await dbClient.enrolment.createMany({
     data: [
+      { role: 'COURSEADMIN', courseId: course1.id, userId: demo.id },
       { role: 'TEACHER', courseId: course1.id, userId: user1.id },
       { role: 'STUDENT', courseId: course1.id, userId: user2.id },
       { role: 'STUDENT', courseId: course1.id, userId: user3.id },
@@ -61,13 +75,13 @@ async function main() {
 
   await dbClient.chat.create({
     data: {
-      name: 'General',
-      chatrooms: {
+      courseId: course1.id,
+      participants: {
         createMany: {
           data: [
-            { userId: user1.id, courseId: course1.id },
-            { userId: user2.id, courseId: course1.id },
-            { userId: user3.id, courseId: course1.id },
+            { userId: user1.id },
+            { userId: user2.id },
+            { userId: user3.id },
           ],
         },
       },
@@ -90,13 +104,10 @@ async function main() {
 
   await dbClient.chat.create({
     data: {
-      name: 'Convo with user 1 & 2',
-      chatrooms: {
+      courseId: course1.id,
+      participants: {
         createMany: {
-          data: [
-            { userId: user1.id, courseId: course1.id },
-            { userId: user2.id, courseId: course1.id },
-          ],
+          data: [{ userId: demo.id }, { userId: user2.id }],
         },
       },
       messages: {
@@ -104,7 +115,7 @@ async function main() {
           data: [
             {
               content: 'msg 1',
-              userId: user1.id,
+              userId: demo.id,
             },
             {
               content: 'msg 2',
@@ -112,7 +123,7 @@ async function main() {
             },
             {
               content: 'msg 3',
-              userId: user1.id,
+              userId: demo.id,
             },
             {
               content: 'msg 4',
@@ -124,25 +135,27 @@ async function main() {
     },
   });
 
-  const ticket1 = await dbClient.chat.create({
+  await dbClient.chat.create({
     data: {
+      courseId: course1.id,
       name: 'Ticket 1',
-      chatrooms: {
+      participants: {
         createMany: {
-          data: [{ userId: user1.id, courseId: course1.id }],
+          data: [{ userId: demo.id }],
         },
       },
       messages: {
         createMany: {
           data: [
             {
-              content: 'msg 1 pls help with this ticket',
-              userId: user1.id,
+              content: 'please help me with this ticket',
+              userId: demo.id,
             },
           ],
         },
       },
-      status: 'UNCLAIMED',
+      status: 'CLAIMED',
+      claimedBy: user1.id,
     },
   });
 
@@ -181,7 +194,7 @@ async function main() {
     },
   });
 
-  const column2 = await dbClient.boardColumn.create({
+  await dbClient.boardColumn.create({
     data: {
       position: 1,
       title: 'Column Two',
@@ -210,7 +223,7 @@ async function main() {
     },
   });
 
-  const note1 = await dbClient.note.create({
+  await dbClient.note.create({
     data: {
       content: 'Note 1',
       courseId: course1.id,
