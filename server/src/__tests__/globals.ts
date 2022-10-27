@@ -5,7 +5,7 @@ function deleteTables() {
     dbClient.user.deleteMany(),
     dbClient.course.deleteMany(),
     dbClient.chat.deleteMany(),
-    dbClient.chatroom.deleteMany(),
+    dbClient.participant.deleteMany(),
   ];
   return dbClient.$transaction(deleteTables);
 }
