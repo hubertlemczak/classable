@@ -5,7 +5,6 @@ export default function Classroom() {
   return (
     <div>
       <CreateClassroom />
-
       <RoomList />
     </div>
   );

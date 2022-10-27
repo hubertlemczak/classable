@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import client from '../../../client';
 import { useLoggedInUser } from '../../../context/LoggedInUser';
-import VideoPlayer from './VideoPlayer';
 
-import {
-  useClient,
-  useMicrophoneAndCameraTracks,
-  agoraOptions,
-} from '../utils/agora';
+import { useClient, useMicrophoneAndCameraTracks, appId } from '../utils/agora';
 import Spinner from '../../../components/Spinner';
+import MediaControls from './MediaControls';
+import Video from './Video';
 
 export default function VideoRoom() {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [screenTracks, setScreenTracks] = useState();
 
   const agoraClient = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
@@ -22,28 +19,36 @@ export default function VideoRoom() {
   const location = useLocation();
   const { channel, token } = location.state;
 
-  if (!user.id || !location.state.channel) return;
+  if (!user.id || !channel) return;
 
   async function handleUserPublished(usr, mediaType) {
     await agoraClient.subscribe(usr, mediaType);
-    console.log('here');
-    const res = await client.get(`/users/${usr.uid}`);
 
-    const { firstName, lastName } = res.data.user.profile;
+    console.error('published', usr, mediaType);
 
-    usr.firstName = firstName;
-    usr.lastName = lastName;
+    // const res = await client.get(`/users/${usr.uid}`);
+
+    // const { firstName, lastName } = res.data.user.profile;
+
+    // usr.firstName = 'ho';
+    // usr.lastName = 'h';
 
     if (mediaType === 'audio') {
       usr.audioTrack?.play();
     }
 
     if (mediaType === 'video') {
-      setUsers(prev => [...prev, usr]);
+      const foundUser = users.find(u => u.uid === usr.uid);
+
+      if (!foundUser) {
+        setUsers(prev => [...prev, usr]);
+      }
     }
   }
 
   function handleUserUnpublished(usr, mediaType) {
+    console.error('unpublished', usr, mediaType);
+
     if (mediaType === 'audio') {
       usr.audioTrack?.stop();
     }
@@ -54,49 +59,49 @@ export default function VideoRoom() {
   }
 
   function handleUserLeft(usr) {
+    console.error('leaving');
     setUsers(prev => prev.filter(p => p.uid !== usr.uid));
   }
 
   useEffect(() => {
-    async function init() {
-      agoraClient.on('user-published', handleUserPublished);
-      agoraClient.on('user-unpublished', handleUserUnpublished);
-      agoraClient.on('user-left', handleUserLeft);
+    agoraClient.on('user-published', handleUserPublished);
+    agoraClient.on('user-unpublished', handleUserUnpublished);
+    agoraClient.on('user-left', handleUserLeft);
 
+    async function join() {
       console.error('joining');
-      await agoraClient.join(agoraOptions.appId, channel, token, user?.id);
+      await agoraClient.join(appId, channel, token, user.id);
 
       agoraClient.publish(tracks);
-
-      setUsers(prev => [
-        ...prev,
-        {
-          uid: user.id,
-          videoTrack: tracks[1],
-          audioTrack: tracks[0],
-          firstName: user.profile.firstName,
-          lastName: user.profile.lastName,
-        },
-      ]);
     }
 
     if (ready && tracks && user?.id) {
-      init();
+      join();
       setIsLoading(false);
     }
+
+    return () => {
+      console.error('removing');
+      agoraClient.off('user-published', handleUserPublished);
+      agoraClient.off('user-unpublished', handleUserUnpublished);
+      agoraClient.off('user-left', handleUserLeft);
+    };
   }, [ready, tracks, agoraClient, user]);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
-
-  return isLoading ? (
+  return isLoading || !tracks ? (
     <Spinner />
   ) : (
     <div>
-      {users?.map(user => (
-        <VideoPlayer key={user.uid} user={user} />
-      ))}
+      <div>
+        {ready && tracks && (
+          <MediaControls {...{ screenTracks, tracks, setScreenTracks }} />
+        )}
+      </div>
+      <div>
+        {tracks && (
+          <Video tracks={tracks} users={users} screenTracks={screenTracks} />
+        )}
+      </div>
     </div>
   );
 }
