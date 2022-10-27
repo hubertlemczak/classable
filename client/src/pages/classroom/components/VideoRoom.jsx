@@ -6,6 +6,7 @@ import { useClient, useMicrophoneAndCameraTracks, appId } from '../utils/agora';
 import Spinner from '../../../components/Spinner';
 import MediaControls from './MediaControls';
 import Video from './Video';
+import client from '../../../client';
 
 export default function VideoRoom() {
   const [users, setUsers] = useState([]);
@@ -26,12 +27,12 @@ export default function VideoRoom() {
 
     console.error('published', usr, mediaType);
 
-    // const res = await client.get(`/users/${usr.uid}`);
+    const res = await client.get(`/users/${usr.uid}`);
 
-    // const { firstName, lastName } = res.data.user.profile;
+    const { firstName, lastName } = res.data.user.profile;
 
-    // usr.firstName = 'ho';
-    // usr.lastName = 'h';
+    usr.firstName = firstName;
+    usr.lastName = lastName;
 
     if (mediaType === 'audio') {
       usr.audioTrack?.play();
@@ -91,15 +92,26 @@ export default function VideoRoom() {
   return isLoading || !tracks ? (
     <Spinner />
   ) : (
-    <div>
+    <div className="bg-black bg-opacity-80 absolute inset-0">
       <div>
         {ready && tracks && (
           <MediaControls {...{ screenTracks, tracks, setScreenTracks }} />
         )}
       </div>
-      <div>
+      <div
+        className="grid place-items-center"
+        style={{ minHeight: 'calc(100vh - 140px)' }}
+      >
         {tracks && (
-          <Video tracks={tracks} users={users} screenTracks={screenTracks} />
+          <Video
+            {...{
+              tracks,
+              users,
+              screenTracks,
+              firstName: user.profile.firstName,
+              lastName: user.profile.lastName,
+            }}
+          />
         )}
       </div>
     </div>

@@ -58,29 +58,29 @@ function MediaControls({ tracks, screenTracks, setScreenTracks }) {
   }
 
   return (
-    <div className="flex gap-10 items-center absolute bottom-5 left-1/2 z-50 p-2 bg-darkBg rounded-md">
-      <div onClick={toggleMicrophone} className="cursor-pointer">
+    <div className="flex gap-10 items-center fixed bottom-5 left-1/2 -translate-x-1/2 z-50 p-2 bg-darkBg rounded-md w-max">
+      <div onClick={toggleMicrophone} className="cursor-pointer ">
         {trackState.audio ? (
           <MIC_ON className="fill-primary" title="Mute microphone" />
         ) : (
           <MIC_OFF className="fill-red-500" title="Unnute microphone" />
         )}
       </div>
-      <div onClick={toggleCamera} className="cursor-pointer">
+      <div onClick={toggleCamera} className="cursor-pointer ">
         {trackState.video ? (
           <CAM_ON className="fill-primary" title="Mute video" />
         ) : (
           <CAM_OFF className="fill-red-500" title="Unmute video" />
         )}
       </div>
-      <div onClick={toggleScreenShare} className="cursor-pointer">
+      <div onClick={toggleScreenShare} className="cursor-pointer ">
         {trackState.screenShare ? (
           <SHARE className="fill-primary" title="Stop share screen" />
         ) : (
           <SHARE className="fill-red-500" title="Start share screen" />
         )}
       </div>
-      <div onClick={leaveCall} className="cursor-pointer">
+      <div onClick={leaveCall} className="cursor-pointer ">
         <LEAVE className="fill-red-500" title="Leave call" />
       </div>
     </div>
