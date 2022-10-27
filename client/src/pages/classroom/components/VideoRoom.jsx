@@ -58,6 +58,7 @@ export default function VideoRoom() {
 
     if (mediaType === 'audio') {
       usr.audioTrack?.stop();
+      setUsers(prev => [...prev]);
     }
 
     if (mediaType === 'video') {
