@@ -99,7 +99,7 @@ export default function VideoRoom() {
   return isLoading || !tracks ? (
     <Spinner />
   ) : (
-    <div className="bg-black bg-opacity-80 absolute inset-0">
+    <div className="bg-black bg-opacity-80 absolute inset-0 z-50">
       <div>
         {ready && tracks && (
           <MediaControls
