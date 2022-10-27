@@ -1,12 +1,15 @@
 import { AgoraVideoPlayer } from 'agora-rtc-react';
 import { useState } from 'react';
 
+import { ReactComponent as MIC_OFF } from '../../../assets/icons/bxs-microphone-off.svg';
+
 export default function Video({
   users,
   tracks,
   screenTracks,
   firstName,
   lastName,
+  trackState,
 }) {
   return (
     <div className="flex gap-8 flex-wrap items-center justify-center h-fit my-auto">
@@ -23,11 +26,12 @@ export default function Video({
       )}
       <div className="relative h-44 w-72 rounded-md overflow-clip">
         <p className="absolute bottom-0 left-0 z-10 px-1 bg-gray-700 bg-opacity-70 text-white text-sm rounded-tr-md">
-          {firstName} {lastName}
+          {!trackState.audio && <MIC_OFF />} {firstName} {lastName}
         </p>
         <AgoraVideoPlayer className="w-full h-full" videoTrack={tracks[1]} />
       </div>
       {users.map(user => {
+        console.log(user);
         if (user.videoTrack) {
           const [isFocused, setIsFocused] = useState(false);
           return (
@@ -41,7 +45,8 @@ export default function Video({
               onClick={() => setIsFocused(prev => !prev)}
             >
               <p className="absolute bottom-0 left-0 z-10 px-1 bg-gray-700 bg-opacity-70 text-white text-sm rounded-tr-md">
-                {user?.firstName} {user?.lastName}
+                {!user._audio_enabled && <MIC_OFF />} {user?.firstName}{' '}
+                {user?.lastName}
               </p>
               <AgoraVideoPlayer
                 className="w-full h-full aspect-video"

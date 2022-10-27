@@ -12,6 +12,11 @@ export default function VideoRoom() {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [screenTracks, setScreenTracks] = useState();
+  const [trackState, setTrackState] = useState({
+    video: true,
+    audio: true,
+    screenShare: false,
+  });
 
   const agoraClient = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
@@ -95,7 +100,15 @@ export default function VideoRoom() {
     <div className="bg-black bg-opacity-80 absolute inset-0">
       <div>
         {ready && tracks && (
-          <MediaControls {...{ screenTracks, tracks, setScreenTracks }} />
+          <MediaControls
+            {...{
+              screenTracks,
+              tracks,
+              setScreenTracks,
+              trackState,
+              setTrackState,
+            }}
+          />
         )}
       </div>
       <div
@@ -110,6 +123,7 @@ export default function VideoRoom() {
               screenTracks,
               firstName: user.profile.firstName,
               lastName: user.profile.lastName,
+              trackState,
             }}
           />
         )}

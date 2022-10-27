@@ -1,5 +1,4 @@
 import AgoraRTC from 'agora-rtc-react';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as MIC_ON } from '../../../assets/icons/bxs-microphone.svg';
@@ -11,13 +10,13 @@ import { ReactComponent as SHARE } from '../../../assets/icons/bxs-share.svg';
 
 import { useClient } from '../utils/agora';
 
-function MediaControls({ tracks, screenTracks, setScreenTracks }) {
-  const [trackState, setTrackState] = useState({
-    video: true,
-    audio: true,
-    screenShare: false,
-  });
-
+function MediaControls({
+  tracks,
+  screenTracks,
+  setScreenTracks,
+  trackState,
+  setTrackState,
+}) {
   const agoraClient = useClient();
   const navigate = useNavigate();
 
