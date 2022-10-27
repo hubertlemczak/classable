@@ -6,11 +6,14 @@ export const StyledUserItem = styled.li`
   align-items: center;
   gap: 10px;
   color: ${({ theme }) => theme.textLight};
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: bold;
   width: 100%;
   cursor: pointer;
-  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 6px;
+  height: 42px;
+  margin-block: 14px;
 
   &:hover {
     background-color: ${({ theme }) => theme.navHover};

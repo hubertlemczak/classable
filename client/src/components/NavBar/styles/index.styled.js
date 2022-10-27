@@ -5,7 +5,6 @@ export const StyledHomeNavBar = styled.header`
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 101;
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.darkBG};

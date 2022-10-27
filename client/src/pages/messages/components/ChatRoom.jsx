@@ -41,7 +41,7 @@ const ChatRoom = () => {
   return (
     <div className="flex flex-col justify-end h-full">
       <ul
-        className=" overflow-y-scroll no-scrollbar overflow-x-hidden"
+        className="overflow-y-scroll no-scrollbar overflow-x-hidden"
         style={{ maxHeight: 'calc(100vh - 260px)' }}
       >
         {chat?.messages?.map(message => (
