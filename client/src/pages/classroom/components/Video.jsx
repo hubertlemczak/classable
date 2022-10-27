@@ -25,13 +25,15 @@ export default function Video({
         </div>
       )}
       <div className="relative h-44 w-72 rounded-md overflow-clip">
-        <p className="absolute bottom-0 left-0 z-10 px-1 bg-gray-700 bg-opacity-70 text-white text-sm rounded-tr-md">
-          {!trackState.audio && <MIC_OFF />} {firstName} {lastName}
-        </p>
+        <div className="flex gap-2 absolute bottom-0 left-0 z-10 px-1 bg-gray-700 bg-opacity-70 text-white text-sm rounded-tr-md">
+          {!trackState.audio && <MIC_OFF className="w-4 fill-red-500" />}
+          <span>
+            {firstName} {lastName}
+          </span>
+        </div>
         <AgoraVideoPlayer className="w-full h-full" videoTrack={tracks[1]} />
       </div>
       {users.map(user => {
-        console.log(user);
         if (user.videoTrack) {
           const [isFocused, setIsFocused] = useState(false);
           return (
@@ -44,10 +46,12 @@ export default function Video({
               key={user.uid}
               onClick={() => setIsFocused(prev => !prev)}
             >
-              <p className="absolute bottom-0 left-0 z-10 px-1 bg-gray-700 bg-opacity-70 text-white text-sm rounded-tr-md">
-                {!user._audio_enabled && <MIC_OFF />} {user?.firstName}{' '}
-                {user?.lastName}
-              </p>
+              <div className="flex gap-2 absolute bottom-0 left-0 z-10 px-1 bg-gray-700 bg-opacity-70 text-white text-sm rounded-tr-md">
+                {user._audio_muted_ && <MIC_OFF className="w-4 fill-red-500" />}
+                <span>
+                  {user?.firstName} {user?.lastName}
+                </span>
+              </div>
               <AgoraVideoPlayer
                 className="w-full h-full aspect-video"
                 videoTrack={user.videoTrack}
