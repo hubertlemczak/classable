@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import client from '../../../client';
 import Spinner from '../../../components/Spinner';
 import { useLoggedInUser } from '../../../context/LoggedInUser';
+import { formatCourseName } from '../../../utils/formatCourseName';
 import ResourceSection from './ResourceSection';
 
 function sortResource(resource, user) {
@@ -37,15 +37,12 @@ const Resources = () => {
   );
   const [yourNotes, communityNotes, starredNotes] = sortResource(notes, user);
 
-  const { courseName } = useParams();
-  const formattedCourseName = courseName.replaceAll('-', ' ');
+  const courseName = formatCourseName();
 
   useEffect(() => {
     async function getNotes() {
       try {
-        const res = await client.get(
-          `/notes?courseName=${formattedCourseName}`
-        );
+        const res = await client.get(`/notes?courseName=${courseName}`);
 
         setNotes(res.data.notes);
       } catch (err) {
@@ -55,9 +52,7 @@ const Resources = () => {
 
     async function getBoards() {
       try {
-        const res = await client.get(
-          `/boards?courseName=${formattedCourseName}`
-        );
+        const res = await client.get(`/boards?courseName=${courseName}`);
 
         setBoards(res.data.boards);
       } catch (err) {

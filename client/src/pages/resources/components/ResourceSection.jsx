@@ -1,19 +1,20 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as UNSTARRED } from '../../../assets/icons/bx-star.svg';
 import { ReactComponent as STARRED } from '../../../assets/icons/bxs-star.svg';
 
 import client from '../../../client';
+import { formatCourseName } from '../../../utils/formatCourseName';
 
 const ResourceSection = ({ resource, title, path, create, name }) => {
   const navigate = useNavigate();
-  const { courseName } = useParams();
-  const formattedCourseName = courseName.replaceAll('-', ' ');
+
+  const courseName = formatCourseName();
 
   const handleCreate = async () => {
     try {
       const res = await client.post(`/${path}`, {
-        courseName: formattedCourseName,
+        courseName,
       });
       const key = path.slice(0, path.length - 1);
       const data = res.data[key];

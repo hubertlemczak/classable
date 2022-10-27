@@ -101,7 +101,7 @@ const Note = () => {
         {isEditingContent ? (
           <form onBlur={handeEditContent} onSubmit={handeEditContent}>
             <textarea
-              className="w-full h-max"
+              className="w-full h-max p-2"
               name="content"
               rows={rowLength()}
               defaultValue={note.content}
