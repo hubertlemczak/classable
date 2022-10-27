@@ -3,7 +3,7 @@ import dbClient from '../../utils/dbClient';
 async function getAll(userId: string | undefined) {
   const data = await dbClient.chat.findMany({
     where: {
-      chatrooms: {
+      participants: {
         some: {
           userId,
         },
@@ -20,7 +20,7 @@ async function getById(id: string) {
       id,
     },
     include: {
-      chatrooms: {
+      participants: {
         include: {
           user: {
             select: {

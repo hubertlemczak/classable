@@ -21,7 +21,7 @@ const getUser = async (id: string) => {
       profile: {
         select: { firstName: true, lastName: true },
       },
-      chatrooms: true,
+      participant: true,
     },
   });
 };
@@ -58,8 +58,8 @@ export default function sockets({ io }: { io: Server }) {
       const user = await authenticateUser(socket);
       console.log(user);
 
-      user.chatrooms.forEach(chatroom => {
-        socket.join(chatroom?.chatId);
+      user.participant.forEach(p => {
+        socket.join(p?.chatId);
       });
 
       next();

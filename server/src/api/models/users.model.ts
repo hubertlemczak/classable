@@ -32,7 +32,7 @@ async function getById(id: string) {
     select: {
       id: true,
       profile: true,
-      chatrooms: {
+      participant: {
         include: { chat: true },
       },
       following: {
