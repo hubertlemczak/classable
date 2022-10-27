@@ -8,7 +8,7 @@ import client from '../../../client';
 const ResourceSection = ({ resource, title, path, create, name }) => {
   const navigate = useNavigate();
   const { courseName } = useParams();
-  const formattedCourseName = courseName.replace('-', ' ');
+  const formattedCourseName = courseName.replaceAll('-', ' ');
 
   const handleCreate = async () => {
     try {

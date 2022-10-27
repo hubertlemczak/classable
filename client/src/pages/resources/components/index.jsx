@@ -38,7 +38,7 @@ const Resources = () => {
   const [yourNotes, communityNotes, starredNotes] = sortResource(notes, user);
 
   const { courseName } = useParams();
-  const formattedCourseName = courseName.replace('-', ' ');
+  const formattedCourseName = courseName.replaceAll('-', ' ');
 
   useEffect(() => {
     async function getNotes() {
