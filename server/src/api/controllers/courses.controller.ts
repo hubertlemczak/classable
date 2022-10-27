@@ -7,8 +7,18 @@ import { HttpException } from '../errors';
 import model from '../models/courses.model';
 
 async function getAll(req: TRequestWithUser, res: Response) {
-  const { user } = req.query;
-  const courses = await model.getAll(user && req.user?.id);
+  const { user, courseName } = req.query;
+
+  const args: { userId: string | undefined; courseName: string | undefined } = {
+    userId: undefined,
+    courseName: undefined,
+  };
+
+  args.courseName = courseName as string | undefined;
+  args.userId = user && req.user?.id;
+  console.log(args);
+
+  const courses = await model.getAll(args);
 
   res.status(200).json({ courses });
 }
