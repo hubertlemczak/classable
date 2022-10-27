@@ -32,23 +32,18 @@ function MediaControls({ tracks, screenTracks, setScreenTracks }) {
   }
 
   async function toggleScreenShare() {
-    let screenTrack;
-    if (!trackState.screenShare) {
-      screenTrack = await AgoraRTC.createScreenVideoTrack();
-    }
-
-    if (screenTrack) {
-      await tracks[1].setEnabled(false);
-      await agoraClient.publish(screenTrack);
-      await screenTrack.setEnabled(true);
-      setTrackState(prev => ({ ...prev, video: false }));
-    } else {
-      await tracks[1].setEnabled(true);
-      await screenTracks.setEnabled(false);
+    if (trackState.screenShare) {
+      await agoraClient.unpublish(screenTracks);
+      await agoraClient.publish(tracks[1]);
+      setScreenTracks(null);
       setTrackState(prev => ({ ...prev, video: true }));
+    } else {
+      const screenTrack = await AgoraRTC.createScreenVideoTrack();
+      await agoraClient.unpublish(tracks[1]);
+      await agoraClient.publish(screenTrack);
+      setScreenTracks(screenTrack);
+      setTrackState(prev => ({ ...prev, video: false }));
     }
-
-    setScreenTracks(screenTrack);
 
     setTrackState(prev => ({ ...prev, screenShare: !prev.screenShare }));
   }
