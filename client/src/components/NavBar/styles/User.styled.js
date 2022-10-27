@@ -23,16 +23,16 @@ export const UserDropdownContainer = styled.div`
   position: absolute;
   top: 50px;
   right: 0;
-  width: 175px;
-  height: 300px;
+  width: 150px;
+  height: max-content;
   background-color: white;
   border: 1px solid lightgray;
   border-radius: 5px;
-  z-index: 100;
   cursor: initial;
   visibility: hidden;
   opacity: 0;
   transition: opacity 200ms;
+  color: black;
 `;
 
 export const UserContainer = styled.div`

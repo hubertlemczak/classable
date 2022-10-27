@@ -11,16 +11,13 @@ export const StyledHomeNavBar = styled.header`
   height: 100px;
   background-image: url(${NAV_PATTERN});
   background-size: 1000px;
+  z-index: 200;
   background-position: 669px 1110px;
 
   @media (max-width: 1280px) {
     & {
       background-position: 609px 1110px;
     }
-  }
-
-  * {
-    color: white;
   }
 
   nav {
@@ -36,7 +33,7 @@ export const StyledHomeNavBar = styled.header`
       }
     }
 
-    ul {
+    & > ul {
       display: flex;
       align-items: center;
       gap: 20px;

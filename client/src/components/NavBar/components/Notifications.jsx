@@ -8,7 +8,7 @@ import { NotificationsDropdown } from './NotificationsDropdown';
 export const Notifications = () => {
   return (
     <NotificatonsContainer tabIndex="0">
-      <NotificationsCounter>2</NotificationsCounter>
+      <NotificationsCounter>77</NotificationsCounter>
       <StyledNotificationsIcon />
       <NotificationsDropdown />
     </NotificatonsContainer>

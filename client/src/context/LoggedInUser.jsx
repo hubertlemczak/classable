@@ -12,7 +12,6 @@ export const LoggedInUserProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useLocalStorage('classable-token', '');
-  console.log(user);
 
   const navigate = useNavigate();
 
@@ -33,7 +32,6 @@ export const LoggedInUserProvider = ({ children }) => {
         setIsLoading(false);
       }
     }
-
     if (token) getUser();
   }, [token]);
 

@@ -51,7 +51,7 @@ const Authenticate = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate('/join');
+      navigate('/join', { replace: true });
     }
   }, [token]);
 

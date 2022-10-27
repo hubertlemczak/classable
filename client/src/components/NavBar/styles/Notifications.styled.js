@@ -9,14 +9,15 @@ export const StyledNotificationsIcon = styled(BellSVG)`
 
 export const NotificationsCounter = styled.p`
   position: absolute;
-  text-align: center;
   font-size: 0.9rem;
+  line-height: 16px;
   top: -8px;
-  left: -5px;
+  right: 10px;
   background-color: ${({ theme }) => theme.green};
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
+  border-radius: 9999px;
+  width: max-content;
+  min-width: 1rem;
+  padding-inline: 4px;
 `;
 
 export const NotificationsDropdownContainer = styled.div`
@@ -31,7 +32,6 @@ export const NotificationsDropdownContainer = styled.div`
   background-color: white;
   border: 1px solid lightgray;
   border-radius: 5px;
-  z-index: 100;
   cursor: initial;
   visibility: hidden;
   opacity: 0;
