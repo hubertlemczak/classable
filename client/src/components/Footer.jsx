@@ -1,10 +1,7 @@
-import { theme } from '../utils/vars';
-import { FooterContainer, StyledFooter } from './styles/Footer.styled';
-
-export const Footer = () => {
+export function Footer() {
   return (
-    <FooterContainer style={{ backgroundColor: theme.darkBG }}>
-      <StyledFooter className="container">asd</StyledFooter>
-    </FooterContainer>
+    <div className="bg-darkBg">
+      <div className="container text-white py-24">footer</div>
+    </div>
   );
-};
+}

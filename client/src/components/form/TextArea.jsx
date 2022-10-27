@@ -4,7 +4,7 @@ import {
   StyledFormLabel,
 } from './styles/TextArea.styled';
 
-const TextArea = ({ label, ...otherProps }) => {
+export default function TextArea({ label, ...otherProps }) {
   return (
     <StyledFormGroup>
       <StyledFormTextArea {...otherProps} />
@@ -15,6 +15,4 @@ const TextArea = ({ label, ...otherProps }) => {
       )}
     </StyledFormGroup>
   );
-};
-
-export default TextArea;
+}

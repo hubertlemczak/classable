@@ -4,7 +4,7 @@ import {
   StyledFormInputLabel,
 } from './styles/FormInput.styled';
 
-const FormInput = ({ label, ...otherProps }) => {
+export default function FormInput({ label, ...otherProps }) {
   return (
     <StyledFormGroup>
       <StyledFormInput {...otherProps} />
@@ -15,6 +15,4 @@ const FormInput = ({ label, ...otherProps }) => {
       )}
     </StyledFormGroup>
   );
-};
-
-export default FormInput;
+}
