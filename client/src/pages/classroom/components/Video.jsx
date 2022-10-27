@@ -11,6 +11,7 @@ export default function Video({
   lastName,
   trackState,
 }) {
+  console.log(users);
   return (
     <div className="flex gap-8 flex-wrap items-center justify-center h-fit my-auto">
       {screenTracks && (
@@ -33,9 +34,9 @@ export default function Video({
         </div>
         <AgoraVideoPlayer className="w-full h-full" videoTrack={tracks[1]} />
       </div>
-      {users.map(user => {
-        <RemoteVideo user={user} />;
-      })}
+      {users.map(user => (
+        <RemoteVideo key={user.id} user={user} />
+      ))}
     </div>
   );
 }

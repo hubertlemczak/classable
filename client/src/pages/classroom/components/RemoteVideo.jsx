@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { ReactComponent as MIC_OFF } from '../../../assets/icons/bxs-microphone-off.svg';
 
-function RemoteVideo(user) {
+function RemoteVideo({ user }) {
   const [isFocused, setIsFocused] = useState(false);
 
   if (!user.videoTrack) {
@@ -17,7 +17,6 @@ function RemoteVideo(user) {
           ? 'fixed top-1/2 -left-1/2 translate-x-1/2 -translate-y-1/2 w-screen h-max scale-[0.85] z-10 '
           : 'relative'
       }`}
-      key={user.uid}
       onClick={() => setIsFocused(prev => !prev)}
     >
       <div className="flex gap-2 absolute bottom-0 left-0 z-10 px-1 bg-gray-700 bg-opacity-70 text-white text-sm rounded-tr-md">
