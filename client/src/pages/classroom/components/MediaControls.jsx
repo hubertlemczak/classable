@@ -39,6 +39,7 @@ function MediaControls({ tracks, screenTracks, setScreenTracks }) {
 
     if (screenTrack) {
       await tracks[1].setEnabled(false);
+      await agoraClient.publish(screenTrack);
       await screenTrack.setEnabled(true);
       setTrackState(prev => ({ ...prev, video: false }));
     } else {
