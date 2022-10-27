@@ -38,9 +38,13 @@ function MediaControls({ tracks, screenTracks, setScreenTracks }) {
     }
 
     if (screenTrack) {
+      await tracks[1].setEnabled(false);
       await screenTrack.setEnabled(true);
+      setTrackState(prev => ({ ...prev, video: false }));
     } else {
+      await tracks[1].setEnabled(true);
       await screenTracks.setEnabled(false);
+      setTrackState(prev => ({ ...prev, video: true }));
     }
 
     setScreenTracks(screenTrack);
