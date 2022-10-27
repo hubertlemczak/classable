@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import client from '../../../client';
+import Error from '../../../components/Error';
 import FormInput from '../../../components/form/FormInput';
 import { useLoggedInUser } from '../../../context/LoggedInUser';
 import { STRING } from '../../../utils/vars';
@@ -42,7 +43,7 @@ export const SignInForm = () => {
       saveToken(res.data.token);
     } catch (err) {
       console.error(err);
-      setError('asdasdasd');
+      setError(err?.response?.data?.error);
     }
   };
 
@@ -97,6 +98,7 @@ export const SignInForm = () => {
           onChange={handleChange}
           required
         />
+        {error && <Error className="mb-6" message={error} />}
         <button type="submit">{STRING.SIGN_IN.BTN}</button>
       </form>
     </StyledAuthenticaionForm>
