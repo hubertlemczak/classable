@@ -7,8 +7,7 @@ import {
 } from '../styles/CourseCard.styled';
 
 export const CourseCard = ({ category, name, id, image }) => {
-  const coursePath = name.toLowerCase().replace(' ', '-');
-
+  const coursePath = name.toLowerCase().replaceAll(' ', '-');
   return (
     <CourseCardContainer>
       <CourseIMG src={image || LOGO} />
