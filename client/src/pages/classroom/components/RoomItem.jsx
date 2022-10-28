@@ -11,7 +11,6 @@ function RoomItem({ id, name, password }) {
   const navigate = useNavigate();
 
   async function handleJoinRequest(e) {
-    console.log(password);
     if (password) {
       setIsJoining(true);
     } else {
