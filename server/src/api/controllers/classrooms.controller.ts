@@ -51,7 +51,11 @@ async function create(req: TRequestWithUser, res: Response) {
 
   const token = getRtcToken(name, userId);
 
-  const hashedPassword = await hashStr(password);
+  let hashedPassword;
+
+  if (password) {
+    hashedPassword = await hashStr(password);
+  }
 
   const classroom = await model.create({
     name,

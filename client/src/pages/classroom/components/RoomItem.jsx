@@ -10,11 +10,12 @@ function RoomItem({ id, name, password }) {
 
   const navigate = useNavigate();
 
-  async function handleJoinRequest() {
+  async function handleJoinRequest(e) {
+    console.log(password);
     if (password) {
       setIsJoining(true);
     } else {
-      handleJoinRoom();
+      handleJoinRoom(e);
     }
   }
 
@@ -64,7 +65,7 @@ function RoomItem({ id, name, password }) {
         className=" relative bg-gray-200 h-32 w-48 p-3 rounded-md flex-shrink-0 cursor-pointer group overflow-hidden hover:bg-gray-300"
         tabIndex={0}
         key={id}
-        onClick={() => handleJoinRequest()}
+        onClick={e => handleJoinRequest(e)}
       >
         <h3 className="font-bold text-xl">{name}</h3>
       </div>
