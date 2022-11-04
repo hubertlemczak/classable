@@ -181,7 +181,7 @@ Viewing our course takes us to the `/courses/:courseName/dashboard` route with t
   const coursePath = name.toLowerCase().replaceAll(' ', '-');
 ```
 
-This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look.
+Each route has a custom active SVG. The line svg is replaced with the solid active state and filled with the primary green colour as seen throughout the app. This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look.
 
 ```ts
 export const OutletContainer = styled.div`
@@ -195,12 +195,13 @@ export const OutletContainer = styled.div`
 
 ## ~~Dashboard~~
 
-
 ## ~~Assignments~~
 
 ## Resources
 
-My goal with the resources section was to provide a collaborative way to create notes and boards such as Kanban.
+My goal with the resources section was to provide a collaborative way to create notes and boards such as Kanban. Users can create resources that are accessible in a unique course.
+
+I soon aim to implement a status feature which would allow users to set their resources to `PRIVATE`. This would remove it from the community section and would only be visible to the author.
 
 ### Boards with drag and drop library
 
