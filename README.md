@@ -1,4 +1,4 @@
-![](client/src/assets/logo.png)
+![Classable Logo](client/src/assets/logo.png)
 
 # Classable
 
@@ -15,6 +15,7 @@
 - [Authentication](#authentication)
 - [Course creation](#course-creation)
   - [Roles and authorisation](#roles-and-authorisation)
+- [Sidebar](#sidebar)
 - [~~Dashboard~~ (coming soon)](#dashboard)
 - [~~Assignments~~ (coming soon)](#assignments)
 - [Resources](#resources)
@@ -97,15 +98,26 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 ## Authentication
 
-API endpoint can be protected behind an authentication middleware layer like so:
+API endpoints can be protected behind an authentication middleware layer like so:
 
 ```ts
 api.get('/users/:id', authenticateUser, usersController.getById);
 ```
 
-The request will contain an authorization header containing a valid `Bearer token`, or an exeption will be thrown and caught by the error middleware.
+The request will contain an authorization header containing a valid `Bearer token`, or an exception will be thrown and caught by the error middleware.
 
 ```ts
+// client
+get: async path => {
+  const token = localStorage.getItem('classable-token');
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  return axios.get(`${host}${path}`, { headers });
+},
+
+//server
 const token = req.headers.authorization?.trim().split(' ')[1];
 ```
 
@@ -124,15 +136,89 @@ We call the `next()` function and are now able to access the user who is making 
 
 ## Course creation
 
+<div style="display: flex;">
+  <img style="margin-right: 10px;" src="./readme-assets/create-course.mp4" alt="Create course form."/>
 
+  <p>
+    Users are able to create their own course and they will automatically be assigned the <code>COURSEADMIN</code> role on creation. A user can have a different role for each course: <code>STUDENT</code>, <code>TEACHER</code> and <code>COURSEADMIN</code>.
+    </br>
+    </br>
+    A highly customisable and reusable form input component is used throughout the application. If a label prop is provided we can see floating label transitions for an intuative UI.
+  </p>
+</div>
 
 ### Roles and authorisation
 
-## Dashboard
+We can also invite users to out course with the search by email feature. When we type into the search field there will not be any any API calls, however if we wait 500ms without any input an API call will be made to search for users containing the inputted email.
 
-## Assignments
+```ts
+let timeOut;
+
+function handleChange(e) {
+  ...
+  clearTimeout(timeOut);
+
+  timeOut = setTimeout(() => {
+    setGetUsers(true);
+  }, 500);
+  ...
+}
+```
+
+The user is able to invite found users to the course and select a role for them, or remove them from the invite list.
+
+<div style="display: flex;">
+
+  <p>
+    After the course is created we are taken back to the <code>/courses</code> route, which renders a list of courses the user is enroled in. The course name must be unique but an image does not need to be provided as it will display the default <code>Classable logo</code>.
+    </br>
+    </br>
+    Let's view our new course!
+  </p>
+
+  <img style="margin-left:10px;" src="./readme-assets/course-view.png" alt="Course card."/>
+</div>
+
+
+<!-- ![Course card](./readme-assets/course-view.png) -->
+
+
+
+## Sidebar
+
+
+
+<img style="float: right; margin-left: 10px;" src="./readme-assets/sidebar.webp" alt="Sidebar."/>
+
+Viewing our course takes us to the `/courses/:courseName/dashboard` route with the course name formatted for a more appealing look. Our example course `Classable Development` will look like this: `classable-development`
+
+```ts
+  const coursePath = name.toLowerCase().replaceAll(' ', '-');
+```
+
+This sidebar is present for every route in the course view and the <code>Outlet</code> component from <code>react-router-dom</code> is wrapped in a styled-component, making the site have a fixed height look.
+
+```ts
+export const OutletContainer = styled.div`
+  overflow-y: scroll;
+  margin: 100px 0px 0px 0px;
+  padding: 20px;
+  max-height: calc(100vh - 100px);
+  width: 100%;
+`;
+```
+
+<div style="margin-bottom: 50px"></div>
+
+
+## ~~Dashboard~~
+
+
+## ~~Assignments~~
 
 ## Resources
+
+My goal with the resources section was to provide a collaborative way to create notes and boards such as Kanban.
 
 ### Boards with drag and drop library
 
@@ -150,4 +236,4 @@ We call the `next()` function and are now able to access the user who is making 
 
 ### Using AgoraSDK
 
-## Calendar
+## ~~Calendar~~
