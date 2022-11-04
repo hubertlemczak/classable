@@ -136,16 +136,12 @@ We call the `next()` function and are now able to access the user who is making 
 
 ## Course creation
 
-<div style="display: flex;">
-  <img style="margin-right: 10px;" src="./readme-assets/create-course.mp4" alt="Create course form."/>
+Users are able to create their own course and they will automatically be assigned the `COURSEADMIN` role on creation. A user can have a different role for each course: `STUDENT`, `TEACHER` and `COURSEADMIN`.
 
-  <p>
-    Users are able to create their own course and they will automatically be assigned the <code>COURSEADMIN</code> role on creation. A user can have a different role for each course: <code>STUDENT</code>, <code>TEACHER</code> and <code>COURSEADMIN</code>.
-    </br>
-    </br>
-    A highly customisable and reusable form input component is used throughout the application. If a label prop is provided we can see floating label transitions for an intuative UI.
-  </p>
-</div>
+A highly customisable and reusable form input component is used throughout the application. If a label prop is provided we can see floating label transitions for an intuative UI.
+
+![Create course form.](./readme-assets/create-course.mp4)
+
 
 ### Roles and authorisation
 
@@ -167,28 +163,17 @@ function handleChange(e) {
 
 The user is able to invite found users to the course and select a role for them, or remove them from the invite list.
 
-<div style="display: flex;">
+![Course card.](./readme-assets/course-view.png)
 
-  <p>
-    After the course is created we are taken back to the <code>/courses</code> route, which renders a list of courses the user is enroled in. The course name must be unique but an image does not need to be provided as it will display the default <code>Classable logo</code>.
-    </br>
-    </br>
-    Let's view our new course!
-  </p>
+After the course is created we are taken back to the `/courses` route, which renders a list of courses the user is enroled in. The course name must be unique but an image does not need to be provided as it will display the default `Classable logo`.
 
-  <img style="margin-left:10px;" src="./readme-assets/course-view.png" alt="Course card."/>
-</div>
-
-
-<!-- ![Course card](./readme-assets/course-view.png) -->
-
+Let's view our new course!
 
 
 ## Sidebar
 
+![Sidebar.](./readme-assets/sidebar.webp)
 
-
-<img style="float: right; margin-left: 10px;" src="./readme-assets/sidebar.webp" alt="Sidebar."/>
 
 Viewing our course takes us to the `/courses/:courseName/dashboard` route with the course name formatted for a more appealing look. Our example course `Classable Development` will look like this: `classable-development`
 
@@ -196,7 +181,7 @@ Viewing our course takes us to the `/courses/:courseName/dashboard` route with t
   const coursePath = name.toLowerCase().replaceAll(' ', '-');
 ```
 
-This sidebar is present for every route in the course view and the <code>Outlet</code> component from <code>react-router-dom</code> is wrapped in a styled-component, making the site have a fixed height look.
+This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look.
 
 ```ts
 export const OutletContainer = styled.div`
@@ -207,9 +192,6 @@ export const OutletContainer = styled.div`
   width: 100%;
 `;
 ```
-
-<div style="margin-bottom: 50px"></div>
-
 
 ## ~~Dashboard~~
 
