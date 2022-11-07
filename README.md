@@ -4,6 +4,7 @@
 
 ***note it may take a minute for the server to start up after making a request***
 ### [Live Application](https://classable.netlify.app)
+### [Page Wireframes](./plan/wireframe-plan.svg)
 ### [API Spec](https://github.com/hubertlemczak/classable-api)
 ### [Entity Relationship Diagram](./plan/classable-erd.png)
 
@@ -310,7 +311,7 @@ After refreshing the page, all of the new changes will persist.
 Let's view `Classable readme` to explore how I created this interactive note editor by implementing the [react-markdown](https://github.com/remarkjs/react-markdown) package.
 
 <img src="./readme-assets/notes-view.png" alt="Notes view screen." style="width: 250px"/>
-<img src="./readme-assets/board-title.webp" alt="Editable title."/>
+<img src="./readme-assets/board-title.webp" alt="Editable title." style="width: 300px"/>
 
 The same editable title component is used for this notes and board section as seen above. To save a valid input value, simply click outside of the input field and this will send a `PATCH` request to our `REST API`. Currently, a keyboard accessibility feature is being worked on to update the title with a keydown event such as `enter`.
 
