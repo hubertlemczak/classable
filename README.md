@@ -34,6 +34,8 @@
 
 A feature rich full-stack application designed for online education. Aims to provide an efficient digital community for students and academic staff. Featuring a highly interactive UI, live notifications, chats, resource storage and video call functionality. Let the learning begin with Classable.
 
+![Classable home page.](./readme-assets/home-page.png)
+
 ### Tools used
 
 - React
@@ -293,10 +295,14 @@ After refreshing the page, all of the new changes will persist.
 Let's view `Classable readme` to explore how I created this interactive note editor by implementing the [react-markdown](https://github.com/remarkjs/react-markdown) package.
 
 <img src="./readme-assets/notes-view.png" alt="Notes view screen." style="width: 250px"/>
+<img src="./readme-assets/board-title.webp" alt="Editable title."/>
 
-![Editable title.](./readme-assets/board-title.webp)
+The same editable title component is used for this notes and board section as seen above. To save a valid input value, simply click outside of the input field and this will send a `PATCH` request to our `REST API`. Currently, a keyboard accessibility feature is being worked on to update the title with a keydown event such as `enter`.
+
+To edit the content we can click the edit icon, which will show us the text editor below. Here we can input any valid markdown and `save` or `cancel` the changes we made. The note content supports valid markdown as seen in the example above such as code blocks, different size headings, emphasised text, nested bulleted lists and images.
 
 
+![Content edit text editor.](./readme-assets/content-edit.png)
 
 ## Messages
 
