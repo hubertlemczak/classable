@@ -17,6 +17,9 @@
   - [Roles and authorisation](#roles-and-authorisation)
 - [Sidebar](#sidebar)
 - [~~Dashboard~~ (coming soon)](#dashboard)
+- [Live video calls](#live-video-calls)
+  - [Classrooms](#classrooms)
+  - [Using AgoraSDK](#using-agorasdk)
 - [~~Assignments~~ (coming soon)](#assignments)
 - [Resources](#resources)
   - [Boards with drag and drop library](#boards-with-drag-and-drop-library)
@@ -25,9 +28,6 @@
 - [Messages](#messages)
   - [Real time chat messaging with socket.io](#real-time-chat-messaging-with-socket.io)
   - [Ticket support system](#ticket-support-system)
-- [Live video calls](#live-video-calls)
-  - [Classrooms](#classrooms)
-  - [Using AgoraSDK](#using-agorasdk)
 - [~~Calendar~~ (coming soon)](#calendar)
 
 ## Introduction
@@ -107,7 +107,17 @@ API endpoints can be protected behind an authentication middleware layer like so
 api.get('/users/:id', authenticateUser, usersController.getById);
 ```
 
-The request will contain an authorization header containing a valid `Bearer token`, or an exception will be thrown and caught by the error middleware.
+But before a user can be authenticated, they will need to create or log into an existing account to receive a `Bearer token` from the server (a public demo account is provided for testing purposes under `use demo` link).
+
+![Sign in and Sign up forms.](./readme-assets/join.png)
+
+```ts
+// auth endpoints
+api.post('/login', authController.login);
+api.post('/register', authController.register);
+```
+
+When the user is logged in, sequential requests will contain an authorization header containing a valid `Bearer token`, or an exception will be thrown and caught by the error handling middleware.
 
 ```ts
 // client
@@ -147,7 +157,7 @@ A highly customisable and reusable form input component is used throughout the a
 
 ### Roles and authorisation
 
-We can also invite users to out course with the search by email feature. When we type into the search field there will not be any any API calls, however if we wait 500ms without any input an API call will be made to search for users containing the inputted email.
+We can also invite users to our course with the search by email feature. When we type into the search field there will not be any API calls, however if we wait 500ms without any input an API call will be made to search for users containing the inputted email.
 
 ```ts
 let timeOut;
@@ -167,7 +177,7 @@ The user is able to invite found users to the course and select a role for them,
 
 ![Course card.](./readme-assets/course-view.png)
 
-After the course is created we are taken back to the `/courses` route, which renders a list of courses the user is enroled in. The course name must be unique but an image does not need to be provided as it will display the default `Classable logo`.
+After the course is created, we are taken back to the `/courses` route, which renders a list of courses the user is enroled in. The course name must be unique but an image does not need to be provided as it will display the default `Classable logo`.
 
 Let's view our new course!
 
@@ -182,7 +192,7 @@ Viewing our course takes us to the `/courses/:courseName/dashboard` route with t
   const coursePath = name.toLowerCase().replaceAll(' ', '-');
 ```
 
-Each route has a custom active SVG. The line svg is replaced with the solid active state and filled with the primary green colour as seen throughout the app. This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look.
+Each route has a custom active SVG. The line svg is replaced with the solid active state svg and filled with the primary green colour as seen throughout the app. This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look.
 
 ```ts
 export const OutletContainer = styled.div`
@@ -196,6 +206,11 @@ export const OutletContainer = styled.div`
 
 ## ~~Dashboard~~
 
+## Live video calls
+
+### Classrooms
+
+### Using AgoraSDK
 ## ~~Assignments~~
 
 ## Resources
@@ -209,7 +224,7 @@ Starred resources, both community and the users, will appear under the starred s
 
 ### Boards with drag and drop library
 
-Let's view `Classable Dev Board` to explore how I created this interactive Kanban board by implementing the [@hello-pangea/dnd](https://github.com/hello-pangea/dnd) drag and drop library and use a `PostgreSQL` database to persist the state of the board.
+Let's view `Classable Dev Board` to explore how I created this interactive Kanban board by implementing the [@hello-pangea/dnd](https://github.com/hello-pangea/dnd) drag and drop library and used a `PostgreSQL` database to persist the state of the board.
 
 ![Kanban Board.](./readme-assets/kanban-board.webp)
 
@@ -219,7 +234,7 @@ Clicking onto the title will reaveal an editable input field which will send a `
 
 When we click on the `Add new row` or `Add new column` button, the button will be replaced with an input field and if there is a valid input value, a new column or row will be created.
 
-Viewing the row will open a modal pop-up where we can edit the row title and content, or delete the row by pressing the 3 dot menu. The content field fully supports markdown and will be covered in the notes resource section. 
+Viewing the row will open a modal pop-up where we can edit the row title and content, or delete the row by pressing the three dot menu. The content field fully supports markdown and will be further covered in the notes resource section. 
 
 The drag and drop library has the following three main components:
 
@@ -245,16 +260,16 @@ handle our state changes after a "Draggable" component within is dropped */}
 
 To get a better understanding of how each of these components are used, we can take a look at our wireframe below. 
 
-- The yellow represents the dropable area of our columns and anything dropped outside of this area will cancel the action. 
+- The yellow represents the droppable area of our columns and anything dropped outside of this area will cancel the action. 
 - The red area represents our row droppable and this also allows us to drop rows into different columns. 
-- The green area represents the column draggable. However, the user is only able to drag the column by the top header section also known as the `draggable handle`, which can be selected by the `provided.dragHandleProps` prop from the dnd library. 
+- The green area represents the column draggable. However, the user is only able to drag the column by the top header section, also known as the `draggable handle`, which can be specified by the `provided.dragHandleProps` prop from the dnd library. 
 - Finally, the purple represents the row draggable area, which can be dropped in its own or different column.
 
 ![Kanban board wireframe.](./readme-assets/kanban-wireframe.png)
 
 ### Persisting board state
 
-Using `Prisma`, we can define our model relations between the `Board`, `BoardColumn` and `BoardColumnRow` in our `PostgreSQL` database.
+Using `Prisma`, we can define our model relations between the `Board`, `BoardColumn` and `BoardColumnRow` in our relational `PostgreSQL` database.
 
 ```js
 model Board {
@@ -285,7 +300,7 @@ model BoardColumnRow {
 
 The `Board` model has a `one-to-many` relation with `BoardColumn`, meaning our board can have many columns. The same thing applies to the  `BoardColumn` and `BoardColumnRow` models, as a column can have many rows. 
 
-To persist the state of the board, the column and row entries have a position field (type integer), which can be sorted in ascending order and sent to the client. When the user performs a drag event, we first check if the target is in the same position (if it is we will early return). If the target changed positions, a `PATCH` request is made and we will loop over the target resource to update the position fields in the database.
+To persist the state of the board, the column and row entries have a position field (type integer), which can be sorted in ascending order and sent to the client. When the user performs a drag event, we first check if the target is in the same position (if it is we will early return). If the target changed positions, a `PATCH` request is made and we loop over the target resource to update the position fields in the database. Finally, we update the local state to represent the changes.
 
 After refreshing the page, all of the new changes will persist.
 
@@ -299,21 +314,36 @@ Let's view `Classable readme` to explore how I created this interactive note edi
 
 The same editable title component is used for this notes and board section as seen above. To save a valid input value, simply click outside of the input field and this will send a `PATCH` request to our `REST API`. Currently, a keyboard accessibility feature is being worked on to update the title with a keydown event such as `enter`.
 
-To edit the content we can click the edit icon, which will show us the text editor below. Here we can input any valid markdown and `save` or `cancel` the changes we made. The note content supports valid markdown as seen in the example above such as code blocks, different size headings, emphasised text, nested bulleted lists and images.
+To edit the content, we can click the edit icon which will show us the text editor below. Here we can input any valid markdown and `save` or `cancel` the changes we made. The note content supports valid markdown as seen in the example above such as code blocks, different size headings, emphasised text, nested bulleted lists and images.
 
 
 ![Content edit text editor.](./readme-assets/content-edit.png)
+
+```css
+/* Using styled-components we can declare specific styling of the parsed markdown such as our list and sub-list elements */
+li {
+  list-style-type: disc;
+  margin-left: 30px;
+  padding-left: 10px;
+}
+
+li > ul > li {
+  list-style-type: circle;
+}
+```
+
+```js
+// We can now wrap the ReactMarkdown component with out styled-component
+<StyledMdContainer>
+  <ReactMarkdown>{note.content}</ReactMarkdown>
+</StyledMdContainer>
+```
+
 
 ## Messages
 
 ### Real time chat messaging with socket.io
 
 ### Ticket support system
-
-## Live video calls
-
-### Classrooms
-
-### Using AgoraSDK
 
 ## ~~Calendar~~
