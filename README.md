@@ -20,6 +20,7 @@
 - [~~Assignments~~ (coming soon)](#assignments)
 - [Resources](#resources)
   - [Boards with drag and drop library](#boards-with-drag-and-drop-library)
+  - [Persisting board state](#persisting-board-state)
   - [Notes with markdown parsing](#notes-with-markdown-parsing)
 - [Messages](#messages)
   - [Real time chat messaging with socket.io](#real-time-chat-messaging-with-socket.io)
@@ -210,11 +211,15 @@ Let's view `Classable Dev Board` to explore how I created this interactive Kanba
 
 ![Kanban Board.](./readme-assets/kanban-board.webp)
 
-![Editable title.](./readme-assets/board-title.webp)
-
 Clicking onto the title will reaveal an editable input field which will send a `PATCH` request to our `REST API`. The updated text can be submitted by simply clicking away from the input field, or as seen in one of the tasks in the `Todo's` column, a keyboard accessibility feature will be implemented to allow a submit event to fire on key press such as `enter`.
 
-The drag and drop library has the following main components:
+![Editable title.](./readme-assets/board-title.webp)
+
+When we click on the `Add new row` or `Add new column` button, the button will be replaced with an input field and if there is a valid input value, a new column or row will be created.
+
+Viewing the row will open a modal pop-up where we can edit the row title and content, or delete the row by pressing the 3 dot menu. The content field fully supports markdown and will be covered in the notes resource section. 
+
+The drag and drop library has the following three main components:
 
 ```js
 {/* The DragDropContext which we will pass a "onDragEnd" function to 
@@ -236,9 +241,62 @@ handle our state changes after a "Draggable" component within is dropped */}
 </DragDropContext>
 ```
 
-After refreshing the page, all of the new changes persists.
+To get a better understanding of how each of these components are used, we can take a look at our wireframe below. 
+
+- The yellow represents the dropable area of our columns and anything dropped outside of this area will cancel the action. 
+- The red area represents our row droppable and this also allows us to drop rows into different columns. 
+- The green area represents the column draggable. However, the user is only able to drag the column by the top header section also known as the `draggable handle`, which can be selected by the `provided.dragHandleProps` prop from the dnd library. 
+- Finally, the purple represents the row draggable area, which can be dropped in its own or different column.
+
+![Kanban board wireframe.](./readme-assets/kanban-wireframe.png)
+
+### Persisting board state
+
+Using `Prisma`, we can define our model relations between the `Board`, `BoardColumn` and `BoardColumnRow` in our `PostgreSQL` database.
+
+```js
+model Board {
+  columns BoardColumn[]
+
+  ...
+}
+
+model BoardColumn {
+  position  Int
+  boardId   String
+  rows      BoardColumnRow[]
+
+  board     Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  ...
+}
+
+model BoardColumnRow {
+  position      Int
+  boardColumnId String
+
+  column        BoardColumn @relation(fields: [boardColumnId], references: [id], onDelete: Cascade)
+
+  ...
+}
+```
+
+The `Board` model has a `one-to-many` relation with `BoardColumn`, meaning our board can have many columns. The same thing applies to the  `BoardColumn` and `BoardColumnRow` models, as a column can have many rows. 
+
+To persist the state of the board, the column and row entries have a position field (type integer), which can be sorted in ascending order and sent to the client. When the user performs a drag event, we first check if the target is in the same position (if it is we will early return). If the target changed positions, a `PATCH` request is made and we will loop over the target resource to update the position fields in the database.
+
+After refreshing the page, all of the new changes will persist.
+
 
 ### Notes with markdown parsing
+
+Let's view `Classable readme` to explore how I created this interactive note editor by implementing the [react-markdown](https://github.com/remarkjs/react-markdown) package.
+
+<img src="./readme-assets/notes-view.png" alt="Notes view screen." style="width: 250px"/>
+
+![Editable title.](./readme-assets/board-title.webp)
+
+
 
 ## Messages
 
