@@ -79,7 +79,8 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
 
   const rowLength = () => {
     const newLines = content?.split('\n')?.length || 5;
-    return Math.ceil(newLines + newLines / 5);
+    const length = Math.ceil(newLines + newLines / 5);
+    return length > 25 ? 25 : length;
   };
 
   return (
@@ -119,7 +120,7 @@ const RowView = ({ content, title, id, setIsRowOpen, board, setBoard }) => {
               <EDITSVG onClick={() => setIsEditingContent(true)} />
             </div>
             {isEditingContent ? (
-              <form onBlur={handeSubmit} onSubmit={handeSubmit}>
+              <form onSubmit={handeSubmit}>
                 <textarea
                   className="w-full h-max p-2"
                   name="content"

@@ -71,7 +71,8 @@ const Note = () => {
 
   const rowLength = () => {
     const newLines = note.content?.split('\n')?.length || 5;
-    return Math.ceil(newLines + newLines / 5);
+    const length = Math.ceil(newLines + newLines / 5);
+    return length > 25 ? 25 : length;
   };
 
   return (
@@ -99,7 +100,7 @@ const Note = () => {
         </div>
 
         {isEditingContent ? (
-          <form onBlur={handeEditContent} onSubmit={handeEditContent}>
+          <form onSubmit={handeEditContent}>
             <textarea
               className="w-full h-max p-2"
               name="content"
