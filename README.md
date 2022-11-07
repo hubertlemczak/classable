@@ -217,13 +217,16 @@ Clicking onto the title will reaveal an editable input field which will send a `
 The drag and drop library has the following main components:
 
 ```js
-// The DragDropContext which we will pass a "onDragEnd" function to handle our state changes after a "Draggable" component within is dropped 
+{/* The DragDropContext which we will pass a "onDragEnd" function to 
+handle our state changes after a "Draggable" component within is dropped */} 
 <DragDropContext onDragEnd={onDragEnd}>
 
-  // The Droppable component which will require a unique id and we can specify options such as the direction or type of the droppable
+  {/* The Droppable component which will require a unique id and we can 
+  specify options such as the direction or type of the droppable */} 
   <Droppable droppableId={board.id} direction="horizontal" type="column">
 
-    // The Draggable component, which must be dropped in a "Droppable", will again require a unique id and an index to manage the order of our components
+    {/* The Draggable component, which must be dropped in a "Droppable", will 
+    again require a unique id and an index to manage the order of our components */} 
     <Draggable draggableId={id} index={index}>
 
     </Draggable>
