@@ -1,8 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import { ReactComponent as UNSTARRED } from '../../../assets/icons/bx-star.svg';
-import { ReactComponent as STARRED } from '../../../assets/icons/bxs-star.svg';
-
 import client from '../../../client';
 import { formatCourseName } from '../../../utils/formatCourseName';
 import ResourceItem from './ResourceItem';
@@ -40,6 +37,7 @@ const ResourceSection = ({ resource, title, path, create, name }) => {
               lastName: item.user.profile.lastName,
               path,
               title: item.title,
+              name,
             }}
           />
         ))}

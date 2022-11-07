@@ -4,7 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { ReactComponent as UNSTARRED } from '../../../assets/icons/bx-star.svg';
 import { ReactComponent as STARRED } from '../../../assets/icons/bxs-star.svg';
 
-const ResourceItem = ({ id, isStarred, firstName, lastName, path, title }) => {
+const ResourceItem = ({
+  id,
+  isStarred,
+  firstName,
+  lastName,
+  path,
+  title,
+  name,
+}) => {
   const [starred, setStarred] = useState(isStarred);
   const navigate = useNavigate();
 
