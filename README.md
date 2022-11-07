@@ -2,7 +2,7 @@
 
 # Classable
 
-***it may take a minute for the server to start up after making a request***
+***note it may take a minute for the server to start up after making a request***
 ### [Live Application](https://classable.netlify.app)
 ### [API Spec](https://github.com/hubertlemczak/classable-api)
 ### [Entity Relationship Diagram](./plan/classable-erd.png)
@@ -117,7 +117,7 @@ get: async path => {
   return axios.get(`${host}${path}`, { headers });
 },
 
-//server
+// server
 const token = req.headers.authorization?.trim().split(' ')[1];
 ```
 
@@ -140,8 +140,7 @@ Users are able to create their own course and they will automatically be assigne
 
 A highly customisable and reusable form input component is used throughout the application. If a label prop is provided we can see floating label transitions for an intuative UI.
 
-![Create course form.](./readme-assets/create-course.mp4)
-
+<img src="./readme-assets/create-course.webp" alt="Create course form." style="width: 300px;">
 
 ### Roles and authorisation
 
@@ -174,7 +173,6 @@ Let's view our new course!
 
 ![Sidebar.](./readme-assets/sidebar.webp)
 
-
 Viewing our course takes us to the `/courses/:courseName/dashboard` route with the course name formatted for a more appealing look. Our example course `Classable Development` will look like this: `classable-development`
 
 ```ts
@@ -199,11 +197,43 @@ export const OutletContainer = styled.div`
 
 ## Resources
 
-My goal with the resources section was to provide a collaborative way to create notes and boards such as Kanban. Users can create resources that are accessible in a unique course.
+My goal with the resources section was to provide a collaborative way to create notes and boards such as Kanban. Users can create resources that are accessible in a unique course. I'm implementing a status feature allowing users to toggle their resources from `PUBLIC` to `PRIVATE`, which would remove it from the community section and would only be visible to the author.
 
-I soon aim to implement a status feature which would allow users to set their resources to `PRIVATE`. This would remove it from the community section and would only be visible to the author.
+![Your resources.](./readme-assets/your-resources.webp)
+![Community resources.](./readme-assets/community-resources.png)
+
+Starred resources, both community and the users, will appear under the starred section above the users boards. Clicking the `Create` button will take the user to an empty page with the newly created resource, where they can perform various `CRUD` operations for customisation.
 
 ### Boards with drag and drop library
+
+Let's view `Classable Dev Board` to explore how I created this interactive Kanban board by implementing the [@hello-pangea/dnd](https://github.com/hello-pangea/dnd) drag and drop library and use a `PostgreSQL` database to persist the state of the board.
+
+![Kanban Board.](./readme-assets/kanban-board.webp)
+
+![Editable title.](./readme-assets/board-title.webp)
+
+Clicking onto the title will reaveal an editable input field which will send a `PATCH` request to our `REST API`. The updated text can be submitted by simply clicking away from the input field, or as seen in one of the tasks in the `Todo's` column, a keyboard accessibility feature will be implemented to allow a submit event to fire on key press such as `enter`.
+
+The drag and drop library has the following main components:
+
+```js
+// The DragDropContext which we will pass a "onDragEnd" function to handle our state changes after a "Draggable" component within is dropped 
+<DragDropContext onDragEnd={onDragEnd}>
+
+  // The Droppable component which will require a unique id and we can specify options such as the direction or type of the droppable
+  <Droppable droppableId={board.id} direction="horizontal" type="column">
+
+    // The Draggable component, which must be dropped in a "Droppable", will again require a unique id and an index to manage the order of our components
+    <Draggable draggableId={id} index={index}>
+
+    </Draggable>
+
+  </Droppable>
+
+</DragDropContext>
+```
+
+After refreshing the page, all of the new changes persists.
 
 ### Notes with markdown parsing
 
