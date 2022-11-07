@@ -33,7 +33,7 @@ const CreateColumn = ({ board, setBoard }) => {
 
   return isCreatingColumn ? (
     <input
-      className="p-2 rounded-md text-lg flex-shrink-0 w-xs h-max"
+      className="p-2 rounded-md text-lg flex-shrink-0 max-w-xs w-full h-max"
       type="text"
       name="columnTitle"
       onBlur={handleCreateNewColumn}
@@ -41,7 +41,7 @@ const CreateColumn = ({ board, setBoard }) => {
     />
   ) : (
     <button
-      className="flex items-center flex-shrink-0 gap-3 p-2 h-max max-w-xs bg-gray-300 w-full text-start rounded-md"
+      className="flex items-center flex-shrink-0 gap-3 p-2 h-max max-w-xs bg-primary hover:bg-primaryHover w-full text-start rounded-md"
       onClick={() => setIsCreatingColumn(true)}
     >
       <ADDSVG className="h-4 w-4" />
