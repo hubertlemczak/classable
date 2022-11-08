@@ -16,6 +16,7 @@ import Classroom from './pages/classroom';
 import CreateCourse from './pages/createCourse';
 import { useLoggedInUser } from './context/LoggedInUser';
 import SocketProvider from './context/SocketProvider';
+import Settings from './pages/settings';
 
 const App = () => {
   return (
@@ -32,10 +33,11 @@ const App = () => {
             <Route path=":courseName" element={<SideBar />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="assignments" element={<Assignments />} />
+              <Route path="resources/*" element={<Resources />} />
               <Route path="messages/*" element={<Messages />} />
               <Route path="calendar" element={<Calendar />} />
               <Route path="classroom/*" element={<Classroom />} />
-              <Route path="resources/*" element={<Resources />} />
+              <Route path="settings/*" element={<Settings />} />
             </Route>
           </Route>
         </Route>

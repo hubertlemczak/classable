@@ -5,6 +5,7 @@ import uniqid from 'uniqid';
 import client from '../../client';
 import { useLoggedInUser } from '../../context/LoggedInUser';
 import { formatCourseName } from '../../utils/formatCourseName';
+import getUserCourseRole from '../../utils/getUserCourseRole';
 
 import { NavLinkItem } from './components/NavLinkItem';
 import { OutletContainer, SideBarContainer } from './styles/index.styled';
@@ -20,8 +21,11 @@ const NAV_LINKS = [
 
 const SideBar = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const courseName = formatCourseName();
+
   const { user } = useLoggedInUser();
+
+  const userCourseRole = getUserCourseRole();
+  const courseName = formatCourseName();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,6 +60,9 @@ const SideBar = () => {
           {NAV_LINKS.map(link => (
             <NavLinkItem key={uniqid()} path={link} />
           ))}
+          {userCourseRole === 'COURSEADMIN' && (
+            <NavLinkItem key={uniqid()} path={'settings'} />
+          )}
         </ul>
       </SideBarContainer>
       <OutletContainer>

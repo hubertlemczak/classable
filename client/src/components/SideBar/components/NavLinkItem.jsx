@@ -12,6 +12,8 @@ import { ReactComponent as Calendar } from '../../../assets/icons/calendar.svg';
 import { ReactComponent as CalendarSolid } from '../../../assets/icons/calendar-solid.svg';
 import { ReactComponent as Classroom } from '../../../assets/icons/classroom.svg';
 import { ReactComponent as ClassroomSolid } from '../../../assets/icons/classroom-solid.svg';
+import { ReactComponent as Settings } from '../../../assets/icons/settings.svg';
+import { ReactComponent as SettingsSolid } from '../../../assets/icons/settings-solid.svg';
 
 const SVGs = {
   dashboard: <Dashboard />,
@@ -26,6 +28,8 @@ const SVGs = {
   calendarSolid: <CalendarSolid />,
   classroom: <Classroom />,
   classroomSolid: <ClassroomSolid />,
+  settings: <Settings />,
+  settingsSolid: <SettingsSolid />,
 };
 
 export const NavLinkItem = ({ path }) => {
