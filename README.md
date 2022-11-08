@@ -27,7 +27,7 @@
   - [Persisting board state](#persisting-board-state)
   - [Notes with markdown parsing](#notes-with-markdown-parsing)
 - [Messages](#messages)
-  - [Real time chat messaging with socket.io](#real-time-chat-messaging-with-socket.io)
+  - [Real time chat messaging with socket.io](#real-time-chat-messaging-with-socketio)
   - [Ticket support system](#ticket-support-system)
 - [~~Calendar~~ (coming soon)](#calendar)
 
