@@ -36,6 +36,7 @@ export const NotificationsDropdownContainer = styled.div`
   visibility: hidden;
   opacity: 0;
   transition: opacity 200ms;
+  padding: 10px 5px 10px 10px;
 
   &::-webkit-scrollbar {
     width: 5px;
