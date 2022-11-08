@@ -218,8 +218,6 @@ export const OutletContainer = styled.div`
 `;
 ```
 
-## ~~Dashboard~~
-
 ## Live video calls
 
 The implementation of this feature was easily the most exciting out of the rest, and the one I also spent the most time on. It was an enjoyable learning experience reading through available resources on peer-to-peer protocols and `WebRTC`, however, for this feature I decided to use `Agora's SDK` because of their great documentation and to serve as an introduction into video communication between multiple clients.
@@ -337,6 +335,7 @@ If everything was successful, our call interface will load, as seen above, with 
 
 From the screen sharing example above, the user has chosen to share a specific window and other users can now view the stream in `big-picture mode` by clicking on it.
 
+## ~~Dashboard~~
 
 ## ~~Assignments~~
 
