@@ -73,4 +73,14 @@ async function create({
   return data;
 }
 
-export default { getAll, getById, create };
+async function invite({
+  usersToInvite,
+}: {
+  usersToInvite: { courseId: string; userId: string; role: Role }[];
+}) {
+  await dbClient.enrolment.createMany({
+    data: [...usersToInvite],
+  });
+}
+
+export default { getAll, getById, create, invite };

@@ -53,6 +53,7 @@ api.get('/chats/:id', authenticateUser, chatsController.getById);
 // courses
 
 api.post('/courses', authenticateUser, coursesController.create);
+api.post('/courses/invite', authenticateUser, coursesController.invite);
 
 api.get('/courses', authenticateUser, coursesController.getAll);
 api.get('/courses/:id', authenticateUser, coursesController.getById);

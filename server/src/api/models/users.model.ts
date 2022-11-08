@@ -3,15 +3,10 @@ import dbClient from '../../utils/dbClient';
 async function getAll(email: string | undefined, id: string) {
   const data = await dbClient.user.findMany({
     where: {
-      AND: [
+      OR: [
         {
           email: {
             contains: email,
-          },
-        },
-        {
-          id: {
-            not: id,
           },
         },
       ],
@@ -32,13 +27,14 @@ async function getById(id: string) {
     select: {
       id: true,
       profile: true,
-      participant: {
-        include: { chat: true },
-      },
-      following: {
+      courses: {
         select: {
-          id: true,
-          profile: { select: { firstName: true, lastName: true } },
+          role: true,
+          course: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },

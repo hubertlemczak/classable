@@ -6,6 +6,7 @@ import { ReactComponent as REMOVESVG } from '../../../assets/icons/bx-trash.svg'
 
 import FormInput from '../../../components/form/FormInput';
 import { CreateCourseFormContainer } from '../styles/index.styled';
+import { useLoggedInUser } from '../../../context/LoggedInUser';
 
 let timeOut;
 
@@ -13,6 +14,8 @@ export const Invite = ({ formFields, setFormFields }) => {
   const [searchUsers, setSearchUsers] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [getUsers, setGetUsers] = useState(false);
+
+  const { user } = useLoggedInUser();
 
   function handleInviteUser(user) {
     const isInUserList = formFields.users.find(u => u.userId === user.id);
@@ -67,12 +70,17 @@ export const Invite = ({ formFields, setFormFields }) => {
 
   useEffect(() => {
     async function getUsersBySearch() {
-      const res = await client.get(`/users?email=${searchInput}`);
+      try {
+        const res = await client.get(`/users?email=${searchInput}`);
 
-      const foundUsers = res.data.users;
+        const foundUsers = res.data.users.filter(usr => usr.id !== user.id);
 
-      setSearchUsers(foundUsers);
-      setGetUsers(false);
+        setSearchUsers(foundUsers);
+        setGetUsers(false);
+      } catch (err) {
+        console.error(err);
+        setGetUsers(false);
+      }
     }
 
     if (getUsers && searchInput) getUsersBySearch();
