@@ -17,7 +17,7 @@ function getRtcToken(name: string, uid: string) {
   }
 
   const currentTime = Math.floor(Date.now() / 1000);
-  const privilegeExpireTime = currentTime + 3600;
+  const expiryTime = currentTime + 3600;
 
   return RtcTokenBuilder.buildTokenWithUid(
     APP_ID,
@@ -27,7 +27,7 @@ function getRtcToken(name: string, uid: string) {
     // @ts-ignore
     uid,
     1,
-    privilegeExpireTime
+    expiryTime
   );
 }
 
@@ -72,15 +72,11 @@ async function createToken(req: TRequestWithUser, res: Response) {
 
   const course = await dbClient.classroom.findFirstOrThrow({
     where: { id },
-    select: {
-      password: true,
-      name: true,
-    },
   });
-  console.log(password, course);
 
   if (course.password) {
     const isValid = await compareStringToHash(password, course.password);
+
     if (!isValid) {
       throw new HttpException(403, 'Invalid credentials');
     }
