@@ -4,7 +4,7 @@
 
 ***note it may take a minute for the server to start up after making a request***
 ### [Live Application](https://classable.netlify.app)
-### [Page Wireframes](./plan/wireframe-plan.svg)
+### [Page Wireframes](https://raw.githubusercontent.com/hubertlemczak/classable/main/plan/wireframe-plan.svg)
 ### [API Spec](https://github.com/hubertlemczak/classable-api)
 ### [Entity Relationship Diagram](./plan/classable-erd.png)
 
@@ -16,11 +16,11 @@
 - [Authentication](#authentication)
 - [Course creation](#course-creation)
   - [Roles and authorisation](#roles-and-authorisation)
-- [Sidebar](#sidebar)
-- [~~Dashboard~~ (coming soon)](#dashboard)
+- [Navigation](#navigation)
+  - [Top navigation bar](#top-navigation-bar)
+  - [Sidebar](#sidebar)
 - [Live video calls](#live-video-calls)
-  - [Classrooms](#classrooms)
-  - [Using AgoraSDK](#using-agorasdk)
+- [~~Dashboard~~ (coming soon)](#dashboard)
 - [~~Assignments~~ (coming soon)](#assignments)
 - [Resources](#resources)
   - [Boards with drag and drop library](#boards-with-drag-and-drop-library)
@@ -108,7 +108,7 @@ API endpoints can be protected behind an authentication middleware layer like so
 api.get('/users/:id', authenticateUser, usersController.getById);
 ```
 
-But before a user can be authenticated, they will need to create or log into an existing account to receive a `Bearer token` from the server (a public demo account is provided for testing purposes under `use demo` link).
+But before a user can be authenticated, they will need to create or log into an existing account to receive a `Bearer token` from the server (a public demo account is provided for testing purposes with the `use demo` link).
 
 ![Sign in and Sign up forms.](./readme-assets/join.png)
 
@@ -174,7 +174,7 @@ function handleChange(e) {
 }
 ```
 
-The user is able to invite found users to the course and select a role for them, or remove them from the invite list.
+The user is able to invite found users to the course and select a role for them (from the roles listed above), or remove them from the invite list.
 
 ![Course card.](./readme-assets/course-view.png)
 
@@ -183,9 +183,7 @@ After the course is created, we are taken back to the `/courses` route, which re
 Let's view our new course!
 
 
-## Sidebar
-
-![Sidebar.](./readme-assets/sidebar.webp)
+## Navigation
 
 Viewing our course takes us to the `/courses/:courseName/dashboard` route with the course name formatted for a more appealing look. Our example course `Classable Development` will look like this: `classable-development`
 
@@ -193,12 +191,27 @@ Viewing our course takes us to the `/courses/:courseName/dashboard` route with t
   const coursePath = name.toLowerCase().replaceAll(' ', '-');
 ```
 
+### Top navigation bar
+
+![Desktop navbar.](./readme-assets/desktop-navbar.png)
+
+![Mobile responsive navbar with notifications and user dropdown.](./readme-assets/navbar-dropdown.webp)
+
+An example notification is shown and the notification count displayed in the green circle next to the bell icon. Clicking on the users profile icon also reveals additional settings the user can interact with.
+
+The features are fully responsive on mobile devices.
+
+### Sidebar
+
+![Desktop sidebar.](./readme-assets/sidebar.webp)
+![Mobile responsive sidebar.](./readme-assets/mobile-sidebar.png)
+
 Each route has a custom active SVG. The line svg is replaced with the solid active state svg and filled with the primary green colour as seen throughout the app. This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look.
 
 ```ts
 export const OutletContainer = styled.div`
   overflow-y: scroll;
-  margin: 100px 0px 0px 0px;
+  margin-top: 100px;
   padding: 20px;
   max-height: calc(100vh - 100px);
   width: 100%;
@@ -209,9 +222,122 @@ export const OutletContainer = styled.div`
 
 ## Live video calls
 
-### Classrooms
+The implementation of this feature was easily the most exciting out of the rest, and the one I also spent the most time on. It was an enjoyable learning experience reading through available resources on peer-to-peer protocols and `WebRTC`, however, for this feature I decided to use `Agora's SDK` because of their great documentation and to serve as an introduction into video communication between multiple clients.
 
-### Using AgoraSDK
+Let's view the `Classroom` tab to explore how I created this interactive feature with audio, video and screen share capabilities, by implementing [AgoraSDK](https://docs.agora.io/en/video-calling/get-started/get-started-sdk) and public and private rooms.
+
+![Two users in a video call.](./readme-assets/video-call.png)
+
+Viewing the page, we are greeted with a list of all created rooms in the current course. As shown in the picture below, one of the rooms we attempted to join is password protected. Here the password is the classic `123`, but we can always create a new room by clicking the `Create Classroom` button.
+
+<img src="./readme-assets/classroom-list.png" alt="List of classrooms with a enter room password pop-up." style="width: 300px">
+<img src="./readme-assets/create-classroom.png" alt="Create classroom pop-up form, with a room name and optional password field." style="width: 300px">
+
+For our `Create Classroom form`, as seen above, we will need to fill in the required `Room Name` field to successfully create the room. You can also supply an optional password to create a private call. After creating the room, the user will need a `token` to join it. 
+
+Let's see how this works on the server!
+
+```ts
+// Client requests to join and provides password if needed
+const res = await client.post(`/classrooms/${id}`, {
+  password: passwordInput,
+});
+
+// Server
+async function createToken(req: TRequestWithUser, res: Response) {
+  const { password } = req.body;
+  const { id } = req.params;
+
+  const course = await dbClient.classroom.findFirstOrThrow({
+    where: { id },
+  });
+
+  /* If our found classroom requires a password, we will begin to compare 
+  the user input using our "compareStringToHash" helper function */
+  if (course.password) {
+    const isValid = await compareStringToHash(password, course.password);
+
+    // Using our custom error class to throw useful messages
+    if (!isValid) {
+      throw new HttpException(403, 'Invalid password');
+    }
+  }
+
+  /* Since the request was handled by the authentication middleware, we 
+  can be sure that the user data exists on the request object */
+  const userId = req.user?.id as string;
+
+  // We can now create our token (see below function)...
+  const token = getRtcToken(course.name, userId);
+
+  // ...and respond to the client
+  res.status(201).json({ token });
+}
+```
+
+Useful link: [agora-access-token](https://www.npmjs.com/package/agora-access-token) package.
+
+```ts
+function getRtcToken(name: string, uid: string) {
+  // These secrets can be found in your Agora.io project console
+  const APP_ID = process.env.AGORA_APP_ID;
+  const APP_CERTIFICATE = process.env.AGORA_APP_CERTIFICATE;
+
+  if (!APP_ID || !APP_CERTIFICATE) {
+    throw new HttpException(500, 'Live video application error');
+  }
+
+  // Current time in seconds (ECMAScript epoch)
+  const currentTime = Math.floor(Date.now() / 1000);
+  // One hour expiry time for the token
+  const expiryTime = currentTime + 3600;
+
+  /* Using the agora-access-token npm package to create the token,
+  which will only work for our room */
+  return RtcTokenBuilder.buildTokenWithUid(
+    APP_ID,
+    APP_CERTIFICATE,
+    name,
+    uid,
+    1,
+    expiryTime
+  );
+}
+```
+
+We now have our `Agora token` on our client, the next steps are to navigate to the correct route, initiate the `Agora engine`, join the channel and publish the users video and audio tracks.
+
+```js
+navigate(`./${id}`, { state: { channel: name, token } });
+
+...
+await agoraClient.join(appId, channel, token, user.id);
+// Audio and video tracks from "AgoraRTC.createMicrophoneAndCameraTracks"
+agoraClient.publish(tracks);
+...
+```
+
+While the client is connecting, a reusable spinner component can be seen to represent the loading state.
+
+![Circular loading spinner.](./readme-assets/spinner.webp)
+
+![User mute microphone and video feedback.](./readme-assets/mute-call.webp)
+
+If everything was successful, our call interface will load, as seen above, with the main video area and a media controls bar centred on the bottom of the page. These are the four control interactions:
+  
+- Muting and unmuting your microphone. Muting the microphone will emit a `user-unpublished` event with the `audio` media type, which we can simply stop playing `usr.audioTrack?.stop();`. Unmuting will emit the opposite `user-published` event and play the audio track `usr.audioTrack?.play();`
+- Enabling and disabling the camera. Toggling this control will emit the same events as previously described. However, when the user disabled their camera, they will be removed from the `users state` and will not be shown in the video grid. I'm working on displaying a black screen with the user's name instead of deleting them from state.
+
+![Browser share screen pop-up askin user to choose which screen to share.](./readme-assets/share-screen-prompt.png)
+
+- Start and stop screen share. Clicking the button will show a pop-up screen share prompt asking the user to select which contents they want to share in the call. When the user clicks the share button, we will `unpublish` their camera track in order to `publish` their screen track. Users in the call can click on the shared screen or other users in the grid to view in `big-picture mode`.
+- Leave call. Simply terminates and unpublishes the users tracks and then navigates the user back to the classroom route. 
+
+![Watching screen share in big picture mode and the streamer is typing "Can you see my screen?".](./readme-assets/screen-share.webp)
+
+From the screen sharing example above, the user has chosen to share a specific window and other users can now view the stream in `big-picture mode` by clicking on it.
+
+
 ## ~~Assignments~~
 
 ## Resources
