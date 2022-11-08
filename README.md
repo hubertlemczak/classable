@@ -33,7 +33,9 @@
 
 ## Introduction
 
-A feature rich full-stack application designed for online education. Aims to provide an efficient digital community for students and academic staff. Featuring a highly interactive UI, live notifications, chats, resource storage and video call functionality. Let the learning begin with Classable.
+A feature rich full-stack application designed for online education. Aims to provide an efficient digital community for students and academic staff. Featuring a highly interactive UI, live notifications, chats, resource storage and video call functionality. 
+
+Let the learning begin with Classable.
 
 ![Classable home page.](./readme-assets/home-page.png)
 
