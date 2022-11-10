@@ -461,7 +461,7 @@ li > ul > li {
 ```
 
 ```js
-// We can now wrap the ReactMarkdown component with out styled-component
+// We can now wrap the ReactMarkdown component with our styled component
 <StyledMdContainer>
   <ReactMarkdown>{note.content}</ReactMarkdown>
 </StyledMdContainer>
