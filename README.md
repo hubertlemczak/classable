@@ -205,8 +205,9 @@ The features are fully responsive on mobile devices.
 
 ![Desktop sidebar.](./readme-assets/sidebar.webp)
 ![Mobile responsive sidebar.](./readme-assets/mobile-sidebar.png)
+![Additional courseadmin role settings tab.](./readme-assets/courseadmin-settings.png)
 
-Each route has a custom active SVG. The line svg is replaced with the solid active state svg and filled with the primary green colour as seen throughout the app. This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look.
+Each route has a custom active SVG. The line svg is replaced with the solid active state svg and filled with the primary green colour as seen throughout the app. This sidebar is present for every route in the course view and the `Outlet` component from `react-router-dom` is wrapped in a styled-component, making the site have a fixed height look. An additional `Settings` tab will appear in courses where the user has the `COURSEADMIN` role
 
 ```ts
 export const OutletContainer = styled.div`
