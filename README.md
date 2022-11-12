@@ -3,6 +3,7 @@
 # Classable
 
 ***note it may take a minute for the server to start up after making a request***
+### [Classable Blog](https://hubertlemczak.netlify.app/projects/classable)
 ### [Live Application](https://classable.netlify.app)
 ### [Page Wireframes](https://raw.githubusercontent.com/hubertlemczak/classable/main/plan/wireframe-plan.svg)
 ### [API Spec](https://github.com/hubertlemczak/classable-api)
